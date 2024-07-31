@@ -1,5 +1,8 @@
 ^post\.Rproj$
 ^\.Rproj\.user$
+^CONTRIBUTING\.md$
 ^LICENSE\.md$
 ^README\.Rmd$
 ^data-raw$
+^\.git$
+^\.github$
