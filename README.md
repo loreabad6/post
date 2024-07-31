@@ -10,9 +10,9 @@ has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 <!-- badges: end -->
 
-The goal of post is to provide data structures as array and tabular
-vector data cubes to organise and analyse polygons that change their
-shape in space and time.
+The goal of post is to provide array and tabular vector data cube
+structures to organise and analyse polygons that change their shape in
+space and time.
 
 ## Installation
 
