@@ -59,6 +59,13 @@ as_post_array.sf = function(x, group_id, time_column_name,
                             sf_column_name = attr(x, "sf_column"),
                             geometry_summary = "centroid") {
 
+  # TODO: set first column as default group_id if group_id is NULL
+  # TODO: set first time column as time_column_name when NULL (default)
+  # TODO: think about setting sf_column_name default to NULL
+  # TODO: geometry_summary should be exported functions provided to users,
+  # call them summarise_/summarize_ (?)
+  # then users can pass their own functions after passing a check for validity
+
   # Set dimensions
   # TODO: should more dimensions be supported?
   # I would argue no since it is space-time polygons,
@@ -89,7 +96,7 @@ as_post_array.sf = function(x, group_id, time_column_name,
     union = compute_geom_summary_union(x, group_id, sf_column_name),
     centroid = compute_geom_summary_centroid(x, group_id, sf_column_name),
     bbox = compute_geom_summary_bbox(x, group_id, sf_column_name),
-    # TODO: let the user pass a summary geometry from a geometry column name
+    # TODO: let the user pass a summary geometry function from a geometry column name
     stop(
       "Unsupported summary geometry function: ",
       geometry_summary,
