@@ -52,6 +52,8 @@ as_post_array = function(x, group_id, time_column_name,
 #' @name as_post_array
 #'
 #' @importFrom stars st_dimensions st_as_stars
+#' @importFrom sf st_agr
+#'
 #' @export
 as_post_array.sf = function(x, group_id, time_column_name,
                             sf_column_name = attr(x, "sf_column"),
@@ -116,11 +118,11 @@ as_post_array.sf = function(x, group_id, time_column_name,
   # Return post_array object with respective structure
   structure(
     out,
+    class = c("post_array", class(out)),
     sf_column = sf_column_name,
     time_column = time_column_name,
     geom_sum_fun = geometry_summary,
-    agr = st_agr(x)[names(a_attr)],
-    class = c("post_array", class(out))
+    agr = sf::st_agr(x)[names(a_attr)]
   )
 }
 

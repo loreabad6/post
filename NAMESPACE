@@ -2,6 +2,7 @@
 
 S3method(as_post_array,sf)
 export(as_post_array)
+importFrom(sf,st_agr)
 importFrom(sf,st_as_sfc)
 importFrom(sf,st_bbox)
 importFrom(sf,st_centroid)
