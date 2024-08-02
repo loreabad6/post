@@ -19,8 +19,7 @@ as_post_array(
   group_id,
   time_column_name,
   sf_column_name = attr(x, "sf_column"),
-  geometry_summary = "centroid",
-  attributes = NULL
+  geometry_summary = "centroid"
 )
 }
 \arguments{
@@ -39,9 +38,6 @@ geometry. Supported arguments are \code{union} to compute the union
 and dissolve of the changing geometries per group, \code{centroid} to
 compute the centroid of the union and dissolve per group, and
 \code{bbox} to compute the bbox of the union and dissolve per group.}
-
-\item{attributes}{any other attribute in the \code{sf} object that
-should be passed onto the \code{post_array} object.}
 }
 \value{
 an object of class \code{post_array}.

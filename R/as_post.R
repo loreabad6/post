@@ -24,16 +24,13 @@
 #' compute the centroid of the union and dissolve per group, and
 #' `bbox` to compute the bbox of the union and dissolve per group.
 #'
-#' @param attributes any other attribute in the `sf` object that
-#' should be passed onto the `post_array` object.
-#'
 #' @examples
 #' as_post_array(polygons, "gid", "datetime")
 #'
 #' library(sf, quietly = TRUE)
 #' polygons |>
 #'   mutate(area = st_area(geometry)) |>
-#'   as_post_array("gid", "datetime", attributes = "area")
+#'   as_post_array("gid", "datetime", geometry_summary = "union")
 #' @return an object of class `post_array`.
 #'
 #' @references
@@ -56,8 +53,7 @@ as_post_array = function(x, group_id, time_column_name,
 # TODO: not working examples when doing check, figure out why
 as_post_array.sf = function(x, group_id, time_column_name,
                             sf_column_name = attr(x, "sf_column"),
-                            geometry_summary = "centroid",
-                            attributes = NULL) {
+                            geometry_summary = "centroid") {
 
   # Set dimensions
   # TODO: should more dimensions be supported?
@@ -80,8 +76,10 @@ as_post_array.sf = function(x, group_id, time_column_name,
   # Create array for remaining attributes
   # TODO: pass by default all attributes that are not
   # used as dimensions here
-  a_attr = lapply(attributes, create_array)
-  names(a_attr) = attributes
+  attrs = names(x)
+  attrs = attrs[!attrs %in% c(group_id, time_column_name, sf_column_name)]
+  a_attr = lapply(attrs, create_array)
+  names(a_attr) = attrs
 
   # Compute summary geometry
   geom_sum = switch(
