@@ -69,16 +69,9 @@ as_post_array.sf = function(x, group_id, time_column_name,
     length(unique(x[[time_column_name]]))
   )
 
-  # Set dimension names
-  # TODO: should more dimensions be supported?
-  dimnms = list(
-    geom_sum = unique(x[[group_id]]),
-    datetime = unique(as.character(x[[time_column_name]]))
-  )
-
   # Create attribute arrays
   create_array = function(attribute_col) {
-    array(data = x[[attribute_col]], dim = dims, dimnames = dimnms)
+    array(data = x[[attribute_col]], dim = dims)
   }
 
   # Create geometry array
