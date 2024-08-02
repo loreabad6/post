@@ -113,11 +113,15 @@ as_post_array.sf = function(x, group_id, time_column_name,
     dimensions = d
   )
 
-  # Give post_array class
-  class(out) = c("post_array", class(out))
-
-  # Return post_array object
-  out
+  # Return post_array object with respective structure
+  structure(
+    out,
+    sf_column = sf_column_name,
+    time_column = time_column_name,
+    geom_sum_fun = geometry_summary,
+    agr = st_agr(x)[names(a_attr)],
+    class = c("post_array", class(out))
+  )
 }
 
 # Compute the geometry summary as the union and dissolve of
