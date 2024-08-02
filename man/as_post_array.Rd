@@ -10,8 +10,7 @@ as_post_array(
   group_id,
   time_column_name,
   sf_column_name = attr(x, "sf_column"),
-  geometry_summary = "centroid",
-  attributes = NULL
+  geometry_summary = "centroid"
 )
 
 \method{as_post_array}{sf}(
@@ -54,10 +53,13 @@ shapes of the polygon geometries.
 \examples{
 as_post_array(polygons, "gid", "datetime")
 
-library(sf, quietly = TRUE)
-polygons |>
-  mutate(area = st_area(geometry)) |>
-  as_post_array("gid", "datetime", geometry_summary = "union")
+if(require(dplyr, quietly = TRUE)) {
+  library(sf, quietly = TRUE)
+  polygons |>
+    mutate(area = st_area(geometry)) |>
+    as_post_array("gid", "datetime", geometry_summary = "union")
+}
+
 }
 \references{
 Abad, L., Sudmanns, M., and Hölbling, D. (2024)

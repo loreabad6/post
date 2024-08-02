@@ -27,10 +27,13 @@
 #' @examples
 #' as_post_array(polygons, "gid", "datetime")
 #'
-#' library(sf, quietly = TRUE)
-#' polygons |>
-#'   mutate(area = st_area(geometry)) |>
-#'   as_post_array("gid", "datetime", geometry_summary = "union")
+#' if(require(dplyr, quietly = TRUE)) {
+#'   library(sf, quietly = TRUE)
+#'   polygons |>
+#'     mutate(area = st_area(geometry)) |>
+#'     as_post_array("gid", "datetime", geometry_summary = "union")
+#' }
+#'
 #' @return an object of class `post_array`.
 #'
 #' @references
@@ -42,15 +45,14 @@
 #' @export
 as_post_array = function(x, group_id, time_column_name,
                          sf_column_name = attr(x, "sf_column"),
-                         geometry_summary = "centroid",
-                         attributes = NULL) {
+                         geometry_summary = "centroid") {
   UseMethod("as_post_array")
 }
 
 #' @name as_post_array
 #'
+#' @importFrom stars st_dimensions st_as_stars
 #' @export
-# TODO: not working examples when doing check, figure out why
 as_post_array.sf = function(x, group_id, time_column_name,
                             sf_column_name = attr(x, "sf_column"),
                             geometry_summary = "centroid") {
@@ -121,11 +123,12 @@ as_post_array.sf = function(x, group_id, time_column_name,
 # Compute the geometry summary as the union and dissolve of
 # the changing geometries
 # INTERNAL USE!
+#' @importFrom sf st_union st_make_valid
 compute_geom_summary_union = function(x, group_id, sf_column_name) {
   x_groupped = split(x[[sf_column_name]], x[[group_id]])
   x_summarised = do.call(
     "c",
-    lapply(x_groupped, function(i) st_make_valid(st_union(i)))
+    lapply(x_groupped, function(i) sf::st_make_valid(sf::st_union(i)))
   )
   x_summarised
 }
@@ -133,6 +136,7 @@ compute_geom_summary_union = function(x, group_id, sf_column_name) {
 # Compute the geometry summary as the centroid of the
 # union and dissolve of the changing geometries
 # INTERNAL USE!
+#' @importFrom sf st_centroid
 compute_geom_summary_centroid = function(x, group_id, sf_column_name) {
   x_unioned = compute_geom_summary_union(x, group_id, sf_column_name)
   x_centroid = sf::st_centroid(x_unioned)
@@ -150,6 +154,7 @@ compute_geom_summary_bbox = function(x, group_id, sf_column_name) {
 
 # Utility function to compute bounding box per feature
 # INTERNAL USE!
+#' @importFrom sf st_as_sfc st_bbox
 st_bbox_by_feature = function(x) {
   f = function(y) sf::st_as_sfc(sf::st_bbox(y))
   do.call("c", lapply(x, f))

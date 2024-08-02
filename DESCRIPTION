@@ -17,3 +17,5 @@ LazyData: true
 Imports: 
     sf,
     stars
+Suggests: 
+    dplyr
