@@ -57,7 +57,7 @@ as_post_array(polygons, "gid", "datetime")
 library(sf, quietly = TRUE)
 polygons |>
   mutate(area = st_area(geometry)) |>
-  as_post_array("gid", "datetime", attributes = "area")
+  as_post_array("gid", "datetime", geometry_summary = "union")
 }
 \references{
 Abad, L., Sudmanns, M., and Hölbling, D. (2024)

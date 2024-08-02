@@ -104,8 +104,10 @@ as_post_array.sf = function(x, group_id, time_column_name,
   )
 
   # Coerce to cube
+  arrays = c(list(a_geom), a_attr)
+  names(arrays) = c(sf_column_name, names(a_attr))
   out = stars::st_as_stars(
-    c(geometry = list(a_geom), a_attr),
+    arrays,
     dimensions = d
   )
 
