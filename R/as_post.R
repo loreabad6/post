@@ -74,8 +74,6 @@ as_post_array.sf = function(x, group_id, time_column_name,
   a_geom = create_array(attribute_col = sf_column_name)
 
   # Create array for remaining attributes
-  # TODO: pass by default all attributes that are not
-  # used as dimensions here
   attrs = names(x)
   attrs = attrs[!attrs %in% c(group_id, time_column_name, sf_column_name)]
   a_attr = lapply(attrs, create_array)
