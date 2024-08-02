@@ -55,6 +55,14 @@ The \code{post_array} class supports two dimensions: \code{geom_sum} and
 \code{datetime}. \code{geom_sum} is the summary geometry of the changing
 shapes of the polygon geometries.
 }
+\examples{
+as_post_array(polygons, "gid", "datetime")
+
+library(sf, quietly = TRUE)
+polygons |>
+  mutate(area = st_area(geometry)) |>
+  as_post_array("gid", "datetime", attributes = "area")
+}
 \references{
 Abad, L., Sudmanns, M., and Hölbling, D. (2024)
 Vector data cubes for features evolving in space and time,

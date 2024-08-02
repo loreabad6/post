@@ -27,6 +27,13 @@
 #' @param attributes any other attribute in the `sf` object that
 #' should be passed onto the `post_array` object.
 #'
+#' @examples
+#' as_post_array(polygons, "gid", "datetime")
+#'
+#' library(sf, quietly = TRUE)
+#' polygons |>
+#'   mutate(area = st_area(geometry)) |>
+#'   as_post_array("gid", "datetime", attributes = "area")
 #' @return an object of class `post_array`.
 #'
 #' @references
@@ -47,12 +54,6 @@ as_post_array = function(x, group_id, time_column_name,
 #'
 #' @export
 # TODO: not working examples when doing check, figure out why
-# as_post_array(polygons, "gid", "datetime")
-#
-# library(sf, quietly = TRUE)
-# polygons |>
-#   mutate(area = st_area(geometry)) |>
-#   as_post_array("gid", "datetime", attributes = "area")
 as_post_array.sf = function(x, group_id, time_column_name,
                             sf_column_name = attr(x, "sf_column"),
                             geometry_summary = "centroid",
@@ -72,7 +73,7 @@ as_post_array.sf = function(x, group_id, time_column_name,
   # TODO: should more dimensions be supported?
   dimnms = list(
     geom_sum = unique(x[[group_id]]),
-    datetime = unique(x[[time_column_name]])
+    datetime = unique(as.character(x[[time_column_name]]))
   )
 
   # Create attribute arrays
@@ -130,16 +131,12 @@ as_post_array.sf = function(x, group_id, time_column_name,
 # the changing geometries
 # INTERNAL USE!
 compute_geom_summary_union = function(x, group_id, sf_column_name) {
-  x_groupped = dplyr::group_by(x, dplyr::.data[[group_id]])
-  x_summarised = dplyr::summarise(
-    x_groupped,
-    geom_sum = sf::st_make_valid(
-      sf::st_union(dplyr::.data[[sf_column_name]])
-    ),
-    .groups = "keep"
+  x_groupped = split(x[[sf_column_name]], x[[group_id]])
+  x_summarised = do.call(
+    "c",
+    lapply(x_groupped, function(i) st_make_valid(st_union(i)))
   )
-  x_arranged = dplyr::arrange(x_summarised, dplyr::.data[[group_id]])
-  x_arranged[["geom_sum"]]
+  x_summarised
 }
 
 # Compute the geometry summary as the centroid of the
