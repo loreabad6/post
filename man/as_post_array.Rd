@@ -7,27 +7,31 @@
 \usage{
 as_post_array(
   x,
-  group_id,
-  time_column_name,
-  sf_column_name = attr(x, "sf_column"),
+  group_id = NULL,
+  time_column_name = NULL,
+  sf_column_name = NULL,
   geometry_summary = "centroid"
 )
 
 \method{as_post_array}{sf}(
   x,
-  group_id,
-  time_column_name,
-  sf_column_name = attr(x, "sf_column"),
+  group_id = NULL,
+  time_column_name = NULL,
+  sf_column_name = NULL,
   geometry_summary = "centroid"
 )
 }
 \arguments{
-\item{x}{object of class \code{sf} with \code{POLYGON} geometries}
+\item{x}{object to convert to \code{post_array} with \code{POLYGON}/\code{MULTIPOLYGON}
+geometries and a date/time column.}
 
 \item{group_id}{(character) name of column containing the grouping
-identifier for the changing polygons.}
+identifier for the changing polygons or group identifier given as an
+integer or character value that is assigned to all rows in \code{x}.
+Defaults to the first column in \code{x}.}
 
-\item{time_column_name}{(character) name of column with the datetimes}
+\item{time_column_name}{(character) name of column with the temporal
+dimension information. Defaults to the first temporal column in \code{x}.}
 
 \item{sf_column_name}{(character) name of column with changing
 geometries. Defaults to active \code{sf_column}.}

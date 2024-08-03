@@ -8,12 +8,16 @@
 #' `datetime`. `geom_sum` is the summary geometry of the changing
 #' shapes of the polygon geometries.
 #'
-#' @param x object of class `sf` with `POLYGON` geometries
+#' @param x object to convert to `post_array` with `POLYGON`/`MULTIPOLYGON`
+#' geometries and a date/time column.
 #'
 #' @param group_id (character) name of column containing the grouping
-#' identifier for the changing polygons.
+#' identifier for the changing polygons or group identifier given as an
+#' integer or character value that is assigned to all rows in `x`.
+#' Defaults to the first column in `x`.
 #'
-#' @param time_column_name (character) name of column with the datetimes
+#' @param time_column_name (character) name of column with the temporal
+#' dimension information. Defaults to the first temporal column in `x`.
 #'
 #' @param sf_column_name (character) name of column with changing
 #' geometries. Defaults to active `sf_column`.
@@ -43,8 +47,10 @@
 #' <https://doi.org/10.5194/agile-giss-5-16-2024>
 #'
 #' @export
-as_post_array = function(x, group_id, time_column_name,
-                         sf_column_name = attr(x, "sf_column"),
+as_post_array = function(x,
+                         group_id = NULL,
+                         time_column_name = NULL,
+                         sf_column_name = NULL,
                          geometry_summary = "centroid") {
   UseMethod("as_post_array")
 }
@@ -52,19 +58,65 @@ as_post_array = function(x, group_id, time_column_name,
 #' @name as_post_array
 #'
 #' @importFrom stars st_dimensions st_as_stars
-#' @importFrom sf st_agr
+#' @importFrom sf st_agr st_drop_geometry st_geometry_type
 #'
 #' @export
-as_post_array.sf = function(x, group_id, time_column_name,
-                            sf_column_name = attr(x, "sf_column"),
+as_post_array.sf = function(x,
+                            group_id = NULL,
+                            time_column_name = NULL,
+                            sf_column_name = NULL,
                             geometry_summary = "centroid") {
 
-  # TODO: set first column as default group_id if group_id is NULL
-  # TODO: set first time column as time_column_name when NULL (default)
-  # TODO: think about setting sf_column_name default to NULL
   # TODO: geometry_summary should be exported functions provided to users,
   # call them summarise_/summarize_ (?)
   # then users can pass their own functions after passing a check for validity
+
+  # Set argument defaults
+  # group_id can be a character/integer value that is assigned to all rows
+  # in x or a column name that contains the group identifiers.
+  # Defaults to the first column of x
+  if(!is.null(group_id)) {
+    if(!(group_id %in% names(x))) {
+      x["_gid_"] = group_id
+      group_id = "_gid_"
+    } else group_id = group_id
+  } else if(is.null(group_id)){
+    group_id = names(x)[1]
+  }
+
+  # time_column_name is the name of the column containing the
+  # temporal information. Defaults to the first temporal column.
+  if(!is.null(time_column_name)) {
+    stopifnot(
+      "time_column_name not found" =
+      time_column_name %in% names(x)
+    )
+  } else if(is.null(time_column_name)) {
+    # Check for columns matching the temp_class classes
+    temp_class = c("POSIXct", "POSIXt", "Date", "PCICt")
+    # If there are more than two temporal dimensions, the first one is taken
+    x_ = sf::st_drop_geometry(x)
+    time_column_name = names(
+      x_[which(lapply(x_, class) %in% temp_class)[1]]
+    )
+    if (is.na(time_column_name))
+      stop("x does not have a temporal dimension", call. = FALSE)
+  }
+
+  # sf_column_name is the name of the column with the `POLYGON` geometries.
+  # Defaults to the active sf_column
+  if(!is.null(sf_column_name)) {
+    stopifnot(
+      "sf_column_name not found" =
+      sf_column_name %in% names(x)
+    )
+  } else if(is.null(sf_column_name)) {
+    sf_column_name = attr(x, "sf_column")
+  }
+  # Check if sf_column has `POLYGON` or `MULTIPOLYGON` geometries
+  if(any(!(sf::st_geometry_type(x) %in% c("POLYGON", "MULTIPOLYGON")))) {
+    stop("sf_column is not of type POLYGON/MULTIPOLYGON")
+  }
 
   # Set dimensions
   # TODO: should more dimensions be supported?
