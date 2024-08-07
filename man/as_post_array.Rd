@@ -10,7 +10,7 @@ as_post_array(
   group_id = NULL,
   time_column_name = NULL,
   sf_column_name = NULL,
-  geometry_summary = "centroid"
+  geometry_summary = summarise_geometry_centroid
 )
 
 \method{as_post_array}{sf}(
@@ -18,7 +18,7 @@ as_post_array(
   group_id = NULL,
   time_column_name = NULL,
   sf_column_name = NULL,
-  geometry_summary = "centroid"
+  geometry_summary = summarise_geometry_centroid
 )
 }
 \arguments{
@@ -36,11 +36,9 @@ dimension information. Defaults to the first temporal column in \code{x}.}
 \item{sf_column_name}{(character) name of column with changing
 geometries. Defaults to active \code{sf_column}.}
 
-\item{geometry_summary}{(character) function to compute the summary
-geometry. Supported arguments are \code{union} to compute the union
-and dissolve of the changing geometries per group, \code{centroid} to
-compute the centroid of the union and dissolve per group, and
-\code{bbox} to compute the bbox of the union and dissolve per group.}
+\item{geometry_summary}{(function) function to compute the summary
+geometry. See summarise_geometry for functions or pass your own
+summarise_geometry function.}
 }
 \value{
 an object of class \code{post_array}.
