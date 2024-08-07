@@ -22,11 +22,9 @@
 #' @param sf_column_name (character) name of column with changing
 #' geometries. Defaults to active `sf_column`.
 #'
-#' @param geometry_summary (character) function to compute the summary
-#' geometry. Supported arguments are `union` to compute the union
-#' and dissolve of the changing geometries per group, `centroid` to
-#' compute the centroid of the union and dissolve per group, and
-#' `bbox` to compute the bbox of the union and dissolve per group.
+#' @param geometry_summary (function) function to compute the summary
+#' geometry. See summarise_geometry for functions or pass your own
+#' summarise_geometry function.
 #'
 #' @examples
 #' as_post_array(polygons, "gid", "datetime")
@@ -65,58 +63,19 @@ as_post_array.sf = function(x,
                             group_id = NULL,
                             time_column_name = NULL,
                             sf_column_name = NULL,
-                            geometry_summary = "centroid") {
+                            geometry_summary = summarise_geometry_centroid()) {
 
   # TODO: geometry_summary should be exported functions provided to users,
   # call them summarise_/summarize_ (?)
   # then users can pass their own functions after passing a check for validity
 
   # Set argument defaults
-  # group_id can be a character/integer value that is assigned to all rows
-  # in x or a column name that contains the group identifiers.
-  # Defaults to the first column of x
-  if(!is.null(group_id)) {
-    if(!(group_id %in% names(x))) {
-      x["_gid_"] = group_id
-      group_id = "_gid_"
-    } else group_id = group_id
-  } else if(is.null(group_id)){
-    group_id = names(x)[1]
-  }
-
-  # time_column_name is the name of the column containing the
-  # temporal information. Defaults to the first temporal column.
-  if(!is.null(time_column_name)) {
-    stopifnot(
-      "time_column_name not found" =
-      time_column_name %in% names(x)
-    )
-  } else if(is.null(time_column_name)) {
-    # Check for columns matching the temp_class classes
-    temp_class = c("POSIXct", "POSIXt", "Date", "PCICt")
-    # If there are more than two temporal dimensions, the first one is taken
-    x_ = sf::st_drop_geometry(x)
-    time_column_name = names(
-      x_[which(lapply(x_, class) %in% temp_class)[1]]
-    )
-    if (is.na(time_column_name))
-      stop("x does not have a temporal dimension", call. = FALSE)
-  }
-
-  # sf_column_name is the name of the column with the `POLYGON` geometries.
+  # group_id: Defaults to the first column of x, if not sfc or temporal class
+  group_id = check_group_id(x, group_id)
+  # Defaults to the first temporal column.
+  time_column_name = check_time_column(x, time_column_name)
   # Defaults to the active sf_column
-  if(!is.null(sf_column_name)) {
-    stopifnot(
-      "sf_column_name not found" =
-      sf_column_name %in% names(x)
-    )
-  } else if(is.null(sf_column_name)) {
-    sf_column_name = attr(x, "sf_column")
-  }
-  # Check if sf_column has `POLYGON` or `MULTIPOLYGON` geometries
-  if(any(!(sf::st_geometry_type(x) %in% c("POLYGON", "MULTIPOLYGON")))) {
-    stop("sf_column is not of type POLYGON/MULTIPOLYGON")
-  }
+  sf_column_name = check_sf_column(x, sf_column_name)
 
   # Set dimensions
   # TODO: should more dimensions be supported?
@@ -142,23 +101,9 @@ as_post_array.sf = function(x,
   a_attr = lapply(attrs, create_array)
   names(a_attr) = attrs
 
-  # Compute summary geometry
-  geom_sum = switch(
-    geometry_summary,
-    union = compute_geom_summary_union(x, group_id, sf_column_name),
-    centroid = compute_geom_summary_centroid(x, group_id, sf_column_name),
-    bbox = compute_geom_summary_bbox(x, group_id, sf_column_name),
-    # TODO: let the user pass a summary geometry function from a geometry column name
-    stop(
-      "Unsupported summary geometry function: ",
-      geometry_summary,
-      call. = FALSE
-    )
-  )
-
   # Create dimensions object
   d = stars::st_dimensions(
-    geom_sum = geom_sum,
+    geom_sum = geometry_summary,
     datetime = unique(x[[time_column_name]]),
     # TODO: handle point parameter if more than two dimensions
     # The point parameter indicates if the value refers to
@@ -183,44 +128,4 @@ as_post_array.sf = function(x,
     geom_sum_fun = geometry_summary,
     agr = sf::st_agr(x)[names(a_attr)]
   )
-}
-
-# Compute the geometry summary as the union and dissolve of
-# the changing geometries
-# INTERNAL USE!
-#' @importFrom sf st_union st_make_valid
-compute_geom_summary_union = function(x, group_id, sf_column_name) {
-  x_groupped = split(x[[sf_column_name]], x[[group_id]])
-  x_summarised = do.call(
-    "c",
-    lapply(x_groupped, function(i) sf::st_make_valid(sf::st_union(i)))
-  )
-  x_summarised
-}
-
-# Compute the geometry summary as the centroid of the
-# union and dissolve of the changing geometries
-# INTERNAL USE!
-#' @importFrom sf st_centroid
-compute_geom_summary_centroid = function(x, group_id, sf_column_name) {
-  x_unioned = compute_geom_summary_union(x, group_id, sf_column_name)
-  x_centroid = sf::st_centroid(x_unioned)
-  x_centroid
-}
-
-# Compute the geometry summary as the bounding box of the
-# union and dissolve of the changing geometries
-# INTERNAL USE!
-compute_geom_summary_bbox = function(x, group_id, sf_column_name) {
-  x_unioned = compute_geom_summary_union(x, group_id, sf_column_name)
-  x_bbox = st_bbox_by_feature(x_unioned)
-  x_bbox
-}
-
-# Utility function to compute bounding box per feature
-# INTERNAL USE!
-#' @importFrom sf st_as_sfc st_bbox
-st_bbox_by_feature = function(x) {
-  f = function(y) sf::st_as_sfc(sf::st_bbox(y))
-  do.call("c", lapply(x, f))
 }
