@@ -49,7 +49,7 @@ as_post_array = function(x,
                          group_id = NULL,
                          time_column_name = NULL,
                          sf_column_name = NULL,
-                         geometry_summary = "centroid") {
+                         geometry_summary = summarise_geometry_centroid) {
   UseMethod("as_post_array")
 }
 
@@ -63,11 +63,7 @@ as_post_array.sf = function(x,
                             group_id = NULL,
                             time_column_name = NULL,
                             sf_column_name = NULL,
-                            geometry_summary = summarise_geometry_centroid()) {
-
-  # TODO: geometry_summary should be exported functions provided to users,
-  # call them summarise_/summarize_ (?)
-  # then users can pass their own functions after passing a check for validity
+                            geometry_summary = summarise_geometry_centroid) {
 
   # Set argument defaults
   # group_id: Defaults to the first column of x, if not sfc or temporal class
@@ -103,7 +99,7 @@ as_post_array.sf = function(x,
 
   # Create dimensions object
   d = stars::st_dimensions(
-    geom_sum = geometry_summary,
+    geom_sum = do.call(geometry_summary, list(x, group_id, sf_column_name)),
     datetime = unique(x[[time_column_name]]),
     # TODO: handle point parameter if more than two dimensions
     # The point parameter indicates if the value refers to

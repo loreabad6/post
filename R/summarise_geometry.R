@@ -1,4 +1,4 @@
-
+# TODO: document
 # Compute the geometry summary as the union and dissolve of
 # the changing geometries
 # INTERNAL USE!
@@ -54,7 +54,7 @@ summarise_geometry_bbox = function(x,
   # Defaults to the active sf_column
   sf_column_name = check_sf_column(x, sf_column_name)
 
-  x_unioned = compute_geom_summary_union(x)
+  x_unioned = summarise_geometry_union(x)
   x_bbox = st_bbox_by_feature(x_unioned)
   x_bbox
 }
