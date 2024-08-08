@@ -5,7 +5,8 @@
 #' It extends the `stars` class for vector data cubes to support
 #' changing geometries as attributes.
 #' The `post_array` class supports two dimensions: `geom_sum` and
-#' `datetime`. `geom_sum` is the summary geometry of the changing
+#' `datetime`.
+#' `geom_sum` is the summary geometry of the changing
 #' shapes of the polygon geometries.
 #'
 #' @param x object to convert to `post_array` with `POLYGON`/`MULTIPOLYGON`
@@ -28,6 +29,8 @@
 #' See summarise_geometry for functions or pass your own
 #' summarise_geometry function.
 #'
+#' @param ... additional parameters passed on to `geometry_summary` function.
+#'
 #' @examples
 #' as_post_array(polygons, "gid", "datetime")
 #'
@@ -35,7 +38,10 @@
 #'   library(sf, quietly = TRUE)
 #'   polygons |>
 #'     mutate(area = st_area(geometry)) |>
-#'     as_post_array("gid", "datetime", geometry_summary = "union")
+#'     as_post_array(
+#'     "gid", "datetime",
+#'      geometry_summary = summarise_geometry_union
+#'    )
 #' }
 #'
 #' @return an object of class `post_array`.
@@ -51,7 +57,8 @@ as_post_array = function(x,
                          group_id = NULL,
                          time_column_name = NULL,
                          sf_column_name = NULL,
-                         geometry_summary = summarise_geometry_centroid) {
+                         geometry_summary = summarise_geometry_centroid,
+                         ...) {
   UseMethod("as_post_array")
 }
 
@@ -65,7 +72,8 @@ as_post_array.sf = function(x,
                             group_id = NULL,
                             time_column_name = NULL,
                             sf_column_name = NULL,
-                            geometry_summary = summarise_geometry_centroid) {
+                            geometry_summary = summarise_geometry_centroid,
+                            ...) {
 
   # Set argument defaults
   # group_id: Defaults to the first column of x, if not sfc or temporal class
@@ -101,7 +109,7 @@ as_post_array.sf = function(x,
 
   # Compute geometry summary
   geom_sum = if(is.function(geometry_summary)) {
-    geometry_summary(x, group_id, sf_column_name)
+    geometry_summary(x, group_id, sf_column_name, ...)
   } else if (inherits(geometry_summary, "sfc")) {
     if(length(geometry_summary) != length(unique(x[[group_id]]))) {
       stop("geometry_summary has more geometries than groups", call. = FALSE)

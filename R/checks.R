@@ -1,5 +1,6 @@
 #' Check and assign defaults to post object arguments
-#'
+#' @noRd
+
 # group_id can be a character/integer value that is assigned to all rows
 # in x or a column name that contains the group identifiers.
 # Defaults to the first column of x

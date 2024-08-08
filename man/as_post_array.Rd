@@ -10,7 +10,8 @@ as_post_array(
   group_id = NULL,
   time_column_name = NULL,
   sf_column_name = NULL,
-  geometry_summary = summarise_geometry_centroid
+  geometry_summary = summarise_geometry_centroid,
+  ...
 )
 
 \method{as_post_array}{sf}(
@@ -18,7 +19,8 @@ as_post_array(
   group_id = NULL,
   time_column_name = NULL,
   sf_column_name = NULL,
-  geometry_summary = summarise_geometry_centroid
+  geometry_summary = summarise_geometry_centroid,
+  ...
 )
 }
 \arguments{
@@ -37,8 +39,12 @@ dimension information. Defaults to the first temporal column in \code{x}.}
 geometries. Defaults to active \code{sf_column}.}
 
 \item{geometry_summary}{(function) function to compute the summary
-geometry. See summarise_geometry for functions or pass your own
+geometry. Alternatively an \code{sfc} object with summary geometries (i.e.,
+the result of a \verb{summarise_geometry_*()} function or a custom \code{sfc}).
+See summarise_geometry for functions or pass your own
 summarise_geometry function.}
+
+\item{...}{additional parameters passed on to \code{geometry_summary} function.}
 }
 \value{
 an object of class \code{post_array}.
@@ -49,7 +55,8 @@ organises polygons that change their shape in space and time.
 It extends the \code{stars} class for vector data cubes to support
 changing geometries as attributes.
 The \code{post_array} class supports two dimensions: \code{geom_sum} and
-\code{datetime}. \code{geom_sum} is the summary geometry of the changing
+\code{datetime}.
+\code{geom_sum} is the summary geometry of the changing
 shapes of the polygon geometries.
 }
 \examples{
@@ -59,7 +66,10 @@ if(require(dplyr, quietly = TRUE)) {
   library(sf, quietly = TRUE)
   polygons |>
     mutate(area = st_area(geometry)) |>
-    as_post_array("gid", "datetime", geometry_summary = "union")
+    as_post_array(
+    "gid", "datetime",
+     geometry_summary = summarise_geometry_union
+   )
 }
 
 }

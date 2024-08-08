@@ -1,8 +1,47 @@
-# TODO: document
-# Compute the geometry summary as the union and dissolve of
-# the changing geometries
-# INTERNAL USE!
+#' Summarise changing geometries based on a group identifier
+#'
+#' Changing geometries are summarised for all time periods as a single geometry
+#' (of types `POINT`, `POLYGON`, `MULTIPOLYGON`) in order to pass them
+#' as a spatial dimension to `post_*` objects.
+#'
+#' The family of functions `summarise_geometry_*()` or `summarize_geometry_*()`
+#' are helpers to create these summarised geometries.
+#' Supported summary types are:
+#'
+#' a. the union and dissolve of the changing geometries,
+#'
+#' b. the centroid of **a**
+#'
+#' c. the bbox of **a**
+#'
+#' A custom function to summarise geometries can be passed onto the
+#' coercion functions `as_post_*()`, given that the parameters `x`,
+#' `group_id` and `sf_column_name` are included in the function.
+#' Additional arguments can be passed to the function as necessary.
+#'
+#' @examples
+#' summarise_geometry_union(polygons)
+#' summarise_geometry_centroid(polygons)
+#' summarise_geometry_bbox(polygons)
+#'
+#' @family Changing geometries summarisers
+#' @name summarise_geometry
+#'
+#' @return object of class `sfc` with summarised geometries based on group_id
+NULL
+
+#' @description
+#' `summarise_geometry_union` computes the geometry summary as the union and dissolve of
+#' the changing geometries
+#'
+#' @inheritParams as_post_array
+#'
+#' @param x object `POLYGON`/`MULTIPOLYGON` changing geometries to summarise
+#' based on `group_id`.
+#'
+#' @rdname summarise_geometry
 #' @importFrom sf st_union st_make_valid
+#' @export
 summarise_geometry_union = function(x,
                                     group_id = NULL,
                                     sf_column_name = NULL) {
@@ -20,12 +59,19 @@ summarise_geometry_union = function(x,
   x_summarised
 }
 
+#' @rdname summarise_geometry
+#' @export
 summarize_geometry_union = summarise_geometry_union
 
-# Compute the geometry summary as the centroid of the
-# union and dissolve of the changing geometries
-# INTERNAL USE!
+#' @description
+#' `summarise_geometry_centroid` computes the geometry summary as the centroid of the
+#' union and dissolve of the changing geometries
+#'
+#' @inheritParams summarise_geometry_union
+#'
+#' @rdname summarise_geometry
 #' @importFrom sf st_centroid
+#' @export
 summarise_geometry_centroid = function(x,
                                        group_id = NULL,
                                        sf_column_name = NULL) {
@@ -40,11 +86,18 @@ summarise_geometry_centroid = function(x,
   x_centroid
 }
 
+#' @rdname summarise_geometry
+#' @export
 summarize_geometry_centroid = summarise_geometry_centroid
 
-# Compute the geometry summary as the bounding box of the
-# union and dissolve of the changing geometries
-# INTERNAL USE!
+#' @description
+#' `summarise_geometry_bbox` computes the geometry summary as the bounding box of the
+#' union and dissolve of the changing geometries
+#'
+#' @inheritParams summarise_geometry_union
+#'
+#' @rdname summarise_geometry
+#' @export
 summarise_geometry_bbox = function(x,
                                    group_id = NULL,
                                    sf_column_name = NULL) {
@@ -59,10 +112,15 @@ summarise_geometry_bbox = function(x,
   x_bbox
 }
 
+#' @rdname summarise_geometry
+#' @export
 summarize_geometry_bbox = summarise_geometry_bbox
 
-# Utility function to compute bounding box per feature
-# INTERNAL USE!
+#' @description
+#' Utility function to compute bounding box per feature.
+#' For internal use
+#'
+#' @noRd
 #' @importFrom sf st_as_sfc st_bbox st_crs st_set_crs
 st_bbox_by_feature = function(x) {
   f = function(y) sf::st_as_sfc(sf::st_bbox(y))
