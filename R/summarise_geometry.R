@@ -63,8 +63,8 @@ summarize_geometry_bbox = summarise_geometry_bbox
 
 # Utility function to compute bounding box per feature
 # INTERNAL USE!
-#' @importFrom sf st_as_sfc st_bbox
+#' @importFrom sf st_as_sfc st_bbox st_crs st_set_crs
 st_bbox_by_feature = function(x) {
   f = function(y) sf::st_as_sfc(sf::st_bbox(y))
-  do.call("c", lapply(x, f))
+  sf::st_set_crs(do.call("c", lapply(x, f)), sf::st_crs(x))
 }
