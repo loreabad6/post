@@ -23,7 +23,9 @@
 #' geometries. Defaults to active `sf_column`.
 #'
 #' @param geometry_summary (function) function to compute the summary
-#' geometry. See summarise_geometry for functions or pass your own
+#' geometry. Alternatively an `sfc` object with summary geometries (i.e.,
+#' the result of a `summarise_geometry_*()` function or a custom `sfc`).
+#' See summarise_geometry for functions or pass your own
 #' summarise_geometry function.
 #'
 #' @examples
@@ -97,9 +99,21 @@ as_post_array.sf = function(x,
   a_attr = lapply(attrs, create_array)
   names(a_attr) = attrs
 
+  # Compute geometry summary
+  geom_sum = if(is.function(geometry_summary)) {
+    geometry_summary(x, group_id, sf_column_name)
+  } else if (inherits(geometry_summary, "sfc")) {
+    if(length(geometry_summary) != length(unique(x[[group_id]]))) {
+      stop("geometry_summary has more geometries than groups", call. = FALSE)
+    }
+    geometry_summary
+  } else {
+    stop("geometry_summary not recognized", call. = FALSE)
+  }
+
   # Create dimensions object
   d = stars::st_dimensions(
-    geom_sum = do.call(geometry_summary, list(x, group_id, sf_column_name)),
+    geom_sum = geom_sum,
     datetime = unique(x[[time_column_name]]),
     # TODO: handle point parameter if more than two dimensions
     # The point parameter indicates if the value refers to
