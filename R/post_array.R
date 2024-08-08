@@ -32,14 +32,13 @@
 #' @param ... additional parameters passed on to `geometry_summary` function.
 #'
 #' @examples
-#' as_post_array(polygons, "gid", "datetime")
+#' as_post_array(polygons)
 #'
 #' if(require(dplyr, quietly = TRUE)) {
 #'   library(sf, quietly = TRUE)
 #'   polygons |>
 #'     mutate(area = st_area(geometry)) |>
 #'     as_post_array(
-#'     "gid", "datetime",
 #'      geometry_summary = summarise_geometry_union
 #'    )
 #' }
