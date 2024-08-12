@@ -3,6 +3,7 @@
 \name{as_post_array}
 \alias{as_post_array}
 \alias{as_post_array.sf}
+\alias{as_post_array.post_table}
 \title{Create a post_array object}
 \usage{
 as_post_array(
@@ -22,6 +23,8 @@ as_post_array(
   geometry_summary = summarise_geometry_centroid,
   ...
 )
+
+\method{as_post_array}{post_table}(x, ...)
 }
 \arguments{
 \item{x}{object to convert to \code{post_array} with \code{POLYGON}/\code{MULTIPOLYGON}

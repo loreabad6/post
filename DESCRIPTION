@@ -19,6 +19,7 @@ Imports:
     dplyr,
     rlang,
     sf,
-    stars
+    stars,
+    tidyr
 Remotes: 
     loreabad6/cubble

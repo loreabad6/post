@@ -43,6 +43,7 @@
 #'    )
 #' }
 #'
+#' @name as_post_array
 #' @return an object of class `post_array`.
 #'
 #' @references
@@ -61,7 +62,7 @@ as_post_array = function(x,
   UseMethod("as_post_array")
 }
 
-#' @name as_post_array
+#' @rdname as_post_array
 #'
 #' @importFrom stars st_dimensions st_as_stars
 #' @importFrom sf st_agr st_drop_geometry st_geometry_type
@@ -143,8 +144,41 @@ as_post_array.sf = function(x,
     group_id_colname = group_id,
     group_ids = unique(x[[group_id]]),
     sf_column = sf_column_name,
+    sf_column_post = sf_column_name,
     time_column = time_column_name,
     geom_sum_fun = geometry_summary,
     agr = sf::st_agr(x)[names(a_attr)]
+  )
+}
+
+#' @rdname as_post_array
+#'
+#' @importFrom sf st_as_sfc `st_geometry<-`
+#' @importFrom tidyr unnest
+#'
+#' @export
+as_post_array.post_table = function(x, ...) {
+  # First coerce to sf by unnesting the ts column
+  x_ = tidyr::unnest(x, cols = "ts")
+
+  # Define the geometry summary as an sfc object of unique geometries
+  sf_col = sf::st_as_sfc(x_[attr(x, "sf_column")])
+  geom_sum = sf_col[!st_duplicated(sf_col)]
+
+  # Reassign geometry column
+  st_geometry(x_) = attr(x, "sf_column_post")
+
+  # Remove unnecessary columns (created by cubble)
+  x_["long"] = x_["lat"] = x_[attr(x, "sf_column")] = NULL
+
+  # Coerce with as_post_array.sf
+  out = as_post_array(
+    x = x_,
+    geometry_summary = geom_sum
+  )
+
+  structure(
+    out,
+    geom_sum_fun = attr(x, "geom_sum_fun")
   )
 }

@@ -96,7 +96,7 @@ as_post_table.sf = function(x,
     out,
     class = c("post_table", class(out)),
     # TODO: figure out how to handle sf_column among post_table and post_array
-    # sf_column = sf_column_name,
+    sf_column_post = sf_column_name,
     time_column = time_column_name,
     geom_sum_fun = geometry_summary
     # TODO: handle agr in post_table
@@ -146,7 +146,7 @@ as_post_table.post_array = function(x, ...) {
     out,
     class = c("post_table", class(out)),
     # TODO: figure out how to handle sf_column among post_table and post_array
-    # sf_column = attr(x, "sf_column"),
+    sf_column_post = attr(x, "sf_column"),
     time_column = attr(x, "time_column"),
     geom_sum_fun = attr(x, "geom_sum_fun"),
     agr = attr(x, "agr")
