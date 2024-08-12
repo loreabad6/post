@@ -25,6 +25,7 @@
 #'    )
 #' }
 #'
+#' @name as_post_table
 #' @return an object of class `post_table`.
 #'
 #' @references
@@ -43,6 +44,7 @@ as_post_table = function(x,
   UseMethod("as_post_table")
 }
 
+#' @rdname as_post_table
 #' @importFrom cubble as_cubble
 #' @importFrom sf st_sf st_as_sf
 #'
@@ -93,11 +95,60 @@ as_post_table.sf = function(x,
   structure(
     out,
     class = c("post_table", class(out)),
-    # TODO: figure out how to hable sf_column among post_table and post_array
+    # TODO: figure out how to handle sf_column among post_table and post_array
     # sf_column = sf_column_name,
     time_column = time_column_name,
     geom_sum_fun = geometry_summary
     # TODO: handle agr in post_table
     # agr = sf::st_agr(x)[names(a_attr)]
+  )
+}
+
+#' @rdname as_post_table
+#'
+#' @importFrom cubble as_cubble update_cubble
+#' @importFrom dplyr relocate
+#' @importFrom rlang `!!` sym
+#'
+#' @export
+as_post_table.post_array = function(x, ...) {
+
+  x_ = cubble::as_cubble(
+    data = x,
+    # key = geom_sum should be used here but
+    # it works when creating the cubble object while the algorithm
+    # to display the temporal face gets stuck as it tries to add a
+    # WKT geometry to every entry.
+    # The hack used when coercing from a stars object:
+    # Internally, cubble adds an id column to the data, so we can
+    # call key = id and the cube creation in its spatial and temporal
+    # forms will work.
+    key = "id",
+    index = !!rlang::sym(attr(x, "time_column"))
+  )
+
+  # Restore original group_id column name and values when coercing to
+  # post_table
+  # All those values are stored as attributes of post_array
+  group_id_name = attr(x, "group_id_colname")
+  x_[group_id_name] = attr(x, "group_ids")
+  # remove id column
+  x_["id"] = NULL
+  # reorder columns to have group_id column as first
+  x_ = dplyr::relocate(x_, {{group_id_name}})
+  # the cubble classes are lost, reinstate
+  class(x_) = c("spatial_cubble_df","cubble_df", class(x_))
+
+  out = cubble::update_cubble(x_, key = group_id_name)
+
+  # Return post_array object with respective structure
+  structure(
+    out,
+    class = c("post_table", class(out)),
+    # TODO: figure out how to handle sf_column among post_table and post_array
+    # sf_column = attr(x, "sf_column"),
+    time_column = attr(x, "time_column"),
+    geom_sum_fun = attr(x, "geom_sum_fun"),
+    agr = attr(x, "agr")
   )
 }

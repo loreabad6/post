@@ -2,6 +2,8 @@
 % Please edit documentation in R/post_table.R
 \name{as_post_table}
 \alias{as_post_table}
+\alias{as_post_table.sf}
+\alias{as_post_table.post_array}
 \title{Create a post_table object}
 \usage{
 as_post_table(
@@ -12,6 +14,17 @@ as_post_table(
   geometry_summary = summarise_geometry_centroid,
   ...
 )
+
+\method{as_post_table}{sf}(
+  x,
+  group_id = NULL,
+  time_column_name = NULL,
+  sf_column_name = NULL,
+  geometry_summary = summarise_geometry_centroid,
+  ...
+)
+
+\method{as_post_table}{post_array}(x, ...)
 }
 \arguments{
 \item{x}{object to convert to \code{post_table} with \code{POLYGON}/\code{MULTIPOLYGON}

@@ -140,6 +140,8 @@ as_post_array.sf = function(x,
   structure(
     out,
     class = c("post_array", class(out)),
+    group_id_colname = group_id,
+    group_ids = unique(x[[group_id]]),
     sf_column = sf_column_name,
     time_column = time_column_name,
     geom_sum_fun = geometry_summary,

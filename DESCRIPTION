@@ -15,8 +15,10 @@ Depends:
     R (>= 2.10)
 LazyData: true
 Imports: 
-    cubble,
+    cubble (>= 0.3.2),
+    dplyr,
+    rlang,
     sf,
     stars
-Suggests: 
-    dplyr
+Remotes: 
+    loreabad6/cubble
