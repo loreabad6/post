@@ -81,7 +81,9 @@ summarise_geometry_centroid = function(x,
   # Defaults to the active sf_column
   sf_column_name = check_sf_column(x, sf_column_name)
 
-  x_unioned = summarise_geometry_union(x)
+  x_unioned = summarise_geometry_union(x,
+                                       group_id = group_id,
+                                       sf_column_name = sf_column_name)
   x_centroid = sf::st_centroid(x_unioned)
   x_centroid
 }
@@ -107,7 +109,9 @@ summarise_geometry_bbox = function(x,
   # Defaults to the active sf_column
   sf_column_name = check_sf_column(x, sf_column_name)
 
-  x_unioned = summarise_geometry_union(x)
+  x_unioned = summarise_geometry_union(x,
+                                       group_id = group_id,
+                                       sf_column_name = sf_column_name)
   x_bbox = st_bbox_by_feature(x_unioned)
   x_bbox
 }
