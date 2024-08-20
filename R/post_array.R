@@ -83,6 +83,9 @@ as_post_array.sf = function(x,
   # Defaults to the active sf_column
   sf_column_name = check_sf_column(x, sf_column_name)
 
+  # Order x by group_id and time_column
+  x = x[order(x[[group_id]], x[[time_column_name]]), ]
+
   # Set dimensions
   # TODO: should more dimensions be supported?
   # I would argue no since it is space-time polygons,
@@ -142,7 +145,7 @@ as_post_array.sf = function(x,
     out,
     class = c("post_array", class(out)),
     group_id_colname = group_id,
-    group_ids = unique(x[[group_id]]),
+    group_ids = sort(unique(x[[group_id]])),
     sf_column = sf_column_name,
     sf_column_post = sf_column_name,
     time_column = time_column_name,
