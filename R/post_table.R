@@ -89,7 +89,9 @@ as_post_table.sf = function(x,
   x_ = sf::st_as_sf(
     merge(
       as.data.frame(x),
-      as.data.frame(geom_sum_df)
+      as.data.frame(geom_sum_df),
+      by.x = group_id,
+      by.y = "gid"
     ), sf_column_name = "geom_sum"
   )
 
