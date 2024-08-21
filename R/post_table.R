@@ -55,6 +55,7 @@ as_post_table.sf = function(x,
                             sf_column_name = NULL,
                             geometry_summary = summarise_geometry_centroid,
                             ...) {
+
   # Set argument defaults
   # group_id: Defaults to the first column of x, if not sfc or temporal class
   group_id = check_group_id(x, group_id)
@@ -62,6 +63,9 @@ as_post_table.sf = function(x,
   time_column_name = check_time_column(x, time_column_name)
   # Defaults to the active sf_column
   sf_column_name = check_sf_column(x, sf_column_name)
+
+  # Order x by group_id and time_column
+  x = x[order(x[[group_id]], x[[time_column_name]]), ]
 
   # Compute geometry summary
   geom_sum = if(is.function(geometry_summary)) {
@@ -76,12 +80,18 @@ as_post_table.sf = function(x,
   }
 
   # Combine summary geometry as a data frame with the original x object
-  geom_sum_df = sf::st_sf(gid = unique(x[[group_id]]), geom_sum = geom_sum)
+  geom_sum_df = sf::st_sf(
+    # sort unique IDs since the result of geom_sum is sorted
+    gid = sort(unique(x[[group_id]])),
+    geom_sum = geom_sum
+  )
 
   x_ = sf::st_as_sf(
     merge(
       as.data.frame(x),
-      as.data.frame(geom_sum_df)
+      as.data.frame(geom_sum_df),
+      by.x = group_id,
+      by.y = "gid"
     ), sf_column_name = "geom_sum"
   )
 
