@@ -152,3 +152,4 @@ as_post_table.post_array = function(x, ...) {
     agr = attr(x, "agr")
   )
 }
+
