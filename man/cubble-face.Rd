@@ -2,13 +2,13 @@
 % Please edit documentation in R/cubble.R
 \name{cubble-face}
 \alias{cubble-face}
-\alias{face_temporal.post_table}
 \alias{face_spatial.post_table}
+\alias{face_temporal.post_table}
 \title{Face spatial/temporal method for post_table}
 \usage{
-\method{face_temporal}{post_table}(data, col)
-
 \method{face_spatial}{post_table}(data, col)
+
+\method{face_temporal}{post_table}(data, col)
 }
 \arguments{
 \item{data}{a post_table object}
@@ -21,8 +21,6 @@ a post_table object
 \description{
 \code{face_spatial} pivots a \code{post_table} object from a long (temporal)
 to a nested (spatial) form.
-}
-\details{
 \code{face_temporal()} pivots a \code{post_table} object from a nested (spatial)
 to a long (temporal) form.
 For \code{post_table} objects, it activates the changing geometry
