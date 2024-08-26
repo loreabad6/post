@@ -101,16 +101,13 @@ as_post_table.sf = function(x,
     index = {{time_column_name}}
   )
 
+  # Coerce ts values to changing geometries to sf class
+  out$ts  = lapply(out$ts, st_as_sf)
+
   # Return post_array object with respective structure
   structure(
     out,
-    class = c("post_table", class(out)),
-    # TODO: figure out how to handle sf_column among post_table and post_array
-    sf_column_post = sf_column_name,
-    time_column = time_column_name,
-    geom_sum_fun = geometry_summary
-    # TODO: handle agr in post_table
-    # agr = sf::st_agr(x)[names(a_attr)]
+    class = c("post_table", class(out))
   )
 }
 
@@ -151,14 +148,14 @@ as_post_table.post_array = function(x, ...) {
 
   out = cubble::update_cubble(x_, key = group_id_name)
 
+  # Coerce ts values to changing geometries to sf class
+  out$ts  = lapply(out$ts, st_as_sf)
+
   # Return post_array object with respective structure
   structure(
     out,
     class = c("post_table", class(out)),
-    # TODO: figure out how to handle sf_column among post_table and post_array
-    sf_column_post = attr(x, "sf_column"),
     time_column = attr(x, "time_column"),
-    geom_sum_fun = attr(x, "geom_sum_fun"),
     agr = attr(x, "agr")
   )
 }

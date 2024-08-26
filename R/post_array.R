@@ -147,9 +147,7 @@ as_post_array.sf = function(x,
     group_id_colname = group_id,
     group_ids = sort(unique(x[[group_id]])),
     sf_column = sf_column_name,
-    sf_column_post = sf_column_name,
     time_column = time_column_name,
-    geom_sum_fun = geometry_summary,
     agr = sf::st_agr(x)[names(a_attr)]
   )
 }
@@ -164,15 +162,20 @@ as_post_array.post_table = function(x, ...) {
   # First coerce to sf by unnesting the ts column
   x_ = tidyr::unnest(x, cols = "ts")
 
+  # Identify the sf_column for the changing geometries
+  sf_column_ts = lapply(x$ts, attr, "sf_column")[[1]]
+  # Identify sf_column for summary geometries
+  sf_column_sum = attr(x, "sf_column")
+
   # Define the geometry summary as an sfc object of unique geometries
-  sf_col = sf::st_as_sfc(x_[attr(x, "sf_column")])
+  sf_col = sf::st_as_sfc(x_[sf_column_sum])
   geom_sum = sf_col[!st_duplicated(sf_col)]
 
   # Reassign geometry column
-  st_geometry(x_) = attr(x, "sf_column_post")
+  st_geometry(x_) = sf_column_ts
 
   # Remove unnecessary columns (created by cubble)
-  x_["long"] = x_["lat"] = x_[attr(x, "sf_column")] = NULL
+  x_["long"] = x_["lat"] = x_[sf_column_sum] = NULL
 
   # Coerce with as_post_array.sf
   out = as_post_array(
@@ -180,8 +183,5 @@ as_post_array.post_table = function(x, ...) {
     geometry_summary = geom_sum
   )
 
-  structure(
-    out,
-    geom_sum_fun = attr(x, "geom_sum_fun")
-  )
+  out
 }
