@@ -15,7 +15,7 @@
 #'
 #' @importFrom cubble face_spatial
 #' @export
-face_spatial.post_table = function(data, col) {
+face_spatial.post_table = function(data) {
   out = NextMethod()
   structure(out, class = union("post_table", class(out)))
 }
@@ -41,7 +41,10 @@ face_temporal.post_table = function(data, col) {
 #' dplyr methods for post_table
 #'
 #' See `cubble::dplyr()` for details
+#'
 #' @name cubble-dplyr
+#' @param data,.data a post_table object
+#' @param ... see corresponding dplyr function
 #'
 #' @importFrom dplyr arrange
 #' @export
@@ -77,7 +80,7 @@ rename.post_table = function(.data, ...) {
 }
 #' @importFrom dplyr rowwise
 #' @export
-rowwise.post_table = function(.data, ...) {
+rowwise.post_table = function(data, ...) {
   out = NextMethod()
   structure(out, class = union("post_table", class(out)))
 }
@@ -89,7 +92,7 @@ select.post_table = function(.data, ...) {
 }
 #' @importFrom dplyr ungroup
 #' @export
-ungroup.post_table = function(.data, ...) {
+ungroup.post_table = function(x, ...) {
   out = NextMethod()
   structure(out, class = union("post_table", class(out)))
 }

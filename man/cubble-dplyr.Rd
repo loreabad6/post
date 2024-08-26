@@ -10,6 +10,11 @@
 
 \method{filter}{post_table}(.data, ...)
 }
+\arguments{
+\item{...}{see corresponding dplyr function}
+
+\item{data, .data}{a post_table object}
+}
 \description{
 See \code{cubble::dplyr()} for details
 }

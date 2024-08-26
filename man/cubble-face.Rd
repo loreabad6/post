@@ -6,7 +6,7 @@
 \alias{face_temporal.post_table}
 \title{Face spatial/temporal method for post_table}
 \usage{
-\method{face_spatial}{post_table}(data, col)
+\method{face_spatial}{post_table}(data)
 
 \method{face_temporal}{post_table}(data, col)
 }
