@@ -159,6 +159,11 @@ as_post_array.sf = function(x,
 #'
 #' @export
 as_post_array.post_table = function(x, ...) {
+  # Check if post_table is in spatial form
+  if("temporal_cubble_df" %in% class(.data)) {
+    x = face_spatial(x)
+  }
+
   # First coerce to sf by unnesting the ts column
   x_ = tidyr::unnest(x, cols = "ts")
 
