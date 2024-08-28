@@ -2,18 +2,20 @@
 % Please edit documentation in R/cubble.R
 \name{cubble-dplyr}
 \alias{cubble-dplyr}
-\alias{arrange.post_table}
+\alias{dplyr_reconstruct.post_table}
 \alias{filter.post_table}
 \title{dplyr methods for post_table}
 \usage{
-\method{arrange}{post_table}(.data, ...)
+\method{dplyr_reconstruct}{post_table}(data, template)
 
 \method{filter}{post_table}(.data, ...)
 }
 \arguments{
-\item{...}{see corresponding dplyr function}
-
 \item{data, .data}{a post_table object}
+
+\item{template}{Template data frame to use for restoring attributes.}
+
+\item{...}{see corresponding dplyr function}
 }
 \description{
 See \code{cubble::dplyr()} for details
