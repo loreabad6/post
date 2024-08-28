@@ -5,7 +5,7 @@
 \alias{spatial.post_table}
 \title{Extract cubble attributes}
 \usage{
-spatial.post_table(data)
+\method{spatial}{post_table}(data)
 }
 \arguments{
 \item{data}{a post_table object}
