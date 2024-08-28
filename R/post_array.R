@@ -160,7 +160,7 @@ as_post_array.sf = function(x,
 #' @export
 as_post_array.post_table = function(x, ...) {
   # Check if post_table is in spatial form
-  if("temporal_cubble_df" %in% class(.data)) {
+  if("temporal_cubble_df" %in% class(x)) {
     x = face_spatial(x)
   }
 
