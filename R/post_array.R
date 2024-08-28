@@ -68,8 +68,10 @@ as_post_array = function(x,
 
 #' @rdname as_post_array
 #'
+#' @importFrom rlang `!!` sym
 #' @importFrom sf st_agr st_drop_geometry st_geometry_type
 #' @importFrom stars st_dimensions st_as_stars
+#' @importFrom tidyr complete
 #'
 #' @export
 as_post_array.sf = function(x,
@@ -90,8 +92,13 @@ as_post_array.sf = function(x,
   # Defaults to "geom_sum"
   geometry_summary_name = geometry_summary_name %||% "geom_sum"
 
-  # Order x by group_id and time_column
-  x = x[order(x[[group_id]], x[[time_column_name]]), ]
+  # Complete missing cases
+  x = sf::st_as_sf(
+    tidyr::complete(x, !!rlang::sym(group_id), !!rlang::sym(time_column_name))
+  )
+
+  # Order x by time_column and group_id (to simulate byrow = TRUE in array)
+  x = x[order(x[[time_column_name]], x[[group_id]]), ]
 
   # Set dimensions
   # TODO: should more dimensions be supported?
