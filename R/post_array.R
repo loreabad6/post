@@ -29,6 +29,9 @@
 #' See summarise_geometry for functions or pass your own
 #' summarise_geometry function.
 #'
+#' @param geometry_summary_name (character) name of the column with summary
+#' geometries.Defaults to "geom_sum"
+#'
 #' @param ... additional parameters passed on to `geometry_summary` function.
 #'
 #' @examples
@@ -58,14 +61,15 @@ as_post_array = function(x,
                          time_column_name = NULL,
                          sf_column_name = NULL,
                          geometry_summary = summarise_geometry_centroid,
+                         geometry_summary_name = NULL,
                          ...) {
   UseMethod("as_post_array")
 }
 
 #' @rdname as_post_array
 #'
-#' @importFrom stars st_dimensions st_as_stars
 #' @importFrom sf st_agr st_drop_geometry st_geometry_type
+#' @importFrom stars st_dimensions st_as_stars
 #'
 #' @export
 as_post_array.sf = function(x,
@@ -73,6 +77,7 @@ as_post_array.sf = function(x,
                             time_column_name = NULL,
                             sf_column_name = NULL,
                             geometry_summary = summarise_geometry_centroid,
+                            geometry_summary_name = NULL,
                             ...) {
 
   # Set argument defaults
@@ -82,6 +87,8 @@ as_post_array.sf = function(x,
   time_column_name = check_time_column(x, time_column_name)
   # Defaults to the active sf_column
   sf_column_name = check_sf_column(x, sf_column_name)
+  # Defaults to "geom_sum"
+  geometry_summary_name = geometry_summary_name %||% "geom_sum"
 
   # Order x by group_id and time_column
   x = x[order(x[[group_id]], x[[time_column_name]]), ]
@@ -125,12 +132,14 @@ as_post_array.sf = function(x,
   # Create dimensions object
   d = stars::st_dimensions(
     geom_sum = geom_sum,
-    datetime = unique(x[[time_column_name]]),
+    temporal = unique(x[[time_column_name]]),
     # TODO: handle point parameter if more than two dimensions
     # The point parameter indicates if the value refers to
     # a point (location) or to a pixel (area) value
     point = c(TRUE, FALSE)
   )
+
+  names(d) = c(geometry_summary_name, time_column_name)
 
   # Coerce to cube
   arrays = c(list(a_geom), a_attr)
@@ -185,7 +194,8 @@ as_post_array.post_table = function(x, ...) {
   # Coerce with as_post_array.sf
   out = as_post_array(
     x = x_,
-    geometry_summary = geom_sum
+    geometry_summary = geom_sum,
+    geometry_summary_name = sf_column_sum
   )
 
   out

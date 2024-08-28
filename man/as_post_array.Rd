@@ -12,6 +12,7 @@ as_post_array(
   time_column_name = NULL,
   sf_column_name = NULL,
   geometry_summary = summarise_geometry_centroid,
+  geometry_summary_name = NULL,
   ...
 )
 
@@ -21,6 +22,7 @@ as_post_array(
   time_column_name = NULL,
   sf_column_name = NULL,
   geometry_summary = summarise_geometry_centroid,
+  geometry_summary_name = NULL,
   ...
 )
 
@@ -46,6 +48,9 @@ geometry. Alternatively an \code{sfc} object with summary geometries (i.e.,
 the result of a \verb{summarise_geometry_*()} function or a custom \code{sfc}).
 See summarise_geometry for functions or pass your own
 summarise_geometry function.}
+
+\item{geometry_summary_name}{(character) name of the column with summary
+geometries.Defaults to "geom_sum"}
 
 \item{...}{additional parameters passed on to \code{geometry_summary} function.}
 }
