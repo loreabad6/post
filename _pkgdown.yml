@@ -1,5 +1,10 @@
 url: https://loreabad6.github.io/post/
 
+repo:
+  url:
+    home: https://github.com/loreabad6/post
+    issue: https://github.com/loreabad6/post/issues
+
 template:
   bootstrap: 5
   light-switch: true
@@ -7,8 +12,6 @@ template:
   bslib:
     base_font: {google: "Open Sans"}
     heading_font: {google: "Open Sans"}
-navbar:
-  right: github
 
 reference:
 - title: "Creation"
