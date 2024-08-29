@@ -1,4 +1,44 @@
 url: https://loreabad6.github.io/post/
+
 template:
   bootstrap: 5
+  light-switch: true
+  bootswatch: simplex
+  bslib:
+    base_font: {google: "Open Sans"}
+    heading_font: {google: "Open Sans"}
+
+reference:
+- title: "Creation"
+  desc: >
+    Functions to convert objects into the two post classes provided:
+    post_array (which inherits {stars} functionality) and
+    post_table (which inherits {cubble} functionality).
+  contents:
+  - as_post_array
+  - as_post_table
+
+- title: "Helpers for post object creation"
+- subtitle: "Summarise geometries"
+  contents:
+  - summarise_geometry
+- subtitle: "Group geometries"
+
+- title: "Built-in data"
+  contents:
+  - polygons
+
+- title: "Compatibility with other packages"
+- subtitle: "With sf"
+- subtitle: "With cubble"
+  contents:
+  - cubble-face
+  - cubble-attrs
+- subtitle: "With dplyr"
+  desc: >
+    post supports most of the {dplyr} verbs supported by {cubble} except for
+    those when the result would not be a post object anymore
+    e.g. `dplyr::summarise`.
+  contents:
+  - cubble-dplyr
 

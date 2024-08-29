@@ -68,6 +68,7 @@ dplyr_reconstruct.post_table = function(data, template) {
   NextMethod()
 }
 
+#' @rdname cubble-dplyr
 #' @importFrom dplyr arrange
 #' @export
 arrange.post_table = function(.data, ...) {
@@ -107,6 +108,7 @@ filter.post_table = function(.data, ...) {
     structure(out, class = union("post_table", class(out)))
   }
 }
+#' @rdname cubble-dplyr
 #' @importFrom dplyr group_by
 #' @export
 group_by.post_table = function(.data, ...) {
@@ -132,18 +134,21 @@ mutate.post_table = function(.data, ...) {
     structure(out, class = union("post_table", class(out)))
   }
 }
+#' @rdname cubble-dplyr
 #' @importFrom dplyr rename
 #' @export
 rename.post_table = function(.data, ...) {
   out = NextMethod()
   structure(out, class = union("post_table", class(out)))
 }
+#' @rdname cubble-dplyr
 #' @importFrom dplyr rowwise
 #' @export
 rowwise.post_table = function(data, ...) {
   out = NextMethod()
   structure(out, class = union("post_table", class(out)))
 }
+#' @rdname cubble-dplyr
 #' @importFrom dplyr select
 #' @export
 select.post_table = function(.data, ...) {
@@ -164,6 +169,7 @@ select.post_table = function(.data, ...) {
     structure(out, class = union("post_table", class(out)))
   }
 }
+#' @rdname cubble-dplyr
 #' @importFrom dplyr ungroup
 #' @export
 ungroup.post_table = function(x, ...) {

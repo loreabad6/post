@@ -3,12 +3,30 @@
 \name{cubble-dplyr}
 \alias{cubble-dplyr}
 \alias{dplyr_reconstruct.post_table}
+\alias{arrange.post_table}
 \alias{filter.post_table}
+\alias{group_by.post_table}
+\alias{rename.post_table}
+\alias{rowwise.post_table}
+\alias{select.post_table}
+\alias{ungroup.post_table}
 \title{dplyr methods for post_table}
 \usage{
 \method{dplyr_reconstruct}{post_table}(data, template)
 
+\method{arrange}{post_table}(.data, ...)
+
 \method{filter}{post_table}(.data, ...)
+
+\method{group_by}{post_table}(.data, ...)
+
+\method{rename}{post_table}(.data, ...)
+
+\method{rowwise}{post_table}(data, ...)
+
+\method{select}{post_table}(.data, ...)
+
+\method{ungroup}{post_table}(x, ...)
 }
 \arguments{
 \item{data, .data}{a post_table object}
