@@ -8,7 +8,6 @@ repo:
 template:
   bootstrap: 5
   light-switch: true
-  bootswatch: lux
   bslib:
     base_font: {google: "Open Sans"}
     heading_font: {google: "Open Sans"}
