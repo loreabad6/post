@@ -3,10 +3,12 @@ url: https://loreabad6.github.io/post/
 template:
   bootstrap: 5
   light-switch: true
-  bootswatch: simplex
+  bootswatch: lux
   bslib:
     base_font: {google: "Open Sans"}
     heading_font: {google: "Open Sans"}
+navbar:
+  right: github
 
 reference:
 - title: "Creation"
