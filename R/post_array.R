@@ -170,30 +170,19 @@ as_post_array.sf = function(x,
 
 #' @rdname as_post_array
 #'
-#' @importFrom sf st_as_sfc `st_geometry<-`
-#' @importFrom tidyr unnest
+#' @importFrom sf st_as_sfc st_as_sf
 #'
 #' @export
 as_post_array.post_table = function(x, ...) {
-  # Check if post_table is in spatial form
-  if("temporal_cubble_df" %in% class(x)) {
-    x = face_spatial(x)
-  }
-
-  # First coerce to sf by unnesting the ts column
-  x_ = tidyr::unnest(x, cols = "ts")
-
-  # Identify the sf_column for the changing geometries
-  sf_column_ts = lapply(x$ts, attr, "sf_column")[[1]]
   # Identify sf_column for summary geometries
   sf_column_sum = attr(x, "sf_column")
 
-  # Define the geometry summary as an sfc object of unique geometries
-  sf_col = sf::st_as_sfc(x_[sf_column_sum])
-  geom_sum = sf_col[!st_duplicated(sf_col)]
+  # Coerce to sf using post_table method
+  x_ = sf::st_as_sf(x)
 
-  # Reassign geometry column
-  st_geometry(x_) = sf_column_ts
+  # Define the geometry summary as an sfc object of unique geometries
+  sf_col = x_[[sf_column_sum]]
+  geom_sum = sf_col[!st_duplicated(sf_col)]
 
   # Remove unnecessary columns (created by cubble)
   x_["long"] = x_["lat"] = x_[sf_column_sum] = NULL
