@@ -3,7 +3,12 @@ url: https://loreabad6.github.io/post/
 repo:
   url:
     home: https://github.com/loreabad6/post
+    source: https://github.com/loreabad6/post/blob/HEAD
     issue: https://github.com/loreabad6/post/issues
+
+authors:
+  Lorena Abad:
+    href: https://loreabad6.github.io
 
 template:
   bootstrap: 5
