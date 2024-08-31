@@ -3,14 +3,43 @@
 \name{sf-post_table}
 \alias{sf-post_table}
 \alias{st_as_sf.post_table}
+\alias{st_crs<-.post_table}
+\alias{st_set_crs.post_table}
+\alias{st_normalize.post_table}
+\alias{st_shift_longitude.post_table}
+\alias{st_transform.post_table}
+\alias{st_wrap_dateline.post_table}
+\alias{st_zm.post_table}
 \title{sf methods for post_table objects}
 \usage{
 \method{st_as_sf}{post_table}(x, ...)
+
+\method{st_crs}{post_table}(x) <- value
+
+st_set_crs.post_table(x, value)
+
+\method{st_normalize}{post_table}(x, domain, ...)
+
+\method{st_shift_longitude}{post_table}(x, ...)
+
+\method{st_transform}{post_table}(x, crs, ...)
+
+\method{st_wrap_dateline}{post_table}(x, ...)
+
+\method{st_zm}{post_table}(x, ...)
 }
 \arguments{
 \item{x}{a post_table object}
 
 \item{...}{additional arguments passed onto the respective sf function}
+
+\item{value}{one of (i) character: a string accepted by GDAL, (ii) integer, a valid EPSG value (numeric), or (iii) an object of class \code{crs}.}
+
+\item{domain}{The domain \code{x} should be normalized from as a length 4
+vector of the form \code{c(xmin, ymin, xmax, ymax)}. Defaults to the
+bounding box of \code{x}}
+
+\item{crs}{target coordinate reference system: object of class \code{crs}, or input string for \link[sf]{st_crs}}
 }
 \description{
 sf methods for post_table objects
@@ -18,4 +47,7 @@ sf methods for post_table objects
 \details{
 \code{sf::st_as_sf()} for post_table objects sets the changing geometry as the
 active sf_column but keeps the summarised geometry in a separate column.
+
+st_normalize takes as domain the bounding box of the post_table
+in the nested form (spatial face)
 }
