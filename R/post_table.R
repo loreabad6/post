@@ -119,6 +119,7 @@ as_post_table.sf = function(x,
 #'
 #' @export
 as_post_table.post_array = function(x, ...) {
+  # TODO: add argument drop_empty = TRUE to drop empry geometries
 
   x_ = cubble::as_cubble(
     data = x,
