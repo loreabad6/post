@@ -16,8 +16,9 @@
 #' @importFrom cubble face_spatial
 #' @export
 face_spatial.post_table = function(data) {
+  data = remove_post_table(data)
   out = NextMethod()
-  structure(out, class = union("post_table", class(out)))
+  restore_spatial_post_table(out)
 }
 
 #' @rdname cubble-face
@@ -26,16 +27,8 @@ face_spatial.post_table = function(data) {
 #' @importFrom sf st_set_geometry
 #' @export
 face_temporal.post_table = function(data, col) {
-  cubble_temp_classes = c("temporal_cubble_df", "cubble_df")
   out = st_as_sf(NextMethod())
-  structure(
-    out,
-    class = c(
-      "post_table",
-      cubble_temp_classes,
-      setdiff(class(out), cubble_temp_classes)
-    )
-  )
+  restore_temporal_post_table(out)
 }
 
 #' Extract cubble attributes
@@ -48,131 +41,6 @@ face_temporal.post_table = function(data, col) {
 #'
 #' @export
 spatial.post_table = function(data) {
-  class(data) = setdiff(class(data), "post_table")
+  data = remove_post_table(data)
   cubble::spatial(data)
-}
-
-#' dplyr methods for post_table
-#'
-#' See `cubble::dplyr()` for details
-#'
-#' @name cubble-dplyr
-#' @param data,.data a post_table object
-#' @param ... see corresponding dplyr function
-#' @inheritParams dplyr::dplyr_reconstruct
-#'
-#' @importFrom dplyr dplyr_reconstruct
-#' @export
-dplyr_reconstruct.post_table = function(data, template) {
-  class(data) = setdiff(class(data), "post_table")
-  NextMethod()
-}
-
-#' @rdname cubble-dplyr
-#' @importFrom dplyr arrange
-#' @export
-arrange.post_table = function(.data, ...) {
-  if(inherits(.data, "temporal_cubble_df")) {
-    cubble_temp_classes = c("temporal_cubble_df", "cubble_df")
-    out = st_as_sf(NextMethod())
-    structure(
-      out,
-      class = c(
-        "post_table",
-        cubble_temp_classes,
-        setdiff(class(out), cubble_temp_classes)
-      )
-    )
-  } else if (inherits(.data, "spatial_cubble_df")) {
-    out = NextMethod()
-    structure(out, class = union("post_table", class(out)))
-  }
-}
-#' @rdname cubble-dplyr
-#' @importFrom dplyr filter
-#' @export
-filter.post_table = function(.data, ...) {
-  if(inherits(.data, "temporal_cubble_df")) {
-    cubble_temp_classes = c("temporal_cubble_df", "cubble_df")
-    out = st_as_sf(NextMethod())
-    structure(
-      out,
-      class = c(
-        "post_table",
-        cubble_temp_classes,
-        setdiff(class(out), cubble_temp_classes)
-      )
-    )
-  } else if (inherits(.data, "spatial_cubble_df")) {
-    out = NextMethod()
-    structure(out, class = union("post_table", class(out)))
-  }
-}
-#' @rdname cubble-dplyr
-#' @importFrom dplyr group_by
-#' @export
-group_by.post_table = function(.data, ...) {
-  out = NextMethod()
-  structure(out, class = union("post_table", class(out)))
-}
-#' @importFrom dplyr mutate
-#' @export
-mutate.post_table = function(.data, ...) {
-  if(inherits(.data, "temporal_cubble_df")) {
-    cubble_temp_classes = c("temporal_cubble_df", "cubble_df")
-    out = st_as_sf(NextMethod())
-    structure(
-      out,
-      class = c(
-        "post_table",
-        cubble_temp_classes,
-        setdiff(class(out), cubble_temp_classes)
-      )
-    )
-  } else if (inherits(.data, "spatial_cubble_df")) {
-    out = NextMethod()
-    structure(out, class = union("post_table", class(out)))
-  }
-}
-#' @rdname cubble-dplyr
-#' @importFrom dplyr rename
-#' @export
-rename.post_table = function(.data, ...) {
-  out = NextMethod()
-  structure(out, class = union("post_table", class(out)))
-}
-#' @rdname cubble-dplyr
-#' @importFrom dplyr rowwise
-#' @export
-rowwise.post_table = function(data, ...) {
-  out = NextMethod()
-  structure(out, class = union("post_table", class(out)))
-}
-#' @rdname cubble-dplyr
-#' @importFrom dplyr select
-#' @export
-select.post_table = function(.data, ...) {
-  class(.data) = setdiff(class(.data), "post_table")
-  out = NextMethod()
-  if(inherits(.data, "temporal_cubble_df")) {
-    cubble_temp_classes = c("temporal_cubble_df", "cubble_df")
-    st_as_sf(out)
-    structure(
-      out,
-      class = c(
-        "post_table",
-        cubble_temp_classes,
-        setdiff(class(out), cubble_temp_classes)
-      )
-    )
-  } else if (inherits(.data, "spatial_cubble_df")) {
-    structure(out, class = union("post_table", class(out)))
-  }
-}
-#' @rdname cubble-dplyr
-#' @importFrom dplyr ungroup
-#' @export
-ungroup.post_table = function(x, ...) {
-  out = NextMethod()
-  structure(out, class = union("post_table", class(out)))
 }
