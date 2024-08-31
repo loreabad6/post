@@ -3,7 +3,7 @@
 #'
 #' @details
 #' See `??cubble::dplyr` for details
-#' @param data,.data a post_table object
+#' @param data,.data,x a post_table object
 #' @param ... see corresponding function in package dplyr
 #'
 #' @rdname dplyr
@@ -96,9 +96,6 @@ ungroup.post_table = function(x, ...) {
 
 #' @details
 #' See `?sf::tidyverse` for details
-#' @param data,.data a post_table object
-#' @param ... see corresponding function in package dplyr
-#'
 #' @rdname dplyr
 #' @inheritParams sf::tidyverse
 #' @importFrom dplyr slice

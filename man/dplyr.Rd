@@ -35,7 +35,7 @@
 \method{slice}{post_table}(.data, ..., .dots)
 }
 \arguments{
-\item{data, .data}{a post_table object}
+\item{data, .data, x}{a post_table object}
 
 \item{template}{Template data frame to use for restoring attributes.}
 
