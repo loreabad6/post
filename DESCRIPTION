@@ -24,3 +24,8 @@ Imports:
 Remotes: 
     huizezhang-sherry/cubble
 URL: https://loreabad6.github.io/post/
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: 
+    knitr
