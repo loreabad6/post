@@ -4,7 +4,7 @@ repo:
   url:
     home: https://github.com/loreabad6/post
     source: https://github.com/loreabad6/post/blob/HEAD
-    issue: https://github.com/loreabad6/post/issues
+    issues: https://github.com/loreabad6/post/issues
 
 authors:
   Lorena Abad:
@@ -27,7 +27,7 @@ reference:
   - as_post_array
   - as_post_table
 
-- title: "Helpers for post object creation"
+- title: "Helpers for creation"
 - subtitle: "Summarise geometries"
   contents:
   - summarise_geometry
@@ -39,6 +39,8 @@ reference:
 
 - title: "Compatibility with other packages"
 - subtitle: "With sf"
+  contents:
+  - sf-post_table
 - subtitle: "With cubble"
   contents:
   - cubble-face
@@ -49,5 +51,5 @@ reference:
     those when the result would not be a post object anymore
     e.g. `dplyr::summarise`.
   contents:
-  - cubble-dplyr
+  - dplyr
 
