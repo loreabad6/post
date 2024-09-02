@@ -164,7 +164,7 @@ as_post_array.sf = function(x,
     group_ids = sort(unique(x[[group_id]])),
     sf_column = sf_column_name,
     time_column = time_column_name,
-    agr = sf::st_agr(x)[names(a_attr)]
+    agr = sf::st_agr(x)
   )
 }
 
