@@ -171,3 +171,8 @@ as_post_table.post_array = function(x, ...) {
   )
 }
 
+#' @rdname as_post_table
+#' @export
+as_post_table.post_table = function(x, ...) {
+  x
+}

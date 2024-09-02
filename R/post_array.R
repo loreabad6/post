@@ -196,3 +196,9 @@ as_post_array.post_table = function(x, ...) {
 
   out
 }
+
+#' @rdname as_post_array
+#' @export
+as_post_array.post_array = function(x, ...) {
+  x
+}

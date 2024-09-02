@@ -4,6 +4,7 @@
 \alias{as_post_table}
 \alias{as_post_table.sf}
 \alias{as_post_table.post_array}
+\alias{as_post_table.post_table}
 \title{Create a post_table object}
 \usage{
 as_post_table(
@@ -25,6 +26,8 @@ as_post_table(
 )
 
 \method{as_post_table}{post_array}(x, ...)
+
+\method{as_post_table}{post_table}(x, ...)
 }
 \arguments{
 \item{x}{object to convert to \code{post_table} with \code{POLYGON}/\code{MULTIPOLYGON}
