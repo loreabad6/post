@@ -49,8 +49,8 @@ st_set_crs.post_table = function(x, value) {
 #' @importFrom sf st_normalize
 #' @inheritParams sf::st_normalize
 #' @export
-st_normalize.post_table = function(x, domain, ...) {
-  change_geom(x, st_normalize, domain = st_bbox(face_spatial(x)), ...)
+st_normalize.post_table = function(x, domain = st_bbox(face_spatial(x)), ...) {
+  change_geom(x, st_normalize, domain = domain, ...)
 }
 # TODO: issue on cubble, precision attribute is not set when
 # called on cubble object
@@ -114,6 +114,8 @@ change_geom = function(x, op, ...) {
    x = op(x, ...)
    x = restore_temporal_post_table(x)
    x = face_spatial(x)
+   x$ts  = lapply(x$ts, st_as_sf)
+   x = restore_spatial_post_table(x)
    x
  }
 }
