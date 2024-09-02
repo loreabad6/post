@@ -1,12 +1,12 @@
 #' dplyr methods for post_table
-#' @name dplyr
+#' @name dplyr-post-table
 #'
 #' @details
 #' See `??cubble::dplyr` for details
 #' @param data,.data,x a post_table object
 #' @param ... see corresponding function in package dplyr
 #'
-#' @rdname dplyr
+#' @rdname dplyr-post-table
 #' @inheritParams dplyr::dplyr_reconstruct
 #' @importFrom dplyr dplyr_reconstruct
 #' @export
@@ -15,7 +15,7 @@ dplyr_reconstruct.post_table = function(data, template) {
   NextMethod()
 }
 
-#' @rdname dplyr
+#' @rdname dplyr-post-table
 #' @importFrom dplyr arrange
 #' @export
 arrange.post_table = function(.data, ...) {
@@ -27,7 +27,7 @@ arrange.post_table = function(.data, ...) {
     restore_spatial_post_table(out)
   }
 }
-#' @rdname dplyr
+#' @rdname dplyr-post-table
 #' @importFrom dplyr filter
 #' @export
 filter.post_table = function(.data, ...) {
@@ -39,14 +39,14 @@ filter.post_table = function(.data, ...) {
     restore_spatial_post_table(out)
   }
 }
-#' @rdname dplyr
+#' @rdname dplyr-post-table
 #' @importFrom dplyr group_by
 #' @export
 group_by.post_table = function(.data, ...) {
   out = NextMethod()
   restore_post_table(out)
 }
-#' @rdname dplyr
+#' @rdname dplyr-post-table
 #' @importFrom dplyr mutate
 #' @export
 mutate.post_table = function(.data, ...) {
@@ -58,7 +58,7 @@ mutate.post_table = function(.data, ...) {
     restore_spatial_post_table(out)
   }
 }
-#' @rdname dplyr
+#' @rdname dplyr-post-table
 #' @importFrom dplyr rename
 #' @export
 rename.post_table = function(.data, ...) {
@@ -66,14 +66,14 @@ rename.post_table = function(.data, ...) {
   out = NextMethod()
   restore_post_table(out)
 }
-#' @rdname dplyr
+#' @rdname dplyr-post-table
 #' @importFrom dplyr rowwise
 #' @export
 rowwise.post_table = function(data, ...) {
   out = NextMethod()
   restore_post_table(out)
 }
-#' @rdname dplyr
+#' @rdname dplyr-post-table
 #' @importFrom dplyr select
 #' @export
 select.post_table = function(.data, ...) {
@@ -86,7 +86,7 @@ select.post_table = function(.data, ...) {
     restore_spatial_post_table(out)
   }
 }
-#' @rdname dplyr
+#' @rdname dplyr-post-table
 #' @importFrom dplyr ungroup
 #' @export
 ungroup.post_table = function(x, ...) {
@@ -96,7 +96,7 @@ ungroup.post_table = function(x, ...) {
 
 #' @details
 #' See `?sf::tidyverse` for details
-#' @rdname dplyr
+#' @rdname dplyr-post-table
 #' @inheritParams sf::tidyverse
 #' @importFrom dplyr slice
 #' @export
@@ -108,4 +108,56 @@ slice.post_table = function(.data, ..., .dots) {
     out = NextMethod()
     restore_spatial_post_table(out)
   }
+}
+
+
+#' dplyr methods for post_array
+#' @name dplyr-post-array
+#'
+#' @details
+#' See `?stars::dplyr` for details
+#' @param data,.data,x a post_array object
+#' @param ... see corresponding function in package dplyr
+#'
+#' @rdname dplyr-post-array
+#' @importFrom dplyr filter
+#' @export
+filter.post_array = function(.data, ...) {
+  out = NextMethod()
+  restore_post_array(out, .data)
+}
+#' @rdname dplyr-post-array
+#' @importFrom dplyr mutate
+#' @export
+mutate.post_array = function(.data, ...) {
+  out = NextMethod()
+  restore_post_array(out, .data)
+}
+#' @rdname dplyr-post-array
+#' @importFrom dplyr rename
+#' @export
+rename.post_array = function(data, ...) {
+  out = NextMethod()
+  restore_post_array(out, data)
+}
+#' @rdname dplyr-post-array
+#' @importFrom dplyr select
+#' @export
+select.post_array = function(.data, ...) {
+  out = NextMethod()
+  restore_post_array(out, .data)
+}
+#' @rdname dplyr-post-array
+#' @importFrom dplyr slice
+#' @export
+slice.post_array = function(.data, ..., drop = FALSE) {
+  out = NextMethod()
+  restore_post_array(out, .data)
+}
+#' @rdname dplyr-post-array
+#' @importFrom dplyr transmute
+#' @export
+transmute.post_array = function(.data, ...) {
+  out = NextMethod()
+  restore_post_array(out, .data)
 }

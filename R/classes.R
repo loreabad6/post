@@ -59,7 +59,10 @@ restore_post_array = function(x, x_orig) {
   # Extract sf_column name, default to first sfc attribute in stars object
   sf_column = names(lapply(x, \(i) inherits(i, "sfc")))[[1]]
   # Identify spatial dimension
-  sf_dim = names(which(sapply(st_dimensions(x_orig), \(i) inherits(i$value, "sfc"))))[1]
+  sf_dim = names(
+    which(
+      sapply(st_dimensions(x_orig), \(i) inherits(i$value, "sfc"))
+  ))[1]
   # Extract to and from indices for spatial dimension
   from = stars::st_dimensions(x)[[sf_dim]]$from
   to = stars::st_dimensions(x)[[sf_dim]]$to
