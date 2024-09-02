@@ -12,7 +12,7 @@
 #' @importFrom sf `st_geometry<-`
 #' @importFrom tidyr unnest
 #' @export
-st_as_sf.post_table = function(x, ...) {
+st_as_sf.post_table = function(x) {
   # Check if post_table is in spatial form
   if("temporal_cubble_df" %in% class(x)) {
     x = face_spatial(x)
@@ -120,12 +120,13 @@ change_geom = function(x, op, ...) {
  }
 }
 
-# #' sf methods for post_array objects
-# #'
-# #' @param x a post_array object
-# #' @name sf-post_array
-# #' @importFrom sf st_as_sf
-# #' @export
-# st_as_sf.post_array = function() {
-#
-# }
+#' sf methods for post_array objects
+#'
+#' @param x a post_array object
+#' @name sf-post_array
+#' @importFrom dplyr as_tibble
+#' @importFrom sf st_as_sf
+#' @export
+st_as_sf.post_array = function(x) {
+  sf::st_as_sf(dplyr::as_tibble(x), sf_column_name = attr(x, "sf_column"))
+}
