@@ -126,9 +126,25 @@ change_geom = function(x, op, ...) {
 #'
 #' @param x a post_array object
 #' @name sf-post-array
-#' @importFrom dplyr as_tibble
+#' @importFrom dplyr as_tibble last_col relocate
+#' @importFrom rlang `!!` sym
 #' @importFrom sf st_as_sf
 #' @export
 st_as_sf.post_array = function(x) {
-  sf::st_as_sf(dplyr::as_tibble(x), sf_column_name = attr(x, "sf_column"))
+  sf_dim = names(
+    which(
+      sapply(st_dimensions(x_orig), \(i) inherits(i$value, "sfc"))
+    ))[1]
+  group_id_colname = attr(x, "group_id_colname")
+  out = sf::st_as_sf(dplyr::as_tibble(x), sf_column_name = attr(x, "sf_column"))
+  out[group_id_colname] = rep(
+    attr(x, "group_ids"),
+    times = dim(x)[[sf_dim]]
+  )
+  out = dplyr::relocate(out, !!rlang::sym(group_id_colname))
+  dplyr::relocate(
+    out,
+    names(st_dimensions(x)), attr(x, "sf_column"),
+    .after = dplyr::last_col()
+  )
 }
