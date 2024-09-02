@@ -132,7 +132,7 @@ as_post_table.post_array = function(x, ...) {
   }
 
   x_ = cubble::as_cubble(
-    data = x,
+    data = remove_post_array(x),
     # key = geom_sum should be used here but
     # it works when creating the cubble object while the algorithm
     # to display the temporal face gets stuck as it tries to add a
