@@ -40,16 +40,17 @@ reference:
 - title: "Compatibility with other packages"
 - subtitle: "With sf"
   contents:
-  - sf-post_table
+  - sf-post-table
+  - sf_post-array
 - subtitle: "With cubble"
   contents:
   - cubble-face
   - cubble-attrs
 - subtitle: "With dplyr"
   desc: >
-    post supports most of the {dplyr} verbs supported by {cubble} except for
-    those when the result would not be a post object anymore
-    e.g. `dplyr::summarise`.
+    post supports most of the {dplyr} verbs supported by {cubble} and {stars}
+    except for those when the result would not be a post object anymore
+    e.g. `dplyr::summarise`, `dplyr::pull`.
   contents:
-  - dplyr
-
+  - dplyr-post-table
+  - dplyr-post-array

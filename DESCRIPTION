@@ -19,10 +19,11 @@ Imports:
     dplyr,
     rlang,
     sf,
-    stars,
+    stars (>= 0.6-7),
     tidyr
 Remotes: 
     huizezhang-sherry/cubble
+    loreabad6/stars@to_df
 URL: https://loreabad6.github.io/post/
 Suggests: 
     knitr,
