@@ -119,7 +119,17 @@ as_post_table.sf = function(x,
 #'
 #' @export
 as_post_table.post_array = function(x, ...) {
-  # TODO: add argument drop_empty = TRUE to drop empry geometries
+  # TODO: add argument drop_empty = TRUE to drop empty geometries
+  # TODO: get time_column by checking dimension refsys
+  # refsys_time = c("POSIXct", "POSIXt", "Date", "PCICt")
+  # ## If there are more than two temporal dimensions, the first one is taken
+  # tm = names(which(sapply(
+  #   st_dimensions(x),
+  #   function(i) any(i$refsys %in% refsys_time))))[1]
+
+  if(dim(x)[[attr(x, "time_column")]] <= 1) {
+    stop("post_table requires at least two time values", call. = FALSE)
+  }
 
   x_ = cubble::as_cubble(
     data = x,
