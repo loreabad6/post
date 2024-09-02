@@ -12,7 +12,7 @@
 \alias{st_zm.post_table}
 \title{sf methods for post_table objects}
 \usage{
-\method{st_as_sf}{post_table}(x)
+\method{st_as_sf}{post_table}(x, ...)
 
 \method{st_crs}{post_table}(x) <- value
 
@@ -31,13 +31,13 @@ st_set_crs.post_table(x, value)
 \arguments{
 \item{x}{a post_table object}
 
+\item{...}{additional arguments passed onto the respective sf function}
+
 \item{value}{one of (i) character: a string accepted by GDAL, (ii) integer, a valid EPSG value (numeric), or (iii) an object of class \code{crs}.}
 
 \item{domain}{The domain \code{x} should be normalized from as a length 4
 vector of the form \code{c(xmin, ymin, xmax, ymax)}. Defaults to the
 bounding box of \code{x}}
-
-\item{...}{additional arguments passed onto the respective sf function}
 
 \item{crs}{target coordinate reference system: object of class \code{crs}, or input string for \link[sf]{st_crs}}
 }

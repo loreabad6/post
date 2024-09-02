@@ -12,7 +12,7 @@
 #' @importFrom sf `st_geometry<-`
 #' @importFrom tidyr unnest
 #' @export
-st_as_sf.post_table = function(x) {
+st_as_sf.post_table = function(x, ...) {
   # Check if post_table is in spatial form
   if("temporal_cubble_df" %in% class(x)) {
     x = face_spatial(x)
@@ -125,6 +125,7 @@ change_geom = function(x, op, ...) {
 #' sf methods for post_array objects
 #'
 #' @param x a post_array object
+#' @param ... other arguments passed on to `sf::st_as_sf()`
 #' @name sf-post-array
 #' @details
 #' `sf::st_as_sf()` for post_array objects sets the changing geometry as the
@@ -133,17 +134,26 @@ change_geom = function(x, op, ...) {
 #' @importFrom rlang `!!` sym
 #' @importFrom sf st_as_sf
 #' @export
-st_as_sf.post_array = function(x) {
+st_as_sf.post_array = function(x, ...) {
+  # Get the spatial dimension name
   sf_dim = names(
     which(
-      sapply(st_dimensions(x_orig), \(i) inherits(i$value, "sfc"))
+      sapply(st_dimensions(x), \(i) inherits(i$value, "sfc"))
     ))[1]
+  # Fetch the group_id column name from attributes
   group_id_colname = attr(x, "group_id_colname")
-  out = sf::st_as_sf(dplyr::as_tibble(x), sf_column_name = attr(x, "sf_column"))
+  # Convert to sf by first parsing to tibble
+  out = sf::st_as_sf(
+    dplyr::as_tibble(x),
+    sf_column_name = attr(x, "sf_column"),
+    ...
+  )
+  # Regenerate group_id column
   out[group_id_colname] = rep(
     attr(x, "group_ids"),
     times = dim(x)[[sf_dim]]
   )
+  # Reorganise sf columns
   out = dplyr::relocate(out, !!rlang::sym(group_id_colname))
   dplyr::relocate(
     out,

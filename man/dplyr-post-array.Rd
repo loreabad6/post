@@ -14,18 +14,18 @@
 
 \method{mutate}{post_array}(.data, ...)
 
-\method{rename}{post_array}(data, ...)
+\method{rename}{post_array}(.data, ...)
 
 \method{select}{post_array}(.data, ...)
 
-\method{slice}{post_array}(.data, ..., drop = FALSE)
+\method{slice}{post_array}(.data, ...)
 
 \method{transmute}{post_array}(.data, ...)
 }
 \arguments{
 \item{...}{see corresponding function in package dplyr}
 
-\item{data, .data, x}{a post_array object}
+\item{data, .data}{a post_array object}
 }
 \description{
 dplyr methods for post_array

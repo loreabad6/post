@@ -116,7 +116,7 @@ slice.post_table = function(.data, ..., .dots) {
 #'
 #' @details
 #' See `?stars::dplyr` for details
-#' @param data,.data,x a post_array object
+#' @param data,.data a post_array object
 #' @param ... see corresponding function in package dplyr
 #'
 #' @rdname dplyr-post-array
@@ -136,9 +136,9 @@ mutate.post_array = function(.data, ...) {
 #' @rdname dplyr-post-array
 #' @importFrom dplyr rename
 #' @export
-rename.post_array = function(data, ...) {
+rename.post_array = function(.data, ...) {
   out = NextMethod()
-  restore_post_array(out, data)
+  restore_post_array(out, .data)
 }
 #' @rdname dplyr-post-array
 #' @importFrom dplyr select
@@ -150,7 +150,8 @@ select.post_array = function(.data, ...) {
 #' @rdname dplyr-post-array
 #' @importFrom dplyr slice
 #' @export
-slice.post_array = function(.data, ..., drop = FALSE) {
+slice.post_array = function(.data, ...) {
+  # TODO: document that drop=TRUE should be used if then coercing to post_table
   out = NextMethod()
   restore_post_array(out, .data)
 }

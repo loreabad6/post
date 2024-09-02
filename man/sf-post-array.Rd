@@ -5,10 +5,12 @@
 \alias{st_as_sf.post_array}
 \title{sf methods for post_array objects}
 \usage{
-\method{st_as_sf}{post_array}(x)
+\method{st_as_sf}{post_array}(x, ...)
 }
 \arguments{
 \item{x}{a post_array object}
+
+\item{...}{other arguments passed on to \code{sf::st_as_sf()}}
 }
 \description{
 sf methods for post_array objects
