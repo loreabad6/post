@@ -13,3 +13,7 @@
 \description{
 sf methods for post_array objects
 }
+\details{
+\code{sf::st_as_sf()} for post_array objects sets the changing geometry as the
+active sf_column but keeps the summarised geometry in a separate column.
+}

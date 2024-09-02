@@ -126,6 +126,9 @@ change_geom = function(x, op, ...) {
 #'
 #' @param x a post_array object
 #' @name sf-post-array
+#' @details
+#' `sf::st_as_sf()` for post_array objects sets the changing geometry as the
+#' active sf_column but keeps the summarised geometry in a separate column.
 #' @importFrom dplyr as_tibble last_col relocate
 #' @importFrom rlang `!!` sym
 #' @importFrom sf st_as_sf
