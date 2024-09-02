@@ -2,9 +2,9 @@
 #'
 #' @param x a post_table object
 #' @param ... additional arguments passed onto the respective sf function
-#' @name sf-post_table
+#' @name sf-post-table
 
-#' @rdname sf-post_table
+#' @rdname sf-post-table
 #' @details
 #' `sf::st_as_sf()` for post_table objects sets the changing geometry as the
 #' active sf_column but keeps the summarised geometry in a separate column.
@@ -28,21 +28,21 @@ st_as_sf.post_table = function(x) {
   st_geometry(out) = sf_column_ts
   out
 }
-#' @rdname sf-post_table
+#' @rdname sf-post-table
 #' @importFrom sf `st_crs<-`
 #' @inheritParams sf::`st_crs<-`
 #' @export
 `st_crs<-.post_table` = function(x, value) {
   change_geom(x, `st_crs<-`, value)
 }
-#' @rdname sf-post_table
+#' @rdname sf-post-table
 #' @importFrom sf st_set_crs
 #' @inheritParams sf::st_set_crs
 #' @export
 st_set_crs.post_table = function(x, value) {
   change_geom(x, st_set_crs, value)
 }
-#' @rdname sf-post_table
+#' @rdname sf-post-table
 #' @details
 #' st_normalize takes as domain the bounding box of the post_table
 #' in the nested form (spatial face)
@@ -54,38 +54,40 @@ st_normalize.post_table = function(x, domain = st_bbox(face_spatial(x)), ...) {
 }
 # TODO: issue on cubble, precision attribute is not set when
 # called on cubble object
+# #' @rdname sf-post-table
 # #' @importFrom sf `st_precision<-`
 # #' @export
 # `st_precision<-.post_table` = function() {
 #
 # }
+# #' @rdname sf-post-table
 # #' @importFrom sf st_set_precision
 # #' @export
 # st_set_precision.post_table = function() {
 #
 # }
-#' @rdname sf-post_table
+#' @rdname sf-post-table
 #' @importFrom sf st_shift_longitude
 #' @inheritParams sf::st_shift_longitude
 #' @export
 st_shift_longitude.post_table = function(x, ...) {
   change_geom(x, st_shift_longitude, ...)
 }
-#' @rdname sf-post_table
+#' @rdname sf-post-table
 #' @importFrom sf st_transform
 #' @inheritParams sf::st_transform
 #' @export
 st_transform.post_table = function(x, crs, ...) {
   change_geom(x, st_transform, crs, ...)
 }
-#' @rdname sf-post_table
+#' @rdname sf-post-table
 #' @importFrom sf st_wrap_dateline
 #' @inheritParams sf::st_wrap_dateline
 #' @export
 st_wrap_dateline.post_table = function(x, ...) {
   change_geom(x, st_wrap_dateline, ...)
 }
-#' @rdname sf-post_table
+#' @rdname sf-post-table
 #' @importFrom sf st_zm
 #' @inheritParams sf::st_zm
 #' @export
@@ -123,7 +125,7 @@ change_geom = function(x, op, ...) {
 #' sf methods for post_array objects
 #'
 #' @param x a post_array object
-#' @name sf-post_array
+#' @name sf-post-array
 #' @importFrom dplyr as_tibble
 #' @importFrom sf st_as_sf
 #' @export
