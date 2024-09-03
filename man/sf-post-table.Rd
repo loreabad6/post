@@ -15,7 +15,11 @@
 
 \method{st_crs}{post_table}(x) <- value
 
-\method{st_normalize}{post_table}(x, domain = st_bbox(face_spatial(x)), ...)
+\method{st_normalize}{post_table}(
+  x,
+  domain = st_bbox(suppressMessages(face_spatial(x), "cliMessage")),
+  ...
+)
 
 \method{st_shift_longitude}{post_table}(x, ...)
 

@@ -168,13 +168,14 @@ as_post_array.sf = function(x,
 }
 
 #' @rdname as_post_array
-#'
 #' @importFrom sf st_as_sfc st_as_sf
-#'
 #' @export
 as_post_array.post_table = function(x, ...) {
   # Identify sf_column for summary geometries
-  sf_column_sum = attr(face_spatial(x), "sf_column")
+  sf_column_sum = attr(
+    suppressMessages(face_spatial(x), "cliMessage"),
+    "sf_column"
+  )
 
   # Coerce to sf using post_table method
   x_ = sf::st_as_sf(x)

@@ -42,7 +42,10 @@ st_as_sf.post_table = function(x, ...) {
 #' @importFrom sf st_normalize
 #' @inheritParams sf::st_normalize
 #' @export
-st_normalize.post_table = function(x, domain = st_bbox(face_spatial(x)), ...) {
+st_normalize.post_table = function(
+    x,
+    domain = st_bbox(suppressMessages(face_spatial(x), "cliMessage")),
+    ...) {
   change_geom(x, st_normalize, domain = domain, ...)
 }
 # TODO: issue on cubble, precision attribute is not set when
