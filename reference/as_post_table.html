@@ -83,6 +83,9 @@ to the temporal face of the cube.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'post_array'</span></span>
+<span><span class="fu">as_post_table</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, drop_empty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'post_table'</span></span>
 <span><span class="fu">as_post_table</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -122,6 +125,11 @@ summarise_geometry function.</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>additional parameters passed on to <code>geometry_summary</code> function.</p></dd>
+
+
+<dt id="arg-drop-empty">drop_empty<a class="anchor" aria-label="anchor" href="#arg-drop-empty"></a></dt>
+<dd><p>(logical) should empty geometries be dropped
+during post_table creation? Defaults to TRUE</p></dd>
 
 </dl></div>
     <div class="section level2">

@@ -90,6 +90,23 @@
 
 
     </div><div class="section level2">
+      <h2 id="utilities">Utilities<a class="anchor" aria-label="anchor" href="#utilities"></a></h2>
+
+
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="utils-post-array.html">get_group_ids()</a></code>
+
+        </dt>
+        <dd>Utility functions for post_array objects</dd>
+      </dl></div><div class="section level2">
       <h2 id="built-in-data">Built-in data<a class="anchor" aria-label="anchor" href="#built-in-data"></a></h2>
 
 
@@ -113,23 +130,6 @@
 
 
     </div><div class="section level2">
-
-      <h3 id="with-sf">With sf<a class="anchor" aria-label="anchor" href="#with-sf"></a></h3>
-
-
-
-    </div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="sf-post_table.html">st_as_sf(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post_table.html">`st_crs&lt;-`(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post_table.html">st_set_crs.post_table()</a></code> <code><a href="sf-post_table.html">st_normalize(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post_table.html">st_shift_longitude(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post_table.html">st_transform(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post_table.html">st_wrap_dateline(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post_table.html">st_zm(<i>&lt;post_table&gt;</i>)</a></code>
-
-        </dt>
-        <dd>sf methods for post_table objects</dd>
-      </dl></div><div class="section level2">
 
       <h3 id="with-cubble">With cubble<a class="anchor" aria-label="anchor" href="#with-cubble"></a></h3>
 
@@ -155,7 +155,7 @@
       </dl></div><div class="section level2">
 
       <h3 id="with-dplyr">With dplyr<a class="anchor" aria-label="anchor" href="#with-dplyr"></a></h3>
-      <div class="section-desc"><p>post supports most of the {dplyr} verbs supported by {cubble} except for those when the result would not be a post object anymore e.g. <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">dplyr::summarise</a></code>.</p></div>
+      <div class="section-desc"><p>post supports most of the {dplyr} verbs supported by {cubble} and {stars} except for those when the result would not be a post object anymore e.g. <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">dplyr::summarise</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">dplyr::pull</a></code>.</p></div>
 
 
     </div><div class="section level2">
@@ -165,10 +165,56 @@
 
       <dl><dt>
 
-          <code><a href="dplyr.html">dplyr_reconstruct(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr.html">arrange(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr.html">filter(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr.html">group_by(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr.html">mutate(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr.html">rename(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr.html">rowwise(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr.html">select(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr.html">ungroup(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr.html">slice(<i>&lt;post_table&gt;</i>)</a></code>
+          <code><a href="dplyr-post-table.html">dplyr_reconstruct(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr-post-table.html">arrange(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr-post-table.html">filter(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr-post-table.html">group_by(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr-post-table.html">mutate(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr-post-table.html">rename(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr-post-table.html">rowwise(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr-post-table.html">select(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr-post-table.html">ungroup(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="dplyr-post-table.html">slice(<i>&lt;post_table&gt;</i>)</a></code>
 
         </dt>
         <dd>dplyr methods for post_table</dd>
+      </dl><dl><dt>
+
+          <code><a href="dplyr-post-array.html">filter(<i>&lt;post_array&gt;</i>)</a></code> <code><a href="dplyr-post-array.html">mutate(<i>&lt;post_array&gt;</i>)</a></code> <code><a href="dplyr-post-array.html">rename(<i>&lt;post_array&gt;</i>)</a></code> <code><a href="dplyr-post-array.html">select(<i>&lt;post_array&gt;</i>)</a></code> <code><a href="dplyr-post-array.html">slice(<i>&lt;post_array&gt;</i>)</a></code> <code><a href="dplyr-post-array.html">transmute(<i>&lt;post_array&gt;</i>)</a></code>
+
+        </dt>
+        <dd>dplyr methods for post_array</dd>
+      </dl></div><div class="section level2">
+
+      <h3 id="with-sf">With sf<a class="anchor" aria-label="anchor" href="#with-sf"></a></h3>
+
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="sf-post-table.html">st_as_sf(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post-table.html">`st_crs&lt;-`(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post-table.html">st_set_crs.post_table()</a></code> <code><a href="sf-post-table.html">st_normalize(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post-table.html">st_shift_longitude(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post-table.html">st_transform(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post-table.html">st_wrap_dateline(<i>&lt;post_table&gt;</i>)</a></code> <code><a href="sf-post-table.html">st_zm(<i>&lt;post_table&gt;</i>)</a></code>
+
+        </dt>
+        <dd>sf methods for post_table objects</dd>
+      </dl><dl><dt>
+
+          <code><a href="sf-post-array.html">st_as_sf(<i>&lt;post_array&gt;</i>)</a></code>
+
+        </dt>
+        <dd>sf methods for post_array objects</dd>
+      </dl></div><div class="section level2">
+
+      <h3 id="with-stars">With stars<a class="anchor" aria-label="anchor" href="#with-stars"></a></h3>
+
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="stars.html">`[`(<i>&lt;post_array&gt;</i>)</a></code>
+
+        </dt>
+        <dd>stars methods for post_array objects</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
