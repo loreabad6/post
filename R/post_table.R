@@ -68,16 +68,8 @@ as_post_table.sf = function(x,
   x = x[order(x[[group_id]], x[[time_column_name]]), ]
 
   # Compute geometry summary
-  geom_sum = if(is.function(geometry_summary)) {
-    geometry_summary(x, group_id, sf_column_name, ...)
-  } else if (inherits(geometry_summary, "sfc")) {
-    if(length(geometry_summary) != length(unique(x[[group_id]]))) {
-      stop("geometry_summary has more geometries than groups", call. = FALSE)
-    }
-    geometry_summary
-  } else {
-    stop("geometry_summary not recognized", call. = FALSE)
-  }
+  geom_sum = check_geometry_summary(x, geometry_summary,
+                                    group_id, sf_column_name)
 
   # Combine summary geometry as a data frame with the original x object
   geom_sum_df = sf::st_sf(

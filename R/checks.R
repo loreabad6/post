@@ -73,3 +73,23 @@ check_sf_column = function(x = x, sf_column_name = NULL) {
   sf_column_name
 }
 
+check_geometry_summary = function(x = x,
+                                  geometry_summary = NULL,
+                                  group_id = NULL,
+                                  sf_column_name = NULL,
+                                  ...) {
+  if(is.function(geometry_summary)) {
+    geometry_summary(x, group_id, sf_column_name, ...)
+  } else if (inherits(geometry_summary, "sfc")) {
+    if(length(geometry_summary) != length(unique(x[[group_id]]))) {
+      stop("geometry_summary has more geometries than groups", call. = FALSE)
+      # cli::cli_abort(c(
+      #   "{length(geometry_summary)} geometry_summary row{?s} provided but {length(unique(x[[group_id]]))} group{?s} present",
+      #   "x" = "number of geometry_summary rows and groups do not match"
+      # ))
+    }
+    geometry_summary
+  } else {
+    stop("geometry_summary not recognised", call. = FALSE)
+  }
+}

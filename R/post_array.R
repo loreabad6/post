@@ -128,16 +128,8 @@ as_post_array.sf = function(x,
   names(a_attr) = attrs
 
   # Compute geometry summary
-  geom_sum = if(is.function(geometry_summary)) {
-    geometry_summary(x, group_id, sf_column_name, ...)
-  } else if (inherits(geometry_summary, "sfc")) {
-    if(length(geometry_summary) != length(unique(x[[group_id]]))) {
-      stop("geometry_summary has more geometries than groups", call. = FALSE)
-    }
-    geometry_summary
-  } else {
-    stop("geometry_summary not recognised", call. = FALSE)
-  }
+  geom_sum = check_geometry_summary(x, geometry_summary,
+                                    group_id, sf_column_name)
 
   # Create dimensions object
   d = stars::st_dimensions(
