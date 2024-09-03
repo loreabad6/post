@@ -112,14 +112,13 @@ as_post_table.sf = function(x,
 }
 
 #' @rdname as_post_table
-#'
+#' @param drop_empty (logical) should empty geometries be dropped
+#' during post_table creation? Defaults to TRUE
 #' @importFrom cubble as_cubble update_cubble
 #' @importFrom dplyr relocate
 #' @importFrom rlang `!!` sym
-#'
 #' @export
-as_post_table.post_array = function(x, ...) {
-  # TODO: add argument drop_empty = TRUE to drop empty geometries
+as_post_table.post_array = function(x, drop_empty = TRUE, ...) {
   # TODO: get time_column by checking dimension refsys
   # refsys_time = c("POSIXct", "POSIXt", "Date", "PCICt")
   # ## If there are more than two temporal dimensions, the first one is taken
@@ -145,6 +144,15 @@ as_post_table.post_array = function(x, ...) {
     index = !!rlang::sym(attr(x, "time_column"))
   )
 
+  # Drop empty geometries
+  if(drop_empty) {
+    x_ = face_spatial(
+      filter(
+        face_temporal(x_),
+        !st_is_empty(!!rlang::sym(attr(x, "sf_column")))
+      )
+    )
+  }
   # Restore original group_id column name and values when coercing to
   # post_table
   # All those values are stored as attributes of post_array
@@ -159,7 +167,7 @@ as_post_table.post_array = function(x, ...) {
 
   out = cubble::update_cubble(x_, key = group_id_name)
 
-  # Coerce ts values to changing geometries to sf class
+  # Coerce ts values changing geometries to sf class
   out$ts  = lapply(out$ts, st_as_sf)
 
   # Return post_array object with respective structure

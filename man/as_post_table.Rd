@@ -25,7 +25,7 @@ as_post_table(
   ...
 )
 
-\method{as_post_table}{post_array}(x, ...)
+\method{as_post_table}{post_array}(x, drop_empty = TRUE, ...)
 
 \method{as_post_table}{post_table}(x, ...)
 }
@@ -51,6 +51,9 @@ See summarise_geometry for functions or pass your own
 summarise_geometry function.}
 
 \item{...}{additional parameters passed on to \code{geometry_summary} function.}
+
+\item{drop_empty}{(logical) should empty geometries be dropped
+during post_table creation? Defaults to TRUE}
 }
 \value{
 an object of class \code{post_table}.
