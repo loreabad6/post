@@ -202,4 +202,19 @@ as_post_array.post_array = function(x, ...) {
   x
 }
 
+#' Utility functions for post_array objects
+#' @name utils-post-array
+#'
+#' @rdname utils-post-array
+#' @details
+#' `get_group_ids()` gets the group_id values of the post_array object as a named data.frame
+#' @param x a post_array object
+#' @return a data.frame with the group_id values
+#' @export
+get_group_ids = function(x) {
+  out = as.data.frame(attr(x, "group_ids"))
+  names(out) = attr(x, "group_id_colname")
+  out
+}
+
 # TODO: create accessor function to group id names and column name
