@@ -44,3 +44,5 @@ spatial.post_table = function(data) {
   data = remove_post_table(data)
   cubble::spatial(data)
 }
+
+# TODO: issue on cubble: handling empty cubble objects
