@@ -36,15 +36,8 @@ st_as_sf.post_table = function(x, ...) {
   change_geom(x, `st_crs<-`, value)
 }
 #' @rdname sf-post-table
-#' @importFrom sf st_set_crs
-#' @inheritParams sf::st_set_crs
-#' @export
-st_set_crs.post_table = function(x, value) {
-  change_geom(x, st_set_crs, value)
-}
-#' @rdname sf-post-table
 #' @details
-#' st_normalize takes as domain the bounding box of the post_table
+#' `st_normalize()` takes as domain the bounding box of the post_table
 #' in the nested form (spatial face)
 #' @importFrom sf st_normalize
 #' @inheritParams sf::st_normalize

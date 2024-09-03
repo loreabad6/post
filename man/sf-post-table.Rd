@@ -4,7 +4,6 @@
 \alias{sf-post-table}
 \alias{st_as_sf.post_table}
 \alias{st_crs<-.post_table}
-\alias{st_set_crs.post_table}
 \alias{st_normalize.post_table}
 \alias{st_shift_longitude.post_table}
 \alias{st_transform.post_table}
@@ -15,8 +14,6 @@
 \method{st_as_sf}{post_table}(x, ...)
 
 \method{st_crs}{post_table}(x) <- value
-
-st_set_crs.post_table(x, value)
 
 \method{st_normalize}{post_table}(x, domain = st_bbox(face_spatial(x)), ...)
 
@@ -48,6 +45,6 @@ sf methods for post_table objects
 \code{sf::st_as_sf()} for post_table objects sets the changing geometry as the
 active sf_column but keeps the summarised geometry in a separate column.
 
-st_normalize takes as domain the bounding box of the post_table
+\code{st_normalize()} takes as domain the bounding box of the post_table
 in the nested form (spatial face)
 }
