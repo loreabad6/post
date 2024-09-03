@@ -25,7 +25,7 @@ as_post_table(
   ...
 )
 
-\method{as_post_table}{post_array}(x, drop_empty = TRUE, ...)
+\method{as_post_table}{post_array}(x, ..., drop_empty = TRUE)
 
 \method{as_post_table}{post_table}(x, ...)
 }
