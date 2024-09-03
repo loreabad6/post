@@ -24,7 +24,8 @@ as_post_array(
   sf_column_name = NULL,
   geometry_summary = summarise_geometry_centroid,
   geometry_summary_name = NULL,
-  ...
+  ...,
+  point_st = c(TRUE, FALSE)
 )
 
 \method{as_post_array}{post_table}(x, ...)
@@ -56,6 +57,10 @@ summarise_geometry function.}
 geometries.Defaults to "geom_sum"}
 
 \item{...}{additional parameters passed on to \code{geometry_summary} function.}
+
+\item{point_st}{point argument passed onto \code{stars::st_dimensions()}.
+Defaults to \code{TRUE} for the spatial dimension and to \code{FALSE} for the
+temporal dimension (assumes interval times)}
 }
 \value{
 an object of class \code{post_array}.

@@ -67,7 +67,9 @@ as_post_array = function(x,
 }
 
 #' @rdname as_post_array
-#'
+#' @param point_st point argument passed onto `stars::st_dimensions()`.
+#' Defaults to `TRUE` for the spatial dimension and to `FALSE` for the
+#' temporal dimension (assumes interval times)
 #' @importFrom rlang `!!` sym
 #' @importFrom sf st_agr st_drop_geometry st_geometry_type
 #' @importFrom stars st_dimensions st_as_stars
@@ -80,7 +82,8 @@ as_post_array.sf = function(x,
                             sf_column_name = NULL,
                             geometry_summary = summarise_geometry_centroid,
                             geometry_summary_name = NULL,
-                            ...) {
+                            ...,
+                            point_st = c(TRUE, FALSE)) {
 
   # Set argument defaults
   # group_id: Defaults to the first column of x, if not sfc or temporal class
@@ -133,17 +136,14 @@ as_post_array.sf = function(x,
     }
     geometry_summary
   } else {
-    stop("geometry_summary not recognized", call. = FALSE)
+    stop("geometry_summary not recognised", call. = FALSE)
   }
 
   # Create dimensions object
   d = stars::st_dimensions(
     geom_sum = geom_sum,
     temporal = unique(x[[time_column_name]]),
-    # TODO: handle point parameter if more than two dimensions
-    # The point parameter indicates if the value refers to
-    # a point (location) or to a pixel (area) value
-    point = c(TRUE, FALSE)
+    point = point_st
   )
 
   names(d) = c(geometry_summary_name, time_column_name)
@@ -216,5 +216,3 @@ get_group_ids = function(x) {
   names(out) = attr(x, "group_id_colname")
   out
 }
-
-# TODO: create accessor function to group id names and column name
