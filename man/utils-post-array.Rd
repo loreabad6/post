@@ -17,5 +17,6 @@ a data.frame with the group_id values
 Utility functions for post_array objects
 }
 \details{
-\code{get_group_ids()} gets the group_id values of the post_array object as a named data.frame
+\code{get_group_ids()} gets the group_id values of the post_array object as a
+named data.frame
 }

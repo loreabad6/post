@@ -208,7 +208,8 @@ as_post_array.post_array = function(x, ...) {
 #'
 #' @rdname utils-post-array
 #' @details
-#' `get_group_ids()` gets the group_id values of the post_array object as a named data.frame
+#' `get_group_ids()` gets the group_id values of the post_array object as a
+#' named data.frame
 #' @param x a post_array object
 #' @return a data.frame with the group_id values
 #' @export
