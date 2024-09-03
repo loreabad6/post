@@ -151,13 +151,16 @@ st_as_sf.post_array = function(x, ...) {
   # Regenerate group_id column
   out[group_id_colname] = rep(
     attr(x, "group_ids"),
-    times = dim(x)[[sf_dim]]
+    times = dim(x)[[sf_dim]],
+    length.out = prod(dim(x))
   )
   # Reorganise sf columns
   out = dplyr::relocate(out, !!rlang::sym(group_id_colname))
-  dplyr::relocate(
+  out = dplyr::relocate(
     out,
     names(st_dimensions(x)), attr(x, "sf_column"),
     .after = dplyr::last_col()
   )
+  # Reorder the rows
+  out[order(out[[group_id_colname]]), ]
 }
