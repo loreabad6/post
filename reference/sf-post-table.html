@@ -51,10 +51,12 @@
 <span><span class="co"># S3 method for class 'post_table'</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
 <span></span>
-<span><span class="fu">st_set_crs.post_table</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span><span class="op">)</span></span>
-<span></span>
 <span><span class="co"># S3 method for class 'post_table'</span></span>
-<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_normalize.html" class="external-link">st_normalize</a></span><span class="op">(</span><span class="va">x</span>, domain <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">st_bbox</a></span><span class="op">(</span><span class="fu">face_spatial</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_normalize.html" class="external-link">st_normalize</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  domain <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">st_bbox</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="fu">face_spatial</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="st">"cliMessage"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'post_table'</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_shift_longitude.html" class="external-link">st_shift_longitude</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -99,7 +101,7 @@ bounding box of <code>x</code></p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">sf::st_as_sf()</a></code> for post_table objects sets the changing geometry as the
 active sf_column but keeps the summarised geometry in a separate column.</p>
-<p>st_normalize takes as domain the bounding box of the post_table
+<p><code><a href="https://r-spatial.github.io/sf/reference/st_normalize.html" class="external-link">st_normalize()</a></code> takes as domain the bounding box of the post_table
 in the nested form (spatial face)</p>
     </div>
 
