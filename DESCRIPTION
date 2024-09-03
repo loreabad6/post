@@ -21,9 +21,9 @@ Imports:
     sf,
     stars (>= 0.6-7),
     tidyr
-Remotes: 
-    huizezhang-sherry/cubble
-    loreabad6/stars@to_df
+Remotes:  
+    huizezhang-sherry/cubble,
+    r-spatial/stars
 URL: https://loreabad6.github.io/post/
 Suggests: 
     knitr,
