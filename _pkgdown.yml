@@ -33,6 +33,10 @@ reference:
   - summarise_geometry
 - subtitle: "Group geometries"
 
+- title: "Utilities"
+  contents:
+  - utils-post-array
+
 - title: "Built-in data"
   contents:
   - polygons
