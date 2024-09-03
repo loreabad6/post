@@ -163,7 +163,6 @@ as_post_array.sf = function(x,
     group_id_colname = group_id,
     group_ids = sort(unique(x[[group_id]])),
     sf_column = sf_column_name,
-    time_column = time_column_name,
     agr = sf::st_agr(x)
   )
 }
@@ -202,3 +201,5 @@ as_post_array.post_table = function(x, ...) {
 as_post_array.post_array = function(x, ...) {
   x
 }
+
+# TODO: create accessor function to group id names and column name

@@ -73,7 +73,6 @@ restore_post_array = function(x, x_orig) {
     group_id_colname = attr(x_orig, "group_id_colname"),
     group_ids = attr(x_orig, "group_ids")[from:to],
     sf_column = sf_column,
-    time_column = attr(x_orig, "time_column"),
     agr =  sf::st_agr(x)
   )
 }

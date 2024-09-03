@@ -120,17 +120,17 @@ as_post_table.sf = function(x,
 #' @importFrom sf st_is_empty
 #' @export
 as_post_table.post_array = function(x, ..., drop_empty = TRUE) {
-  # TODO: get time_column by checking dimension refsys
-  # refsys_time = c("POSIXct", "POSIXt", "Date", "PCICt")
-  # ## If there are more than two temporal dimensions, the first one is taken
-  # tm = names(which(sapply(
-  #   st_dimensions(x),
-  #   function(i) any(i$refsys %in% refsys_time))))[1]
-
-  if(dim(x)[[attr(x, "time_column")]] <= 1) {
+  # Get time_column by checking dimension refsys
+  refsys_time = c("POSIXct", "POSIXt", "Date", "PCICt")
+  time_dim = names(
+    which(
+      sapply(st_dimensions(x), \(i) any(i$refsys %in% refsys_time))
+    ))[1]
+  # Stop if only one timestamp is present
+  if(dim(x)[[time_dim]] <= 1) {
     stop("post_table requires at least two time values", call. = FALSE)
   }
-
+  # Coerce to cubble
   x_ = cubble::as_cubble(
     data = remove_post_array(x),
     # key = geom_sum should be used here but
@@ -142,9 +142,8 @@ as_post_table.post_array = function(x, ..., drop_empty = TRUE) {
     # call key = id and the cube creation in its spatial and temporal
     # forms will work.
     key = "id",
-    index = !!rlang::sym(attr(x, "time_column"))
+    index = !!rlang::sym(time_dim)
   )
-
   # Drop empty geometries
   if(drop_empty) {
     x_ = cubble::face_spatial(
@@ -175,7 +174,6 @@ as_post_table.post_array = function(x, ..., drop_empty = TRUE) {
   structure(
     out,
     class = c("post_table", class(out)),
-    time_column = attr(x, "time_column"),
     agr = attr(x, "agr")
   )
 }
