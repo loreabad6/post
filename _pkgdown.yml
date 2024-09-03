@@ -38,10 +38,6 @@ reference:
   - polygons
 
 - title: "Compatibility with other packages"
-- subtitle: "With sf"
-  contents:
-  - sf-post-table
-  - sf_post-array
 - subtitle: "With cubble"
   contents:
   - cubble-face
@@ -54,3 +50,11 @@ reference:
   contents:
   - dplyr-post-table
   - dplyr-post-array
+- subtitle: "With sf"
+  contents:
+  - sf-post-table
+  - sf-post-array
+- subtitle: "With stars"
+  contents:
+  - stars
+
