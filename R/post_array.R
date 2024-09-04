@@ -71,7 +71,7 @@ as_post_array = function(x,
 #' Defaults to `TRUE` for the spatial dimension and to `FALSE` for the
 #' temporal dimension (assumes interval times)
 #' @importFrom rlang `!!` sym
-#' @importFrom sf st_agr st_drop_geometry st_geometry_type
+#' @importFrom sf st_agr
 #' @importFrom stars st_dimensions st_as_stars
 #' @importFrom tidyr complete
 #'
