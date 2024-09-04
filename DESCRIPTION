@@ -15,18 +15,21 @@ Depends:
     R (>= 2.10)
 LazyData: true
 Imports: 
+    cli,
     cubble (>= 0.3.2),
     dplyr,
     rlang,
     sf,
     stars (>= 0.6-7),
     tidyr
-Remotes:  
+Remotes: 
     huizezhang-sherry/cubble,
     r-spatial/stars
 URL: https://loreabad6.github.io/post/
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
+Config/testthat/edition: 3
