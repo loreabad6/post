@@ -70,14 +70,6 @@ check_sf_column = function(x = x, sf_column_name = NULL) {
     }
   } else if(is.null(sf_column_name)) {
     sf_column_name = attr(x, "sf_column")
-
-    #### no need for this since a NULL sf_column drops sf class
-    if(is.null(sf_column_name)) {
-      cli::cli_abort(c(
-        "x" = "{.var x} has no geometry column"
-      ))
-    }
-    ###
   }
   # Check if sf_column inherits `sfc`
   if(!inherits(x[[sf_column_name]], "sfc")) {
