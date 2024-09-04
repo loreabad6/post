@@ -71,6 +71,14 @@ as_post_table.sf = function(x,
   geom_sum = check_geometry_summary(x, geometry_summary,
                                     group_id, sf_column_name)
 
+  # Stop if only one timestamp is present
+  if(length(unique(x[[time_column_name]])) <= 1) {
+    cli::cli_abort(c(
+      "{.var x} has only one time value per group",
+      "{.cls post_table} requires at least two time values"
+    ))
+  }
+
   # Combine summary geometry as a data frame with the original x object
   geom_sum_df = sf::st_sf(
     # sort unique IDs since the result of geom_sum is sorted
@@ -120,7 +128,10 @@ as_post_table.post_array = function(x, ..., drop_empty = TRUE) {
     ))[1]
   # Stop if only one timestamp is present
   if(dim(x)[[time_dim]] <= 1) {
-    stop("post_table requires at least two time values", call. = FALSE)
+    cli::cli_abort(c(
+      "{.var x} has only one time value per group",
+      "{.cls post_table} requires at least two time values"
+    ))
   }
   # Coerce to cubble
   x_ = cubble::as_cubble(
