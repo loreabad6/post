@@ -18,7 +18,7 @@ Imports:
     cli,
     cubble (>= 0.3.2),
     dplyr,
-    rlang,
+    rlang  (>= 1.1.4),
     sf,
     stars (>= 0.6-7),
     tidyr
