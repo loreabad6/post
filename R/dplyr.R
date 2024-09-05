@@ -41,13 +41,6 @@ filter.post_table = function(.data, ...) {
   }
 }
 #' @rdname dplyr-post-table
-#' @importFrom dplyr group_by
-#' @export
-group_by.post_table = function(.data, ...) {
-  out = NextMethod()
-  restore_post_table(out)
-}
-#' @rdname dplyr-post-table
 #' @importFrom dplyr mutate
 #' @export
 mutate.post_table = function(.data, ...) {
@@ -87,14 +80,6 @@ select.post_table = function(.data, ...) {
     restore_spatial_post_table(out)
   }
 }
-#' @rdname dplyr-post-table
-#' @importFrom dplyr ungroup
-#' @export
-ungroup.post_table = function(x, ...) {
-  out = NextMethod()
-  restore_post_table(out)
-}
-
 #' @details
 #' See `?sf::tidyverse` for details
 #' @rdname dplyr-post-table
