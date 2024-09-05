@@ -1,4 +1,5 @@
 suppressPackageStartupMessages(library(sf))
+library(stars)
 
 poly = st_point(c(0.5,0.5)) |>
   st_sfc(crs = 4326) |>

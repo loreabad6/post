@@ -1,4 +1,4 @@
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 # group_ids
 test_that("passing an sf object without a proper group_id column fails", {
   err = "no appropriate `group_id` column found"

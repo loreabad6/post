@@ -1,3 +1,5 @@
+library(sf)
+
 test_that("st_as_sf works as expected", {
   expect_snapshot(st_as_sf(as_post_array(polygons)))
   expect_snapshot(st_as_sf(as_post_table(polygons)))

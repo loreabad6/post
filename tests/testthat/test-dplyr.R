@@ -1,3 +1,8 @@
+library(cubble)
+library(dplyr)
+suppressPackageStartupMessages(library(sf))
+suppressPackageStartupMessages(library(stars))
+
 # post_table
 tab = as_post_table(polygons)
 cls_tab = c("post_table", "sf")
