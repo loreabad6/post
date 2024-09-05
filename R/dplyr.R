@@ -3,7 +3,7 @@
 #'
 #' @details
 #' See `??cubble::dplyr` for details
-#' @param data,.data,x a post_table object
+#' @param data,.data a post_table object
 #' @param ... see corresponding function in package dplyr
 #'
 #' @rdname dplyr-post-table
