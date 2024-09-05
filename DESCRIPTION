@@ -27,6 +27,7 @@ Remotes:
     r-spatial/stars
 URL: https://loreabad6.github.io/post/
 Suggests: 
+    cubelyr,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
