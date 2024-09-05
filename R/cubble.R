@@ -27,6 +27,7 @@ face_spatial.post_table = function(data) {
 #' @importFrom sf st_set_geometry
 #' @export
 face_temporal.post_table = function(data, col) {
+  data = remove_post_table(data)
   out = st_as_sf(NextMethod())
   restore_temporal_post_table(out)
 }
