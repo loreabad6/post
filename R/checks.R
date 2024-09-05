@@ -35,7 +35,6 @@ check_time_column = function(x = x, time_column_name = NULL) {
       "x" = "{.var time_column_name} {.val {time_column_name}} not found"
       ))
     }
-    time_column_name
   } else if(is.null(time_column_name)) {
     # Check for columns matching the temp_class classes
     temp_class = c("POSIXct", "POSIXt", "Date", "PCICt")
@@ -54,8 +53,8 @@ check_time_column = function(x = x, time_column_name = NULL) {
       ))
     }
     time_column_name = names(x_[temp_cols_idx[1]])
-    time_column_name
   }
+  time_column_name
 }
 
 
