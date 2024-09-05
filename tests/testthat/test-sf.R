@@ -20,7 +20,7 @@ test_that("st_crs<- works as expected, updates geometries and returns a post_tab
 })
 test_that("st_normalize works as expected, updates geometries and returns a post_table", {
   out1 = st_normalize(tab)
-  out2 = face_temporal(st_normalize(out1))
+  out2 = face_temporal(st_normalize(tab))
   expect_snapshot(out1)
   expect_snapshot(out2)
   expect_s3_class(out1, cls)
