@@ -61,13 +61,6 @@ rename.post_table = function(.data, ...) {
   restore_post_table(out)
 }
 #' @rdname dplyr-post-table
-#' @importFrom dplyr rowwise
-#' @export
-rowwise.post_table = function(data, ...) {
-  out = NextMethod()
-  restore_post_table(out)
-}
-#' @rdname dplyr-post-table
 #' @importFrom dplyr select
 #' @export
 select.post_table = function(.data, ...) {

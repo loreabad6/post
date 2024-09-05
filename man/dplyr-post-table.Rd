@@ -7,7 +7,6 @@
 \alias{filter.post_table}
 \alias{mutate.post_table}
 \alias{rename.post_table}
-\alias{rowwise.post_table}
 \alias{select.post_table}
 \alias{slice.post_table}
 \title{dplyr methods for post_table}
@@ -21,8 +20,6 @@
 \method{mutate}{post_table}(.data, ...)
 
 \method{rename}{post_table}(.data, ...)
-
-\method{rowwise}{post_table}(data, ...)
 
 \method{select}{post_table}(.data, ...)
 
