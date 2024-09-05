@@ -10,14 +10,17 @@ test_that("arrange works as expected and returns a post_table", {
   expect_snapshot(out2)
   expect_s3_class(out2, cls_tab)
 })
-test_that("filter works as expected and returns a post_table", {
-  out1 = filter(tab, gid %in% c("b", "c"))
-  expect_snapshot(out1)
-  expect_s3_class(out1, cls_tab)
-  out2 = filter(face_temporal(tab), gid %in% c("b", "c"))
-  expect_snapshot(out2)
-  expect_s3_class(out2, cls_tab)
-})
+if (requireNamespace("cubelyr")) {
+  library(cubelyr)
+  test_that("filter works as expected and returns a post_table", {
+    out1 = filter(tab, gid %in% c("b", "c"))
+    expect_snapshot(out1)
+    expect_s3_class(out1, cls_tab)
+    out2 = filter(face_temporal(tab), gid %in% c("b", "c"))
+    expect_snapshot(out2)
+    expect_s3_class(out2, cls_tab)
+  })
+}
 test_that("mutate works as expected and returns a post_table", {
   out1 = mutate(tab, foo = "bar")
   expect_snapshot(out1)
