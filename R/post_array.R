@@ -70,7 +70,7 @@ as_post_array = function(x,
 #' @param point_st point argument passed onto `stars::st_dimensions()`.
 #' Defaults to `TRUE` for the spatial dimension and to `FALSE` for the
 #' temporal dimension (assumes interval times)
-#' @importFrom rlang `!!` sym
+#' @importFrom rlang `!!` `%||%` sym
 #' @importFrom sf st_agr
 #' @importFrom stars st_dimensions st_as_stars
 #' @importFrom tidyr complete
