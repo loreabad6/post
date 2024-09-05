@@ -286,25 +286,6 @@
       geom_sum POINT (0.647816 0.9018588),...,POINT (0.4690683 0.17772)
       datetime                                                     NULL
 
-# slice works as expected and returns a post_array
-
-    Code
-      out1
-    Output
-      stars object with 2 dimensions and 1 attribute
-      attribute(s):
-               geometry  
-       POLYGON      :10  
-       epsg:4326    : 0  
-       +proj=long...: 0  
-      dimension(s):
-               from to     offset  delta refsys point
-      geom_sum    3  4         NA     NA WGS 84  TRUE
-      datetime    1  5 2020-10-01 1 days   Date FALSE
-                                                     values
-      geom_sum POINT (0.3897 0.5412), POINT (0.7526 0.3538)
-      datetime                                         NULL
-
 # transmute works as expected and returns a post_array
 
     Code
