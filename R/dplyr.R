@@ -19,6 +19,7 @@ dplyr_reconstruct.post_table = function(data, template) {
 #' @importFrom dplyr arrange
 #' @export
 arrange.post_table = function(.data, ...) {
+  .data = remove_post_table(.data)
   if(inherits(.data, "temporal_cubble_df")) {
     out = st_as_sf(NextMethod())
     restore_temporal_post_table(out)
