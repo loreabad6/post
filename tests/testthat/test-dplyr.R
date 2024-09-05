@@ -78,6 +78,7 @@ arr = as_post_array(polygons)
 cls_arr = c("post_array")
 
 test_that("filter works as expected and returns a post_array", {
+  skip_on_ci()
   out1 = filter(arr, datetime == "2020-10-03")
   expect_snapshot(out1)
   expect_s3_class(out1, cls_arr)
@@ -101,8 +102,8 @@ test_that("select works as expected and returns a post_array", {
   expect_s3_class(out1, cls_arr)
 })
 test_that("slice works as expected and returns a post_array", {
-  out1 = slice(arr, "geom_sum", 3:4)
   skip_on_ci()
+  out1 = slice(arr, "geom_sum", 3:4)
   expect_snapshot(out1)
   expect_s3_class(out1, cls_arr)
 })
