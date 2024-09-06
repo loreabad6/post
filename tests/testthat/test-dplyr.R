@@ -102,13 +102,11 @@ test_that("select works as expected and returns a post_array", {
   expect_s3_class(out1, cls_arr)
 })
 test_that("slice works as expected and returns a post_array", {
-  skip_on_ci()
   out1 = slice(arr, "geom_sum", 3:4)
   expect_snapshot(out1)
   expect_s3_class(out1, cls_arr)
 })
 test_that("slice updates group_ids in post_array", {
-  skip_on_ci()
   expect_equal(attr(slice(arr, "geom_sum", 3:4), "group_ids"), c("c", "d"))
 })
 test_that("transmute works as expected and returns a post_array", {
