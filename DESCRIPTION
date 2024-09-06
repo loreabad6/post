@@ -18,13 +18,14 @@ Imports:
     cli,
     cubble (>= 0.3.2),
     dplyr,
-    rlang  (>= 1.1.4),
-    sf,
+    rlang (>= 1.1.4),
+    sf (>= 1.0.17),
     stars (>= 0.6-7),
     tidyr
-Remotes: 
+Remotes:  
     huizezhang-sherry/cubble,
-    r-spatial/stars
+    r-spatial/stars,
+    r-spatial/sf
 URL: https://loreabad6.github.io/post/
 Suggests: 
     cubelyr,
