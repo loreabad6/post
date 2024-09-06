@@ -77,7 +77,6 @@ arr = as_post_array(polygons)
 cls_arr = c("post_array")
 
 test_that("filter works as expected and returns a post_array", {
-  skip_if_not_installed("cubelyr")
   out1 = filter(arr, datetime == "2020-10-03")
   expect_equal(length(out1$geometry), 5)
   expect_s3_class(out1, cls_arr)
