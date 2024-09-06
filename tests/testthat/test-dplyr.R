@@ -16,7 +16,6 @@ test_that("arrange works as expected and returns a post_table", {
   expect_s3_class(out2, cls_tab)
 })
 test_that("filter works as expected and returns a post_table", {
-  skip_on_ci()
   out1 = filter(tab, gid %in% c("b", "c"))
   expect_snapshot(out1)
   expect_s3_class(out1, cls_tab)
@@ -78,7 +77,7 @@ arr = as_post_array(polygons)
 cls_arr = c("post_array")
 
 test_that("filter works as expected and returns a post_array", {
-  skip_on_ci()
+  skip_if_not_installed("cubelyr")
   out1 = filter(arr, datetime == "2020-10-03")
   expect_snapshot(out1)
   expect_s3_class(out1, cls_arr)
