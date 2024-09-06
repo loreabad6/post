@@ -1,7 +1,7 @@
 # subsetting post_array works as expected
 
     Code
-      out1
+      out1[poly]
     Output
       stars object with 2 dimensions and 1 attribute
       attribute(s):
