@@ -18,7 +18,7 @@ test_that("arrange works as expected and returns a post_table", {
 test_that("filter works as expected and returns a post_table", {
   out1 = filter(tab, gid %in% c("b", "c"))
   expect_snapshot(out1)
-  expect_s3_class(out1, cls_tab)
+  expect_equal(out1$gid, letters[2:3])
   out2 = filter(face_temporal(tab), gid %in% c("b", "c"))
   expect_equal(out2$gid, rep(letters[2:3], each = 5))
   expect_s3_class(out2, cls_tab)
