@@ -7,6 +7,7 @@
 #' @rdname stars
 #' @export
 `[.post_array` = function(x, ...) {
+  x = remove_post_array(x)
   out = NextMethod()
   restore_post_array(out, x)
 }
