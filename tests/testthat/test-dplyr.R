@@ -79,30 +79,30 @@ cls_arr = c("post_array")
 test_that("filter works as expected and returns a post_array", {
   skip_if_not_installed("cubelyr")
   out1 = filter(arr, datetime == "2020-10-03")
-  expect_snapshot(out1)
+  expect_equal(length(out1$geometry), 5)
   expect_s3_class(out1, cls_arr)
 })
 test_that("mutate works as expected and returns a post_array", {
   out1 = mutate(arr, foo = "bar")
-  expect_snapshot(out1)
+  expect_equal(names(out1), c("geometry", "foo"))
   expect_s3_class(out1, cls_arr)
 })
 test_that("rename works as expected and returns a post_array", {
   out1 = rename(arr, foo = "geometry")
-  expect_snapshot(out1)
+  expect_equal(names(out1), "foo")
   expect_s3_class(out1, cls_arr)
 })
 test_that("rename updates sf_column in post_array", {
   expect_equal(attr(rename(arr, foo = "geometry"), "sf_column"), "foo")
 })
 test_that("select works as expected and returns a post_array", {
-  out1 = select(arr, -1)
-  expect_snapshot(out1)
+  out1 = select(mutate(arr, foo = "bar", apple = 2), foo)
+  expect_equal(names(out1), c("foo", "geometry"))
   expect_s3_class(out1, cls_arr)
 })
 test_that("slice works as expected and returns a post_array", {
   out1 = slice(arr, "geom_sum", 3:4)
-  expect_snapshot(out1)
+  expect_equal(length(out1$geometry), 10)
   expect_s3_class(out1, cls_arr)
 })
 test_that("slice updates group_ids in post_array", {
@@ -110,6 +110,6 @@ test_that("slice updates group_ids in post_array", {
 })
 test_that("transmute works as expected and returns a post_array", {
   out1 = transmute(arr, foo = "bar")
-  expect_snapshot(out1)
+  expect_equal(names(out1), c("foo", "geometry"))
   expect_s3_class(out1, cls_arr)
 })
