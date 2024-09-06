@@ -57,7 +57,7 @@ remove_post_array = function(x) {
 #' @noRd
 restore_post_array = function(x, x_orig) {
   # Extract sf_column name, default to first sfc attribute in stars object
-  sf_column = names(lapply(x, \(i) inherits(i, "sfc")))[[1]]
+  sf_column = names(which(sapply(x, \(i) inherits(i, "sfc"))))[1]
   # Identify spatial dimension
   sf_dim = names(
     which(
