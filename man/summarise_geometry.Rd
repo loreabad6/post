@@ -10,29 +10,59 @@
 \alias{summarize_geometry_bbox}
 \title{Summarise changing geometries based on a group identifier}
 \usage{
-summarise_geometry_union(x, group_id = NULL, sf_column_name = NULL)
+summarise_geometry_union(
+  x,
+  group_id = NULL,
+  sf_column_name = NULL,
+  .checks = TRUE
+)
 
-summarize_geometry_union(x, group_id = NULL, sf_column_name = NULL)
+summarize_geometry_union(
+  x,
+  group_id = NULL,
+  sf_column_name = NULL,
+  .checks = TRUE
+)
 
-summarise_geometry_centroid(x, group_id = NULL, sf_column_name = NULL)
+summarise_geometry_centroid(
+  x,
+  group_id = NULL,
+  sf_column_name = NULL,
+  .checks = TRUE
+)
 
-summarize_geometry_centroid(x, group_id = NULL, sf_column_name = NULL)
+summarize_geometry_centroid(
+  x,
+  group_id = NULL,
+  sf_column_name = NULL,
+  .checks = TRUE
+)
 
-summarise_geometry_bbox(x, group_id = NULL, sf_column_name = NULL)
+summarise_geometry_bbox(
+  x,
+  group_id = NULL,
+  sf_column_name = NULL,
+  .checks = TRUE
+)
 
-summarize_geometry_bbox(x, group_id = NULL, sf_column_name = NULL)
+summarize_geometry_bbox(
+  x,
+  group_id = NULL,
+  sf_column_name = NULL,
+  .checks = TRUE
+)
 }
 \arguments{
 \item{x}{object \code{POLYGON}/\code{MULTIPOLYGON} changing geometries to summarise
 based on \code{group_id}.}
 
-\item{group_id}{(character) name of column containing the grouping
-identifier for the changing polygons or group identifier given as an
-integer or character value that is assigned to all rows in \code{x}.
+\item{group_id}{See Details.
 Defaults to the first column in \code{x}.}
 
 \item{sf_column_name}{(character) name of column with changing
 geometries. Defaults to active \code{sf_column}.}
+
+\item{.checks}{perform argument check?}
 }
 \value{
 object of class \code{sfc} with summarised geometries based on group_id

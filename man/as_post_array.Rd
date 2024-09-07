@@ -36,9 +36,7 @@ as_post_array(
 \item{x}{object to convert to \code{post_array} with \code{POLYGON}/\code{MULTIPOLYGON}
 geometries and a date/time column.}
 
-\item{group_id}{(character) name of column containing the grouping
-identifier for the changing polygons or group identifier given as an
-integer or character value that is assigned to all rows in \code{x}.
+\item{group_id}{See Details.
 Defaults to the first column in \code{x}.}
 
 \item{time_column_name}{(character) name of column with the temporal
@@ -74,6 +72,15 @@ The \code{post_array} class supports two dimensions: \code{geom_sum} and
 \code{datetime}.
 \code{geom_sum} is the summary geometry of the changing
 shapes of the polygon geometries.
+}
+\details{
+group_id should be the name of the column containing the grouping
+identifier for the changing polygons or a vector with group identifiers.
+Character, integer, double and factor vectors are supported.
+The vector should be of length 1 or the same as \code{nrow(x)}.
+A vector of length 1 repeats the value for all the rows.
+Providing a vector assumes that the ordering of the groups
+is correct and that there are no duplicated timestamps per group
 }
 \examples{
 as_post_array(polygons)

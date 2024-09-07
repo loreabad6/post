@@ -35,21 +35,35 @@ NULL
 #' the changing geometries
 #'
 #' @inheritParams as_post_array
+#' @inheritSection as_post_array details
 #'
 #' @param x object `POLYGON`/`MULTIPOLYGON` changing geometries to summarise
 #' based on `group_id`.
+#' @param .checks perform argument check?
 #'
 #' @rdname summarise_geometry
 #' @importFrom sf st_union st_make_valid
 #' @export
 summarise_geometry_union = function(x,
                                     group_id = NULL,
-                                    sf_column_name = NULL) {
+                                    sf_column_name = NULL,
+                                    .checks = TRUE) {
 
-  # group_id: Defaults to the first column of x, if not sfc or temporal class
-  group_id = check_group_id(x, group_id)
-  # Defaults to the active sf_column
-  sf_column_name = check_sf_column(x, sf_column_name)
+  if(.checks){
+    # group_id: Defaults to the first column of x, if not sfc or temporal class
+    group_id_tmp = group_id
+    group_id = check_group_id(x, group_id)
+    # Assign group_id to "gid_" temp column if vector is given
+    if(group_id == "gid_") {
+      cli::cli_warn(c(
+        "!" = "vector provided for {.var group_id}, assuming correct order
+      and unique timestamps per group"
+      ))
+      x["gid_"] = group_id_tmp
+    }
+    # Defaults to the active sf_column
+    sf_column_name = check_sf_column(x, sf_column_name)
+  }
 
   x_groupped = split(x[[sf_column_name]], x[[group_id]])
   x_summarised = do.call(
@@ -74,16 +88,12 @@ summarize_geometry_union = summarise_geometry_union
 #' @export
 summarise_geometry_centroid = function(x,
                                        group_id = NULL,
-                                       sf_column_name = NULL) {
-
-  # group_id: Defaults to the first column of x, if not sfc or temporal class
-  group_id = check_group_id(x, group_id)
-  # Defaults to the active sf_column
-  sf_column_name = check_sf_column(x, sf_column_name)
-
+                                       sf_column_name = NULL,
+                                       .checks = TRUE) {
   x_unioned = summarise_geometry_union(x,
                                        group_id = group_id,
-                                       sf_column_name = sf_column_name)
+                                       sf_column_name = sf_column_name,
+                                       .checks = .checks)
   x_centroid = sf::st_centroid(x_unioned)
   x_centroid
 }
@@ -102,16 +112,12 @@ summarize_geometry_centroid = summarise_geometry_centroid
 #' @export
 summarise_geometry_bbox = function(x,
                                    group_id = NULL,
-                                   sf_column_name = NULL) {
-
-  # group_id: Defaults to the first column of x, if not sfc or temporal class
-  group_id = check_group_id(x, group_id)
-  # Defaults to the active sf_column
-  sf_column_name = check_sf_column(x, sf_column_name)
-
+                                   sf_column_name = NULL,
+                                   .checks = TRUE) {
   x_unioned = summarise_geometry_union(x,
                                        group_id = group_id,
-                                       sf_column_name = sf_column_name)
+                                       sf_column_name = sf_column_name,
+                                       .checks = .checks)
   x_bbox = st_bbox_by_feature(x_unioned)
   x_bbox
 }

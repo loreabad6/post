@@ -11,28 +11,29 @@
 #'
 #' @param x object to convert to `post_array` with `POLYGON`/`MULTIPOLYGON`
 #' geometries and a date/time column.
-#'
-#' @param group_id (character) name of column containing the grouping
-#' identifier for the changing polygons or group identifier given as an
-#' integer or character value that is assigned to all rows in `x`.
+#' @param group_id See Details.
 #' Defaults to the first column in `x`.
-#'
 #' @param time_column_name (character) name of column with the temporal
 #' dimension information. Defaults to the first temporal column in `x`.
-#'
 #' @param sf_column_name (character) name of column with changing
 #' geometries. Defaults to active `sf_column`.
-#'
 #' @param geometry_summary (function) function to compute the summary
 #' geometry. Alternatively an `sfc` object with summary geometries (i.e.,
 #' the result of a `summarise_geometry_*()` function or a custom `sfc`).
 #' See summarise_geometry for functions or pass your own
 #' summarise_geometry function.
-#'
 #' @param geometry_summary_name (character) name of the column with summary
 #' geometries.Defaults to "geom_sum"
-#'
 #' @param ... additional parameters passed on to `geometry_summary` function.
+#'
+#' @details
+#' group_id should be the name of the column containing the grouping
+#' identifier for the changing polygons or a vector with group identifiers.
+#' Character, integer, double and factor vectors are supported.
+#' The vector should be of length 1 or the same as `nrow(x)`.
+#' A vector of length 1 repeats the value for all the rows.
+#' Providing a vector assumes that the ordering of the groups
+#' is correct and that there are no duplicated timestamps per group
 #'
 #' @examples
 #' as_post_array(polygons)
@@ -87,7 +88,16 @@ as_post_array.sf = function(x,
 
   # Set argument defaults
   # group_id: Defaults to the first column of x, if not sfc or temporal class
+  group_id_tmp = group_id
   group_id = check_group_id(x, group_id)
+  # Assign group_id to "gid_" temp column if vector is given
+  if(group_id == "gid_") {
+    cli::cli_warn(c(
+      "!" = "vector provided for {.var group_id}, assuming correct order
+      and unique timestamps per group"
+    ))
+    x["gid_"] = group_id_tmp
+  }
   # Defaults to the first temporal column.
   time_column_name = check_time_column(x, time_column_name)
   # Defaults to the active sf_column

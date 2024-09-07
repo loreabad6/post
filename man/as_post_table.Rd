@@ -33,9 +33,7 @@ as_post_table(
 \item{x}{object to convert to \code{post_table} with \code{POLYGON}/\code{MULTIPOLYGON}
 geometries and a date/time column.}
 
-\item{group_id}{(character) name of column containing the grouping
-identifier for the changing polygons or group identifier given as an
-integer or character value that is assigned to all rows in \code{x}.
+\item{group_id}{See Details.
 Defaults to the first column in \code{x}.}
 
 \item{time_column_name}{(character) name of column with the temporal

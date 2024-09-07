@@ -9,6 +9,7 @@
 #' to the temporal face of the cube.
 #'
 #' @inheritParams as_post_array
+#' @inheritSection as_post_array details
 #'
 #' @param x object to convert to `post_table` with `POLYGON`/`MULTIPOLYGON`
 #' geometries and a date/time column.
@@ -58,7 +59,16 @@ as_post_table.sf = function(x,
 
   # Set argument defaults
   # group_id: Defaults to the first column of x, if not sfc or temporal class
+  group_id_tmp = group_id
   group_id = check_group_id(x, group_id)
+  # Assign group_id to "gid_" temp column if vector is given
+  if(group_id == "gid_") {
+    cli::cli_warn(c(
+      "!" = "vector provided for {.var group_id}, assuming correct order
+      and unique timestamps per group"
+    ))
+    x["gid_"] = group_id_tmp
+  }
   # Defaults to the first temporal column.
   time_column_name = check_time_column(x, time_column_name)
   # Defaults to the active sf_column

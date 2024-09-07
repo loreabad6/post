@@ -7,12 +7,7 @@
 # in x or a column name that contains the group identifiers.
 # Defaults to the first column of x
 check_group_id = function(x = x, group_id = NULL) {
-  if(!is.null(group_id)) {
-    if(!(group_id %in% names(x))) {
-      x["_gid_"] = group_id
-      "_gid_"
-    } else group_id
-  } else if(is.null(group_id)) {
+  if(is.null(group_id)) {
     group_id = names(x)[1]
     temp_class = c("POSIXct", "POSIXt", "Date", "PCICt")
     if(inherits(x[[group_id]], "sfc") | inherits(x[[group_id]], temp_class))
@@ -23,6 +18,22 @@ check_group_id = function(x = x, group_id = NULL) {
         "x" = "no appropriate {.var group_id} column found"
       ))
     group_id
+  } else if(!is.null(group_id) & length(group_id) >= 1) {
+    if(length(group_id) == 1) {
+      if(group_id %in% names(x) & is.character(group_id)) {
+        group_id
+      } else if (is.vector(group_id)) {
+        "gid_"
+      }
+    } else if(length(group_id) == nrow(x) & is.vector(group_id)) {
+      "gid_"
+    } else {
+      cli::cli_abort(c(
+        "{.var group_id} should be of the same length as {.var x}
+        or a single value",
+        "x" = "{.var group_id} length does not match requirements"
+      ))
+    }
   }
 }
 
@@ -95,9 +106,10 @@ check_geometry_summary = function(x = x,
                                   geometry_summary = NULL,
                                   group_id = NULL,
                                   sf_column_name = NULL,
+                                  .checks = FALSE,
                                   ...) {
   if(is.function(geometry_summary)) {
-    geometry_summary(x, group_id, sf_column_name, ...)
+    geometry_summary(x, group_id, sf_column_name, .checks = .checks, ...)
   } else if (inherits(geometry_summary, "sfc")) {
     len_geoms = length(geometry_summary)
     len_group = length(unique(x[[group_id]]))

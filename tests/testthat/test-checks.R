@@ -5,6 +5,18 @@ test_that("passing an sf object without a proper group_id column fails", {
   expect_error(as_post_array(select(polygons, -gid)), err)
   expect_error(as_post_table(select(polygons, -gid)), err)
 })
+test_that("passing a vector to group_id gives a warning", {
+  wrn = "assuming correct order and unique timestamps per group"
+  expect_warning(as_post_array(polygons, group_id = rep(1:5, times = 5)), wrn)
+  expect_warning(as_post_table(polygons, group_id = rep(1:5, times = 5)), wrn)
+  expect_warning(as_post_array(filter(polygons, gid == "a"), group_id = 1), wrn)
+  expect_warning(as_post_table(filter(polygons, gid == "a"), group_id = 1), wrn)
+})
+test_that("passing a vector to group_id with incorrect length fails", {
+  err = "length does not match requirements"
+  expect_error(as_post_array(polygons, group_id = 1:3))
+  expect_error(as_post_table(polygons, group_id = 1:3))
+})
 # time_column_name
 test_that("passing unexisting time_column_name column fails", {
   err = "not found"
@@ -13,9 +25,9 @@ test_that("passing unexisting time_column_name column fails", {
 })
 test_that("finding more than one temporal column gives a warning
           when creating post object from temporal_column_name = NULL", {
-  war = "the first one is taken"
-  expect_warning(as_post_array(mutate(polygons, date = datetime)), war)
-  expect_warning(as_post_table(mutate(polygons, date = datetime)), war)
+  wrn = "the first one is taken"
+  expect_warning(as_post_array(mutate(polygons, date = datetime)), wrn)
+  expect_warning(as_post_table(mutate(polygons, date = datetime)), wrn)
 })
 test_that("passing an sf without a temporal column fails", {
   err = "has no temporal column"
