@@ -49,3 +49,40 @@
       POINT (0.752585 0.3538271)
       POINT (0.4690683 0.17772)
 
+---
+
+    Code
+      summarise_geometry_bbox(polygons, rotated = TRUE)
+    Condition
+      Warning in `st_minimum_rotated_rectangle.sfc()`:
+      st_minimum_rotated_rectangle does not work correctly for longitude/latitude data
+    Output
+      Geometry set for 5 features 
+      Geometry type: POLYGON
+      Dimension:     XY
+      Bounding box:  xmin: -0.4068963 ymin: -0.05907163 xmax: 0.9881167 ymax: 1.232265
+      Geodetic CRS:  WGS 84
+    Message
+      POLYGON ((0.5137787 1.117004, 0.3759687 0.90381...
+      POLYGON ((0.3796448 0.767853, 0.2316513 1.23226...
+      POLYGON ((0.3321186 0.7217665, 0.1760477 0.4920...
+      POLYGON ((0.6633874 0.573032, 0.500051 0.369666...
+      POLYGON ((0.678186 -0.05907163, 0.7911437 0.289...
+
+---
+
+    Code
+      summarise_geometry_convex_hull(polygons)
+    Output
+      Geometry set for 5 features 
+      Geometry type: POLYGON
+      Dimension:     XY
+      Bounding box:  xmin: -0.2974337 ymin: -0.0029756 xmax: 0.9730806 ymax: 1.153558
+      Geodetic CRS:  WGS 84
+    Message
+      POLYGON ((0.7568336 0.7456421, 0.8157179 0.7671...
+      POLYGON ((-0.2341393 0.5814869, -0.1843257 0.58...
+      POLYGON ((0.4606164 0.4039274, 0.5749458 0.4441...
+      POLYGON ((0.8757658 0.1748722, 0.8918794 0.1923...
+      POLYGON ((0.505091 -0.0029756, 0.6988282 0.0046...
+

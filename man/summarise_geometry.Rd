@@ -8,6 +8,8 @@
 \alias{summarize_geometry_centroid}
 \alias{summarise_geometry_bbox}
 \alias{summarize_geometry_bbox}
+\alias{summarise_geometry_convex_hull}
+\alias{summarize_geometry_convex_hull}
 \title{Summarise changing geometries based on a group identifier}
 \usage{
 summarise_geometry_union(
@@ -42,10 +44,26 @@ summarise_geometry_bbox(
   x,
   group_id = NULL,
   sf_column_name = NULL,
-  .checks = TRUE
+  .checks = TRUE,
+  rotated = FALSE
 )
 
 summarize_geometry_bbox(
+  x,
+  group_id = NULL,
+  sf_column_name = NULL,
+  .checks = TRUE,
+  rotated = FALSE
+)
+
+summarise_geometry_convex_hull(
+  x,
+  group_id = NULL,
+  sf_column_name = NULL,
+  .checks = TRUE
+)
+
+summarize_geometry_convex_hull(
   x,
   group_id = NULL,
   sf_column_name = NULL,
@@ -63,6 +81,10 @@ Defaults to the first non-spatial, non-temporal column in x.}
 geometries. Defaults to active \code{sf_column}.}
 
 \item{.checks}{internal, should creation arguments be checked?}
+
+\item{rotated}{(logical) if TRUE, the minimum rotated rectangle is returned,
+if FALSE the minimum unrotated rectangle or bounding box is returned.
+Defaults to FALSE}
 }
 \value{
 object of class \code{sfc} with summarised geometries based on group_id
@@ -78,8 +100,11 @@ dissolve of the changing geometries
 \code{summarise_geometry_centroid} computes the geometry summary as the centroid
 of the union and dissolve of the changing geometries
 
-\code{summarise_geometry_bbox} computes the geometry summary as the bounding box
-of the union and dissolve of the changing geometries
+\code{summarise_geometry_bbox} computes the geometry summary as the bounding box or
+minimum rectangle of the union and dissolve of the changing geometries
+
+\code{summarise_geometry_convex_hull} computes the geometry summary as the
+convex hull of the union and dissolve of the changing geometries
 }
 \details{
 The family of functions \verb{summarise_geometry_*()} or \verb{summarize_geometry_*()}
@@ -91,6 +116,10 @@ a. the union and dissolve of the changing geometries,
 b. the centroid of \strong{a}
 
 c. the bbox of \strong{a}
+
+d. the minimum rotated rectangle of \strong{a}
+
+e. the convex hull of \strong{a}
 
 A custom function to summarise geometries can be passed onto the
 coercion functions \verb{as_post_*()}, given that the parameters \code{x},

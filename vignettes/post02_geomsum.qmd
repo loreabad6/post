@@ -1,0 +1,100 @@
+---
+title: "Summarising geometries"
+vignette: >
+  %\VignetteIndexEntry{Summarising geometries}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+format:
+  html:
+    toc: true
+    fig-width: 8.5
+    fig-height: 5
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: '#>'
+    dev.args:
+      bg: transparent
+---
+
+```{r}
+#| label: libraries
+#| warning: false
+#| message: false
+library(sf)
+library(post)
+```
+
+`post` handles changing geometries by summarising them based on a group identifier.
+This summary should be done for all time periods of the same features and should return a single geometry per feature, which then become the spatial dimension of post objects. 
+
+The argument to pass the summarised geometry is called `geometry_summary` in
+`as_post_array()` and `as_post_table()`. 
+An `sfc` object with the summarised geometries can be directly passed here, assuming that the order of the features corresponds to an arranged `group_id` column (i.e. `sort(unique(x$group_id))`).
+
+## Helper functions
+
+To facilitate `post_*` object creation the family of functions [`summarise_geometry_*()`](`?summarise_geometry`) is provided.
+These functions take an sf object (`x`) with a group identifier (`group_id`) and changing geometries (`sf_column_name`).
+Currently, geometries can be summarised in three ways:
+
+a. the union and dissolve of the changing geometries,
+b. the centroid of **a**
+c. the bounding box of **a**
+d. the minimum rotated rectangle of **a**
+e. the convex hull of **a**
+
+<!-- TODO: add figure of summary geometries -->
+```{r}
+#| layout-ncol: 2
+#| fig-cap: 
+#|   - "Original sf object"
+#|   - "Union of changing geometries"
+#|   - "Centroid of changing geometries"
+#|   - "Bounding box of changing geometries"
+#|   - "Minimum rotated rectangle of changing geometries"
+#|   - "Convex hull of changing geometries"
+par(mar = c(0,0,0,0))
+pal = sf.colors(n = 5, categorical = TRUE)
+plot(polygons["gid"], key.pos = NULL, main = NULL, reset = FALSE)
+plot(summarise_geometry_union(polygons), col = pal)
+plot(summarise_geometry_centroid(polygons), pch = 19, col = pal, cex = 3)
+plot(summarise_geometry_bbox(polygons), col = pal)
+plot(summarise_geometry_bbox(polygons, rotated = TRUE), col = pal)
+plot(summarise_geometry_convex_hull(polygons), col = pal)
+```
+
+## Custom summary geometry funcions
+
+A custom function to summarise geometries can also be created⁠, given that the parameters `x`, `group_id` and `sf_column_name` are included in the function.
+Additional arguments can be passed to the function as necessary.
+
+Here is an example of a custom summary geometry using `sf::st_minimum_rotated_rectangle()`.
+We apply the function on the unioned geometries, this is what the centroid and bounding box functions do internally. 
+
+```{r}
+summarise_geometry_custom = function(x, group_id = NULL,
+                                     sf_column_name = NULL) {
+
+  x_unioned = summarise_geometry_union(x,
+                                       group_id = group_id,
+                                       sf_column_name = sf_column_name)
+  st_point_on_surface(x_unioned)
+}
+```
+
+```{r}
+#| layout-ncol: 2
+#| fig-cap: 
+#|   - "Original sf object"
+#|   - "Point on surface of changing geometries"
+par(mar = c(0,0,0,0))
+plot(polygons["gid"], key.pos = NULL, main = NULL, reset = FALSE)
+plot(
+  summarise_geometry_custom(
+    polygons, group_id = "gid", sf_column_name = "geometry"
+  ), col = pal, pch = 19, cex = 3
+)
+```
+
+
