@@ -1,0 +1,174 @@
+---
+title: "Post objects - Vector data cube structures"
+vignette: >
+  %\VignetteIndexEntry{Post objects - Vector data cube structures}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+format:
+  html:
+    toc: true
+    fig-width: 8.5
+    fig-height: 4
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: '#>'
+    dev.args:
+      bg: transparent
+---
+
+```{r}
+#| include: false
+par(mar = c(0,0,0,0))
+```
+
+`post` (POlygon changes in Space and Time) is a package designed to provide array and tabular vector data cube structures to organise and analyse polygons that change their shape in space and time. 
+
+`post` takes two existing packages that support vector data cubes: `{stars}` for array vector data cubes and `{cubble}` for tabular vector data cubes. 
+It extends their functionality to support changing geometries and to perform spatio-temporal analyses of vector data. 
+
+Particularly, `post` was created to analyse the evolution of geomorphological features such as landslides, lava flows, and glaciers, which change their geometry over time. However, it can be used to analyse other types of moving and/or changing geometries, for example, urban sprawl.
+
+## Vector data cubes
+
+::: {.grid}
+
+::: {.g-col-9}
+Data cubes are multi-dimensional data structures.
+The most commonly known data cubes, particularly in Earth observation (EO), are **raster data cubes**. 
+Raster data cubes are structures frequently used to organise time series of satellite imagery, gridded climate data, etc.
+They have minimum two spatial dimensions: *longitude* or *x* and *latitude* or *y*. 
+The remainder dimensions can either be *time*, or other dimension such as *bands* for EO data.
+:::
+
+::: {.g-col-3}
+![](figs/raster-data-cube.png)
+:::
+
+:::
+
+::: {.grid}
+
+::: {.g-col-3}
+![](figs/vector-data-cube.png)
+:::
+
+::: {.g-col-9}
+On the other hand, **vector data cubes** support one minimum spatial dimension, a *geometry*.
+Representing data in vector data cubes becomes useful when thematic variables are changing over time at the vector locations, i.e. for spatio-temporal data.
+For example, time series of temperature, precipitation, wind speed, etc. recorded by climate stations can be represented and analysed using vector data cubes.
+However, current implementations of vector data cubes only support static geometries (e.g. climate stations stay at the same place over time).
+`post` intends to provide support also for geometries that change over time.
+:::
+
+:::
+
+## Post classes
+
+In R, vector data cube structures are supported in the form of array objects by the `{stars}` package and as tabular objects[^1] with the `{cubble}` package.
+`{sf}` is used both by cubble and stars to handle the spatial dimensions.
+Finally, both stars and cubble support certain `{tidyverse}` functions. 
+
+[^1]: Other packages also support spatio-temporal objects such as `{sftime}`, and further support will be implemented while `post` gets developed. 
+
+```{r}
+#| label: libraries
+#| warning: false
+#| message: false
+library(post)
+library(cubble)
+library(stars)
+library(sf)
+library(tidyverse)
+```
+
+`post` combines the advantages of all these packages to support vector data cubes to structure and analyse polygon geometry time series.
+For this, two classes are provided: `post_array` and `post_table`.
+
+![](figs/vdc-schema-components.png)
+
+<!-- TODO: update color scheme and add class names -->
+
+`post_array` inherits the `stars` class and therefore supports most of stars methods, including the print method. 
+
+```{r}
+methods(class = "post_array")
+```
+
+`post_table` inherits the `cubble` class and its subclasses `spatial_cubble_df` and `temporal_cubble_df`. 
+Likewise, it supports most of the cubble methods and retains the cubble print methods.
+
+```{r}
+methods(class = "post_table")
+```
+
+## Creation and structure
+
+To showcase the data structure of post objects a dummy dataset is provided with the package (`?polygons`). 
+
+```{r}
+polygons
+```
+
+The data has 5 objects with a unique group identifier that changes their shape for different timestamps.
+
+```{r}
+plot(polygons)
+```
+
+To create a post object a group identifier (`group_id`) is always required[^2].
+This identifier should be unique per feature and within each group there should not exist duplicated timestamps. 
+
+[^2]: Future implementation of `post` intends to introduce functions to group features when the group they belong to is unknown. 
+
+When converting an sf object to a post object, the necessary arguments are automatically identified if not supplied. 
+
+### `post_array` objects
+
+`post_array` is a spatio-temporal array data structure that organises polygons that change their shape in space and time.
+It extends the `stars` class for vector data cubes to support changing geometries as attributes.
+The post_array class supports two dimensions: a summary geometry dimension (default name: `geom_sum`) and a temporal dimension. 
+The summary geometry is a unique geometry per group which summarises the changing shapes of the polygon geometries in the group.
+
+```{r}
+(arr = as_post_array(polygons))
+class(arr)
+```
+
+To extract the summary and changing geometries from `post_array` objects use:
+
+```{r}
+# changing geometry
+arr$geometry
+# summary geometry
+st_geometry(arr)
+```
+
+The array format does not include the group identifiers in their data structure directly, since they are represented by the summary geometry.
+However, these identifiers are stored as metadata and can be obtained as:
+
+```{r}
+get_group_ids(arr)
+```
+
+### `post_table` objects
+
+`post_table` is a spatio-temporal tabular data structure that organises polygons that change their shape in space and time.
+It extends the `cubble_df` classes for vector data cubes to support changing geometries in the temporal face of the cube.
+The post_table geometry for the spatial face of the cube defaults to a column named `geom_sum`, while the changing geometry provided is passed on to the temporal face of the cube.
+
+```{r}
+(tab = as_post_table(polygons))
+class(tab)
+(tab_temp = face_temporal(tab))
+class(tab_temp)
+```
+
+To extract the summary and changing geometries from `post_table` objects use:
+
+```{r}
+# changing geometry
+st_geometry(tab)
+# summary geometry
+st_geometry(tab_temp)
+```
