@@ -37,7 +37,7 @@ as_post_array(
 geometries and a date/time column.}
 
 \item{group_id}{See Details.
-Defaults to the first column in \code{x}.}
+Defaults to the first non-spatial, non-temporal column in \code{x}.}
 
 \item{time_column_name}{(character) name of column with the temporal
 dimension information. Defaults to the first temporal column in \code{x}.}
@@ -68,10 +68,10 @@ an object of class \code{post_array}.
 organises polygons that change their shape in space and time.
 It extends the \code{stars} class for vector data cubes to support
 changing geometries as attributes.
-The \code{post_array} class supports two dimensions: \code{geom_sum} and
-\code{datetime}.
-\code{geom_sum} is the summary geometry of the changing
-shapes of the polygon geometries.
+The \code{post_array} class supports two dimensions: a summary geometry
+dimension (default name: \code{geom_sum}) and a temporal dimension.
+The summary geometry is a unique geometry per group
+which summarises the changing shapes of the polygon geometries in the group.
 }
 \details{
 group_id should be the name of the column containing the grouping

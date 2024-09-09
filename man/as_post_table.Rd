@@ -34,7 +34,7 @@ as_post_table(
 geometries and a date/time column.}
 
 \item{group_id}{See Details.
-Defaults to the first column in \code{x}.}
+Defaults to the first non-spatial, non-temporal column in \code{x}.}
 
 \item{time_column_name}{(character) name of column with the temporal
 dimension information. Defaults to the first temporal column in \code{x}.}
@@ -61,9 +61,18 @@ an object of class \code{post_table}.
 organises polygons that change their shape in space and time.
 It extends the \code{cubble_df} classes for vector data cubes to support
 changing geometries in the temporal face of the cube.
-The \code{post_table} geometry for the spatial face of the cube is
-\code{geom_sum}, while the changing geometry provided is passed
-to the temporal face of the cube.
+The \code{post_table} geometry for the spatial face of the cube defaults
+to a column named \code{geom_sum}, while the changing geometry provided is
+passed on to the temporal face of the cube.
+}
+\details{
+group_id should be the name of the column containing the grouping
+identifier for the changing polygons or a vector with group identifiers.
+Character, integer, double and factor vectors are supported.
+The vector should be of length 1 or the same as \code{nrow(x)}.
+A vector of length 1 repeats the value for all the rows.
+Providing a vector assumes that the ordering of the groups
+is correct and that there are no duplicated timestamps per group
 }
 \examples{
 as_post_table(polygons)

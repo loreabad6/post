@@ -56,13 +56,13 @@ summarize_geometry_bbox(
 \item{x}{object \code{POLYGON}/\code{MULTIPOLYGON} changing geometries to summarise
 based on \code{group_id}.}
 
-\item{group_id}{See Details.
-Defaults to the first column in \code{x}.}
+\item{group_id}{see \code{?post_array} for details.
+Defaults to the first non-spatial, non-temporal column in x.}
 
 \item{sf_column_name}{(character) name of column with changing
 geometries. Defaults to active \code{sf_column}.}
 
-\item{.checks}{perform argument check?}
+\item{.checks}{internal, should creation arguments be checked?}
 }
 \value{
 object of class \code{sfc} with summarised geometries based on group_id
@@ -72,14 +72,14 @@ Changing geometries are summarised for all time periods as a single geometry
 (of types \code{POINT}, \code{POLYGON}, \code{MULTIPOLYGON}) in order to pass them
 as a spatial dimension to \verb{post_*} objects.
 
-\code{summarise_geometry_union} computes the geometry summary as the union and dissolve of
-the changing geometries
+\code{summarise_geometry_union} computes the geometry summary as the union and
+dissolve of the changing geometries
 
-\code{summarise_geometry_centroid} computes the geometry summary as the centroid of the
-union and dissolve of the changing geometries
+\code{summarise_geometry_centroid} computes the geometry summary as the centroid
+of the union and dissolve of the changing geometries
 
-\code{summarise_geometry_bbox} computes the geometry summary as the bounding box of the
-union and dissolve of the changing geometries
+\code{summarise_geometry_bbox} computes the geometry summary as the bounding box
+of the union and dissolve of the changing geometries
 }
 \details{
 The family of functions \verb{summarise_geometry_*()} or \verb{summarize_geometry_*()}

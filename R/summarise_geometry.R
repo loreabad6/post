@@ -19,6 +19,8 @@
 #' `group_id` and `sf_column_name` are included in the function.
 #' Additional arguments can be passed to the function as necessary.
 #'
+#' @inherit as_post_array details
+#'
 #' @examples
 #' summarise_geometry_union(polygons)
 #' summarise_geometry_centroid(polygons)
@@ -31,15 +33,16 @@
 NULL
 
 #' @description
-#' `summarise_geometry_union` computes the geometry summary as the union and dissolve of
-#' the changing geometries
+#' `summarise_geometry_union` computes the geometry summary as the union and
+#' dissolve of the changing geometries
 #'
 #' @inheritParams as_post_array
-#' @inheritSection as_post_array details
 #'
 #' @param x object `POLYGON`/`MULTIPOLYGON` changing geometries to summarise
 #' based on `group_id`.
-#' @param .checks perform argument check?
+#' @param group_id see `?post_array` for details.
+#' Defaults to the first non-spatial, non-temporal column in x.
+#' @param .checks internal, should creation arguments be checked?
 #'
 #' @rdname summarise_geometry
 #' @importFrom sf st_union st_make_valid
@@ -78,8 +81,8 @@ summarise_geometry_union = function(x,
 summarize_geometry_union = summarise_geometry_union
 
 #' @description
-#' `summarise_geometry_centroid` computes the geometry summary as the centroid of the
-#' union and dissolve of the changing geometries
+#' `summarise_geometry_centroid` computes the geometry summary as the centroid
+#' of the union and dissolve of the changing geometries
 #'
 #' @inheritParams summarise_geometry_union
 #'
@@ -103,8 +106,8 @@ summarise_geometry_centroid = function(x,
 summarize_geometry_centroid = summarise_geometry_centroid
 
 #' @description
-#' `summarise_geometry_bbox` computes the geometry summary as the bounding box of the
-#' union and dissolve of the changing geometries
+#' `summarise_geometry_bbox` computes the geometry summary as the bounding box
+#' of the union and dissolve of the changing geometries
 #'
 #' @inheritParams summarise_geometry_union
 #'

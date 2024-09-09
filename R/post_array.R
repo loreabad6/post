@@ -4,15 +4,15 @@
 #' organises polygons that change their shape in space and time.
 #' It extends the `stars` class for vector data cubes to support
 #' changing geometries as attributes.
-#' The `post_array` class supports two dimensions: `geom_sum` and
-#' `datetime`.
-#' `geom_sum` is the summary geometry of the changing
-#' shapes of the polygon geometries.
+#' The `post_array` class supports two dimensions: a summary geometry
+#' dimension (default name: `geom_sum`) and a temporal dimension.
+#' The summary geometry is a unique geometry per group
+#' which summarises the changing shapes of the polygon geometries in the group.
 #'
 #' @param x object to convert to `post_array` with `POLYGON`/`MULTIPOLYGON`
 #' geometries and a date/time column.
 #' @param group_id See Details.
-#' Defaults to the first column in `x`.
+#' Defaults to the first non-spatial, non-temporal column in `x`.
 #' @param time_column_name (character) name of column with the temporal
 #' dimension information. Defaults to the first temporal column in `x`.
 #' @param sf_column_name (character) name of column with changing

@@ -4,12 +4,12 @@
 #' organises polygons that change their shape in space and time.
 #' It extends the `cubble_df` classes for vector data cubes to support
 #' changing geometries in the temporal face of the cube.
-#' The `post_table` geometry for the spatial face of the cube is
-#' `geom_sum`, while the changing geometry provided is passed
-#' to the temporal face of the cube.
+#' The `post_table` geometry for the spatial face of the cube defaults
+#' to a column named `geom_sum`, while the changing geometry provided is
+#' passed on to the temporal face of the cube.
 #'
 #' @inheritParams as_post_array
-#' @inheritSection as_post_array details
+#' @inherit as_post_array details
 #'
 #' @param x object to convert to `post_table` with `POLYGON`/`MULTIPOLYGON`
 #' geometries and a date/time column.
