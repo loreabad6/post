@@ -38,7 +38,7 @@ Data cubes are multi-dimensional data structures.
 The most commonly known data cubes, particularly in Earth observation (EO), are **raster data cubes**. 
 Raster data cubes are structures frequently used to organise time series of satellite imagery, gridded climate data, etc.
 They have minimum two spatial dimensions: *longitude* or *x* and *latitude* or *y*. 
-The remainder dimensions can either be *time*, or for the case of EO data, it could also be, for example, different *bands*.
+The remainder dimensions can either be *time*, or other dimension such as *bands* for EO data.
 :::
 
 ::: {.g-col-3}
@@ -57,6 +57,8 @@ The remainder dimensions can either be *time*, or for the case of EO data, it co
 On the other hand, **vector data cubes** support one minimum spatial dimension, a *geometry*.
 Representing data in vector data cubes becomes useful when thematic variables are changing over time at the vector locations, i.e. for spatio-temporal data.
 For example, time series of temperature, precipitation, wind speed, etc. recorded by climate stations can be represented and analysed using vector data cubes.
+However, current implementations of vector data cubes only support static geometries (e.g. climate stations stay at the same place over time).
+`post` intends to provide support also for geometries that change over time.
 :::
 
 :::
