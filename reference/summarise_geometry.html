@@ -6,16 +6,20 @@ summarise_geometry_union computes the geometry summary as the union and
 dissolve of the changing geometries
 summarise_geometry_centroid computes the geometry summary as the centroid
 of the union and dissolve of the changing geometries
-summarise_geometry_bbox computes the geometry summary as the bounding box
-of the union and dissolve of the changing geometries"><meta property="og:description" content="Changing geometries are summarised for all time periods as a single geometry
+summarise_geometry_bbox computes the geometry summary as the bounding box or
+minimum rectangle of the union and dissolve of the changing geometries
+summarise_geometry_convex_hull computes the geometry summary as the
+convex hull of the union and dissolve of the changing geometries"><meta property="og:description" content="Changing geometries are summarised for all time periods as a single geometry
 (of types POINT, POLYGON, MULTIPOLYGON) in order to pass them
 as a spatial dimension to post_* objects.
 summarise_geometry_union computes the geometry summary as the union and
 dissolve of the changing geometries
 summarise_geometry_centroid computes the geometry summary as the centroid
 of the union and dissolve of the changing geometries
-summarise_geometry_bbox computes the geometry summary as the bounding box
-of the union and dissolve of the changing geometries"></head><body>
+summarise_geometry_bbox computes the geometry summary as the bounding box or
+minimum rectangle of the union and dissolve of the changing geometries
+summarise_geometry_convex_hull computes the geometry summary as the
+convex hull of the union and dissolve of the changing geometries"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -35,6 +39,7 @@ of the union and dissolve of the changing geometries"></head><body>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/post01_post.html">Post objects - Vector data cube structures</a></li>
+    <li><a class="dropdown-item" href="../articles/post02_geomsum.html">Summarising geometries</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -67,8 +72,10 @@ as a spatial dimension to <code>post_*</code> objects.</p>
 dissolve of the changing geometries</p>
 <p><code>summarise_geometry_centroid</code> computes the geometry summary as the centroid
 of the union and dissolve of the changing geometries</p>
-<p><code>summarise_geometry_bbox</code> computes the geometry summary as the bounding box
-of the union and dissolve of the changing geometries</p>
+<p><code>summarise_geometry_bbox</code> computes the geometry summary as the bounding box or
+minimum rectangle of the union and dissolve of the changing geometries</p>
+<p><code>summarise_geometry_convex_hull</code> computes the geometry summary as the
+convex hull of the union and dissolve of the changing geometries</p>
     </div>
 
     <div class="section level2">
@@ -105,10 +112,26 @@ of the union and dissolve of the changing geometries</p>
 <span>  <span class="va">x</span>,</span>
 <span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  .checks <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  .checks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  rotated <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">summarize_geometry_bbox</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .checks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  rotated <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">summarise_geometry_convex_hull</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .checks <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">summarize_geometry_convex_hull</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -138,6 +161,12 @@ geometries. Defaults to active <code>sf_column</code>.</p></dd>
 <dt id="arg--checks">.checks<a class="anchor" aria-label="anchor" href="#arg--checks"></a></dt>
 <dd><p>internal, should creation arguments be checked?</p></dd>
 
+
+<dt id="arg-rotated">rotated<a class="anchor" aria-label="anchor" href="#arg-rotated"></a></dt>
+<dd><p>(logical) if TRUE, the minimum rotated rectangle is returned,
+if FALSE the minimum unrotated rectangle or bounding box is returned.
+Defaults to FALSE</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -151,6 +180,8 @@ Supported summary types are:</p>
 <p>a. the union and dissolve of the changing geometries,</p>
 <p>b. the centroid of <strong>a</strong></p>
 <p>c. the bbox of <strong>a</strong></p>
+<p>d. the minimum rotated rectangle of <strong>a</strong></p>
+<p>e. the convex hull of <strong>a</strong></p>
 <p>A custom function to summarise geometries can be passed onto the
 coercion functions <code>as_post_*()</code>, given that the parameters <code>x</code>,
 <code>group_id</code> and <code>sf_column_name</code> are included in the function.

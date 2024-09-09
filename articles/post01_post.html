@@ -37,6 +37,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/post01_post.html">Post objects - Vector data cube structures</a></li>
+    <li><a class="dropdown-item" href="../articles/post02_geomsum.html">Summarising geometries</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -167,11 +168,17 @@
 </div>
 </div>
 <p>To create a post object a group identifier (<code>group_id</code>) is always required<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Future implementation of &lt;code&gt;post&lt;/code&gt; intends to introduce functions to group features when the group they belong to is unknown.&lt;/p&gt;"><sup>2</sup></a>. This identifier should be unique per feature and within each group there should not exist duplicated timestamps.</p>
+<p>Minimally, an sf object that is converted to a post object should have the following columns:</p>
+<ol type="1">
+<li>a group identifier</li>
+<li>a timestamp</li>
+<li>changing geometries</li>
+</ol>
 <p>When converting an sf object to a post object, the necessary arguments are automatically identified if not supplied.</p>
 <section class="level3"><h3 id="post_array-objects">
 <code>post_array</code> objects<a class="anchor" aria-label="anchor" href="#post_array-objects"></a>
 </h3>
-<p><code>post_array</code> is a spatio-temporal array data structure that organises polygons that change their shape in space and time. It extends the <code>stars</code> class for vector data cubes to support changing geometries as attributes. The post_array class supports two dimensions: a summary geometry dimension (default name: <code>geom_sum</code>) and a temporal dimension. The summary geometry is a unique geometry per group which summarises the changing shapes of the polygon geometries in the group.</p>
+<p><code>post_array</code> is a spatio-temporal array data structure that organises polygons that change their shape in space and time. It extends the <code>stars</code> class for vector data cubes to support changing geometries as attributes. The post_array class supports two dimensions: a summary geometry dimension (default name: <code>geom_sum</code>) and a temporal dimension. The summary geometry is a unique geometry per group which summarises the changing shapes of the polygon geometries in the group. To learn more about the data structure of post_array objects see <code><a href="https://r-spatial.github.io/stars/articles/stars4.html" class="external-link">vignette("stars4", package = "stars")</a></code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">arr</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span><span class="op">)</span></span>
@@ -234,7 +241,7 @@
 </section><section class="level3"><h3 id="post_table-objects">
 <code>post_table</code> objects<a class="anchor" aria-label="anchor" href="#post_table-objects"></a>
 </h3>
-<p><code>post_table</code> is a spatio-temporal tabular data structure that organises polygons that change their shape in space and time. It extends the <code>cubble_df</code> classes for vector data cubes to support changing geometries in the temporal face of the cube. The post_table geometry for the spatial face of the cube defaults to a column named <code>geom_sum</code>, while the changing geometry provided is passed on to the temporal face of the cube.</p>
+<p><code>post_table</code> is a spatio-temporal tabular data structure that organises polygons that change their shape in space and time. It extends the <code>cubble_df</code> classes for vector data cubes to support changing geometries in the temporal face of the cube. The post_table geometry for the spatial face of the cube defaults to a column named <code>geom_sum</code>, while the changing geometry provided is passed on to the temporal face of the cube. To learn more about the data structure of post_table objects see <code><a href="https://huizezhang-sherry.github.io/cubble/articles/cb1class.html" class="external-link">vignette("cb1class", package = "cubble")</a></code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">tab</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span><span class="op">)</span></span>
