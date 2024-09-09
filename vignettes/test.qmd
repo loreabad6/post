@@ -32,3 +32,19 @@ In R, vector data cube structures are supported in the form of array objects by 
 Finally, both stars and cubble support certain `{tidyverse}` functions. 
 
 [^1]: Other packages also support spatio-temporal objects such as `{sftime}`, and further support will be implemented while `post` gets developed. 
+
+::: {.grid}
+
+::: {.g-col-9}
+Data cubes are multi-dimensional data structures.
+The most commonly known data cubes, particularly in Earth observation (EO), are **raster data cubes**. 
+Raster data cubes are structures frequently used to organise time series of satellite imagery, gridded climate data, etc.
+They have minimum two spatial dimensions: *longitude* or *x* and *latitude* or *y*. 
+The remainder dimensions can either be *time*, or other dimension such as *bands* for EO data.
+:::
+
+::: {.g-col-3}
+![](figs/raster-data-cube.png)
+:::
+
+:::
