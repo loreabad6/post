@@ -50,21 +50,9 @@ The remainder dimensions can either be *time*, or other dimension such as *bands
 :::
 
 ```{r}
-#| label: libraries
-#| warning: false
-#| message: false
 library(post)
 library(cubble)
 library(stars)
 library(sf)
 library(tidyverse)
-```
-
-```{r}
-polygons
-```
-
-```{r}
-(arr = as_post_array(polygons))
-class(arr)
 ```
