@@ -151,6 +151,8 @@ However, these identifiers are stored as metadata and can be obtained as:
 get_group_ids(arr)
 ```
 
+To learn more about the data structure of post_array objects see `vignette("stars4", package = "stars")`.
+
 ### `post_table` objects
 
 `post_table` is a spatio-temporal tabular data structure that organises polygons that change their shape in space and time.
@@ -172,3 +174,5 @@ st_geometry(tab)
 # summary geometry
 st_geometry(tab_temp)
 ```
+
+To learn more about the data structure of post_table objects see `vignette("cb1class", package = "cubble")`.
