@@ -1,0 +1,23 @@
+---
+title: "test"
+vignette: >
+  %\VignetteIndexEntry{test}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+format:
+  html:
+    toc: true
+    fig-width: 8.5
+    fig-height: 4
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: '#>'
+    dev.args:
+      bg: transparent
+---
+
+```{r}
+library(post)
+```
+
