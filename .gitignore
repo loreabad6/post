@@ -6,4 +6,4 @@
 .quarto
 docs
 inst/doc
-vignettes/
+vignettes/.drafts/
