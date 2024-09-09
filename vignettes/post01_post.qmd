@@ -121,6 +121,12 @@ This identifier should be unique per feature and within each group there should 
 
 [^2]: Future implementation of `post` intends to introduce functions to group features when the group they belong to is unknown. 
 
+Minimally, an sf object that is converted to a post object should have the following columns: 
+
+1. a group identifier
+2. a timestamp
+3. changing geometries
+
 When converting an sf object to a post object, the necessary arguments are automatically identified if not supplied. 
 
 ### `post_array` objects
