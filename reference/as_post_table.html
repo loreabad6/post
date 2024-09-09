@@ -3,15 +3,15 @@
 organises polygons that change their shape in space and time.
 It extends the cubble_df classes for vector data cubes to support
 changing geometries in the temporal face of the cube.
-The post_table geometry for the spatial face of the cube is
-geom_sum, while the changing geometry provided is passed
-to the temporal face of the cube."><meta property="og:description" content="post_table is a spatio-temporal tabular data structure that
+The post_table geometry for the spatial face of the cube defaults
+to a column named geom_sum, while the changing geometry provided is
+passed on to the temporal face of the cube."><meta property="og:description" content="post_table is a spatio-temporal tabular data structure that
 organises polygons that change their shape in space and time.
 It extends the cubble_df classes for vector data cubes to support
 changing geometries in the temporal face of the cube.
-The post_table geometry for the spatial face of the cube is
-geom_sum, while the changing geometry provided is passed
-to the temporal face of the cube."></head><body>
+The post_table geometry for the spatial face of the cube defaults
+to a column named geom_sum, while the changing geometry provided is
+passed on to the temporal face of the cube."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -28,6 +28,10 @@ to the temporal face of the cube."></head><body>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/test.html">test</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -56,9 +60,9 @@ to the temporal face of the cube."></head><body>
 organises polygons that change their shape in space and time.
 It extends the <code>cubble_df</code> classes for vector data cubes to support
 changing geometries in the temporal face of the cube.
-The <code>post_table</code> geometry for the spatial face of the cube is
-<code>geom_sum</code>, while the changing geometry provided is passed
-to the temporal face of the cube.</p>
+The <code>post_table</code> geometry for the spatial face of the cube defaults
+to a column named <code>geom_sum</code>, while the changing geometry provided is
+passed on to the temporal face of the cube.</p>
     </div>
 
     <div class="section level2">
@@ -100,7 +104,7 @@ geometries and a date/time column.</p></dd>
 
 <dt id="arg-group-id">group_id<a class="anchor" aria-label="anchor" href="#arg-group-id"></a></dt>
 <dd><p>See Details.
-Defaults to the first column in <code>x</code>.</p></dd>
+Defaults to the first non-spatial, non-temporal column in <code>x</code>.</p></dd>
 
 
 <dt id="arg-time-column-name">time_column_name<a class="anchor" aria-label="anchor" href="#arg-time-column-name"></a></dt>
@@ -133,6 +137,16 @@ during post_table creation? Defaults to TRUE</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>an object of class <code>post_table</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>group_id should be the name of the column containing the grouping
+identifier for the changing polygons or a vector with group identifiers.
+Character, integer, double and factor vectors are supported.
+The vector should be of length 1 or the same as <code>nrow(x)</code>.
+A vector of length 1 repeats the value for all the rows.
+Providing a vector assumes that the ordering of the groups
+is correct and that there are no duplicated timestamps per group</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
