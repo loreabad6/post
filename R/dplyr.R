@@ -130,7 +130,6 @@ select.post_array = function(.data, ...) {
 #' @importFrom dplyr slice
 #' @export
 slice.post_array = function(.data, ...) {
-  # TODO: document that drop=TRUE should be used if then coercing to post_table
   out = NextMethod()
   restore_post_array(out, .data)
 }
