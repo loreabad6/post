@@ -105,9 +105,7 @@ geometries and a date/time column.</p></dd>
 
 
 <dt id="arg-group-id">group_id<a class="anchor" aria-label="anchor" href="#arg-group-id"></a></dt>
-<dd><p>(character) name of column containing the grouping
-identifier for the changing polygons or group identifier given as an
-integer or character value that is assigned to all rows in <code>x</code>.
+<dd><p>See Details.
 Defaults to the first column in <code>x</code>.</p></dd>
 
 
@@ -147,6 +145,16 @@ temporal dimension (assumes interval times)</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>an object of class <code>post_array</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>group_id should be the name of the column containing the grouping
+identifier for the changing polygons or a vector with group identifiers.
+Character, integer, double and factor vectors are supported.
+The vector should be of length 1 or the same as <code>nrow(x)</code>.
+A vector of length 1 repeats the value for all the rows.
+Providing a vector assumes that the ordering of the groups
+is correct and that there are no duplicated timestamps per group</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
