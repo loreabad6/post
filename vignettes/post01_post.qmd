@@ -2,8 +2,8 @@
 title: "Post objects - Vector data cube structures"
 vignette: >
   %\VignetteIndexEntry{Post objects - Vector data cube structures}
-  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{quarto::html}
 format:
   html:
     toc: true
@@ -15,6 +15,8 @@ knitr:
     comment: '#>'
     dev.args:
       bg: transparent
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -180,4 +182,30 @@ To extract the summary and changing geometries from `post_table` objects use:
 st_geometry(tab)
 # summary geometry
 st_geometry(tab_temp)
+```
+
+### Conversion between `post_*` objects
+
+The functions `as_post_*()` can be used to convert objects between from `post_table` to `post_array` and viceversa.
+This is particularly useful when certain methods and operations are only available for one class.
+
+```{r}
+tab |> as_post_array()
+arr |> as_post_table()
+```
+
+For a conversion from `post_array` to `post_table` the argument `drop_empty` is available in case the post_array object has empty geometries. 
+Dropping empty geometries is the default.
+
+```{r}
+set.seed(732)
+(arr_empty = polygons[sample(nrow(polygons), 13), ] |> 
+  as_post_array())
+arr_empty$geometry
+
+# converting to post_table
+as_post_table(arr_empty) |> 
+  face_temporal()
+as_post_table(arr_empty, drop_empty = FALSE) |> 
+  face_temporal()
 ```
