@@ -127,9 +127,16 @@ coercion functions \verb{as_post_*()}, given that the parameters \code{x},
 Additional arguments can be passed to the function as necessary.
 }
 \examples{
+# union and dissolve
 summarise_geometry_union(polygons)
+# centroid
 summarise_geometry_centroid(polygons)
+# bounding box or minimum unrotated rectangle
 summarise_geometry_bbox(polygons)
+# minimum rotated rectangle
+summarise_geometry_bbox(polygons, rotated = TRUE)
+# convex hull
+summarise_geometry_convex_hull(polygons)
 
 }
 \concept{Changing geometries summarisers}
