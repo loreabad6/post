@@ -2,8 +2,8 @@
 title: "Compatibility with other packages"
 vignette: >
   %\VignetteIndexEntry{Compatibility with other packages}
-  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{quarto::html}
 format:
   html:
     toc: true
@@ -13,6 +13,8 @@ knitr:
     comment: '#>'
     dev.args:
       bg: transparent
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -32,6 +34,8 @@ The classes provided in `post` are designed so that the majority of functions an
 The main compatibility functions are presented in this vignette. 
 
 ## `cubble` compatibility
+
+Objects of class `post_table` are compatible with most of `cubble`s methods as presented below. 
 
 ### Spatial and temporal faces
 
@@ -104,14 +108,79 @@ ggplot(remove_post_table(tab_unf)) +
 
 ## `stars` compatibility
 
+Objects of class `post_array` inherit also the `stars` class, so most of the methods for stars objects are applicable to post objects as shown below. 
 
+### Subsetting
 
-## `dplyr` compatibility
+`stars` and hence `post_array` objects are in esence arrays, therefore we can use the `[` operator for subsetting (see more on its usage [on the corresponding stars vignette](https://r-spatial.github.io/stars/articles/stars1.html#subsetting).
 
-slice method for post_array: drop=TRUE should be used if then coercing to post_table
+```{r}
+arr = as_post_array(polygons, geometry_summary = summarise_geometry_union)
+# subset first two features
+arr[,1:2,]
+# subset last three timestamps
+arr[,,3:5]
+```
+
+Note how the number of geometries in the attributes varies according to the subsetting operation.
+
+When extracting the attributes themselves, the `[[` can be used. 
+Note that the `geometry` attribute in the `arr` object we created is an `sfc` object but it has dimensions.
+
+```{r}
+arr[[1]]
+class(arr[[1]])
+dim(arr[[1]])
+```
+
+We can also create new attributes, for example:
+
+```{r}
+arr$area = st_area(arr[[1]])
+arr
+```
+
+And the functionality to use `[` as a "crop" operator is also supported.
+However, in this case a spatial filtering rather than a cropping operation takes place.
+
+```{r}
+circle = st_point(c(0.6,0.5)) |>
+  st_sfc(crs = 4326) |>
+  st_buffer(10000)
+arr[circle]
+```
+
+Note that the spatial dimension `geom_sum` is the one that gets filtered and not the changing geometries [^1].
+Therefore, the filtered `post_array` will also keep geometries that do not intersect `circle` by themselves but their summary geometry does.
+
+[^1]: see section ... on how to perform a spatial filter of the changing geometries
+
+```{r}
+par(mar = c(0,0,0,0))
+plot(arr$geometry, col = "grey80", border = "white")
+plot(circle, col = "deepskyblue3", border = NA, add = TRUE)
+plot(arr[circle]$geometry, border = "firebrick1", add = TRUE)
+```
+
+### Apply functions to array dimensions
+
+<!-- 
+TODO: test st_apply, maybe examples with stampr 
+https://r-spatial.github.io/stars/reference/st_apply.html
+-->
 
 ## `sf` compatibility
 
-Geometric operations on pairs of simple features (see `?sf::geos_binary_ops`) are not supported for post objects since they change the topology of the post objects in ways that can't be reconstructed without further knowledge on how summary and changing polygons should be adapted. 
+Geometric operations on pairs of simple features (see `?sf::geos_binary_ops`) are not supported for post objects since they change the topology of the object in ways that can't be reconstructed without further knowledge on how summary and changing polygons should be adapted.
+
+## `dplyr` compatibility
 
 ## cells or rows?
+
+slice method for post_array: drop=TRUE should be used if then coercing to post_table
+
+<!-- ## Raster - Vector Data Cube integration -->
+
+<!-- TODO: st_extract example with time interpolation -->
+<!-- possibly a different vignette -->
+<!-- https://r-spatial.github.io/stars/reference/st_extract.html -->
