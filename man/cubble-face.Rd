@@ -4,16 +4,21 @@
 \alias{cubble-face}
 \alias{face_spatial.post_table}
 \alias{face_temporal.post_table}
+\alias{unfold.post_table}
 \title{Face spatial/temporal method for post_table}
 \usage{
 \method{face_spatial}{post_table}(data)
 
 \method{face_temporal}{post_table}(data, col)
+
+\method{unfold}{post_table}(data, ...)
 }
 \arguments{
 \item{data}{a post_table object}
 
 \item{col}{see \code{cubble::face_temporal()} for details.}
+
+\item{...}{see \code{cubble::unfold()}}
 }
 \value{
 a post_table object
