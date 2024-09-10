@@ -22,7 +22,7 @@ Imports:
     sf (>= 1.0.17),
     stars (>= 0.6-7),
     tidyr
-Remotes:  
+Remotes: 
     huizezhang-sherry/cubble,
     r-spatial/stars,
     r-spatial/sf
@@ -33,7 +33,8 @@ Suggests:
     quarto,
     rmarkdown,
     testthat (>= 3.0.0),
-    tidyverse
+    tidyverse,
+    tsibble
 VignetteBuilder:
     knitr,
     quarto
