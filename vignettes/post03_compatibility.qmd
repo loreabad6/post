@@ -67,8 +67,7 @@ If we sample the original polygon to create random gaps, we can use this functio
 
 ```{r}
 set.seed(324)
-tab_gaps = polygons |> 
-  sample_n(13) |> 
+tab_gaps = polygons[sample(nrow(polygons), 13), ] |> 
   as_post_table() 
 tab_gaps |> face_temporal()
 tab_gaps |> face_temporal() |> fill_gaps()
@@ -144,7 +143,7 @@ And the functionality to use `[` as a "crop" operator is also supported.
 However, in this case a spatial filtering rather than a cropping operation takes place.
 
 ```{r}
-circle = st_point(c(0.6,0.5)) |>
+circle = st_point(c(0.55,0.5)) |>
   st_sfc(crs = 4326) |>
   st_buffer(10000)
 arr[circle]
@@ -153,7 +152,7 @@ arr[circle]
 Note that the spatial dimension `geom_sum` is the one that gets filtered and not the changing geometries [^1].
 Therefore, the filtered `post_array` will also keep geometries that do not intersect `circle` by themselves but their summary geometry does.
 
-[^1]: see section ... on how to perform a spatial filter of the changing geometries
+[^1]: see section @sec-spatfilt on how to perform a spatial filter of the changing geometries
 
 ```{r}
 par(mar = c(0,0,0,0))
@@ -171,11 +170,137 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 
 ## `sf` compatibility
 
-Geometric operations on pairs of simple features (see `?sf::geos_binary_ops`) are not supported for post objects since they change the topology of the object in ways that can't be reconstructed without further knowledge on how summary and changing polygons should be adapted.
+Both post classes, i.e. `post_array` and `post_table` support most sf methods since they inherit implicitly or explicitly the `sf` or `sfc` class. 
+
+Methods that are not supported for post objects include: 
+
+- Geometric operations on pairs of simple features (see `?sf::geos_binary_ops`) are not supported for post objects since they change the topology of the object in ways that can't be reconstructed without further knowledge on how summary and changing polygons should be adapted.
+
+### Converting to `sf`
+
+When converting a `post_*` object to `sf` both the summary and changing geometries are preserved, and the changing geometry is set as the active geometry.
+Converting from `post_table` also includes the coordinate columns created by cubble.
+
+```{r}
+# post_array
+arr = as_post_array(polygons,
+                    geometry_summary = summarise_geometry_bbox, 
+                    rotated = TRUE)
+st_as_sf(arr)
+# post_table
+tab = as_post_table(polygons,
+                    geometry_summary = summarise_geometry_bbox, 
+                    rotated = TRUE)
+st_as_sf(tab)
+```
+
+### CRS transformation
+
+<!-- TODO: check if/why `st_crs<-` should work for post_array as well, skipped for now -->
+
+When transforming the CRS, both the changing and the summary geometry are updated within the `post_*` object.
+
+```{r}
+# post_array
+st_transform(arr, 3035)
+# post_table
+st_transform(tab, 3035)
+st_transform(tab, 3035) |> face_temporal()
+```
+
+### Geometric binary predicates
+
+Geometric binary predicates (`?sf::geos_binary_pred`) are supported by `post_*` objects in different ways.
+
+For `post_array` objects, the predicates cannot be applied to the summary geometry dimension, but can be applied to the changing geometries.
+
+```{r}
+#| error: true
+st_disjoint(arr, circle)
+st_disjoint(arr$geometry, circle)
+```
+
+For `post_table` objects, the predicates can be applied to either the spatial or the temporal face of the vector data cube. 
+
+```{r}
+st_disjoint(tab, circle)
+st_disjoint(face_temporal(tab), circle)
+```
+
+Applying the predicate to the changing geometry of `post_array` objects renders the same result as applying it to the `post_table` objects in the long format or on its temporal face. 
+
+```{r}
+sum(st_disjoint(arr$geometry, circle, sparse = FALSE))
+sum(st_disjoint(face_temporal(tab), circle, sparse = FALSE))
+```
+
+### Spatial filtering {#sec-spatfilt}
+
+The predicates shown above are particularly relevant to use inside spatial filtering operations.
+
+`sf::st_filter()` does not work on `post_array` objects.
+
+```{r}
+#| error: true
+st_filter(arr)
+st_filter(arr$geometry)
+```
+
+But it does work on `post_table` objects, both for the spatial and temporal face.
+
+```{r}
+st_filter(tab, circle)
+st_filter(face_temporal(tab), circle)
+```
+
+When a spatial filtering needs to be applied to the changing geometry of a `post_array` object, we can first convert to `post_table`, perform the filtering on the temporal face and then convert back to a `post_array` object. 
+
+```{r}
+arr |> 
+  as_post_table() |> 
+  face_temporal() |> 
+  st_filter(circle) |> 
+  as_post_array()
+```
+
+### Geometric measurements and unary operations
+
+Geometric measurements (`?sf::geos_measures`) can be applied to the summary and changing geometries as:
+
+```{r}
+# post_array
+st_area(st_geometry(arr))
+st_area(arr$geometry)
+#post_table
+st_area(tab)
+st_area(face_temporal(tab))
+```
+
+Unary operations (`?sf::geos_unary`) can be applied to post objects but different behaviors are to be expected. 
+
+For `post_array` the operation is performed on the changing geometries by extracting the geometries. 
+
+```{r}
+st_boundary(arr$geometry)
+```
+
+If the operation is applied to a `post_table` the geometry column will get updated to the new geometry type.
+
+```{r}
+st_centroid(tab)
+```
+
+```{r}
+#| layout-ncol: 2
+#| fig-cap: 
+#|   - "Original summary geometry: minimum rotated rectangle"
+#|   - "Updated summary geometry: centroid"
+plot(tab$geom_sum)
+plot(st_centroid(tab)$geom_sum)
+```
 
 ## `dplyr` compatibility
 
-## cells or rows?
 
 slice method for post_array: drop=TRUE should be used if then coercing to post_table
 
