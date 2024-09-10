@@ -139,7 +139,7 @@ as_post_array.sf = function(x,
 
   # Compute geometry summary
   geom_sum = check_geometry_summary(x, geometry_summary,
-                                    group_id, sf_column_name)
+                                    group_id, sf_column_name, ...)
 
   # Create dimensions object
   d = stars::st_dimensions(

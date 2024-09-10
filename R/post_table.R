@@ -79,7 +79,7 @@ as_post_table.sf = function(x,
 
   # Compute geometry summary
   geom_sum = check_geometry_summary(x, geometry_summary,
-                                    group_id, sf_column_name)
+                                    group_id, sf_column_name, ...)
 
   # Stop if only one timestamp is present
   if(length(unique(x[[time_column_name]])) <= 1) {
