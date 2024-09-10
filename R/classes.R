@@ -60,6 +60,7 @@ remove_post_array = function(x) {
 }
 #' @rdname classes
 #' @param x An object that inherits stars class.
+#' @param x_orig An object that inherits post_array class
 #' @export
 restore_post_array = function(x, x_orig) {
   # Extract sf_column name, default to first sfc attribute in stars object

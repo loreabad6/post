@@ -59,7 +59,7 @@ spatial.post_table = function(data) {
 #' @name cubble-fill
 #' @importFrom sf st_as_sf
 #' @importFrom tsibble fill_gaps
-#' @param data a post_table object
+#' @param .data a post_table object
 #' @return a post_table object
 #' @export
 fill_gaps.post_table = function(.data) {

@@ -24,6 +24,8 @@ restore_post_array(x, x_orig)
 }
 \arguments{
 \item{x}{An object that inherits stars class.}
+
+\item{x_orig}{An object that inherits post_array class}
 }
 \value{
 An object that inherits or removes the classes post_table/post_array

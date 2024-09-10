@@ -8,7 +8,7 @@
 \method{fill_gaps}{post_table}(.data)
 }
 \arguments{
-\item{data}{a post_table object}
+\item{.data}{a post_table object}
 }
 \value{
 a post_table object
