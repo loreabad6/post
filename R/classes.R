@@ -1,23 +1,27 @@
-#' @description
+#' Remove or restore post_* classes
+#'
 #' Utility functions to remove/restore post_table/post_array classes when
 #' passing functions onto stars, spatial_cubble_df and temporal_cubble_df
-#'
+#' @name classes
 #' @return An object that inherits or removes the classes post_table/post_array
 #' and sf.
 #'
+#' @rdname classes
 #' @param x An object that inherits post_table class.
-#' @noRd
+#' @export
 remove_post_table = function(x) {
   class(x) = setdiff(class(x), "post_table")
   x
 }
+#' @rdname classes
 #' @param x An object that inherits cubble class.
-#' @noRd
+#' @export
 restore_post_table = function(x) {
   structure(x, class = union("post_table", class(x)))
 }
+#' @rdname classes
 #' @param x An object that inherits spatial_cubble_df class.
-#' @noRd
+#' @export
 restore_spatial_post_table = function(x) {
   if(class(x)[[1]] == "sf") {
     cubble_spat_classes = c("spatial_cubble_df", "cubble_df")
@@ -33,9 +37,9 @@ restore_spatial_post_table = function(x) {
     structure(x, class = union("post_table", class(x)))
   }
 }
-
+#' @rdname classes
 #' @param x An object that inherits temporal_cubble_df class.
-#' @noRd
+#' @export
 restore_temporal_post_table = function(x) {
   cubble_temp_classes = c("temporal_cubble_df", "cubble_df")
   structure(
@@ -47,14 +51,16 @@ restore_temporal_post_table = function(x) {
     )
   )
 }
+#' @rdname classes
 #' @param x An object that inherits stars class.
-#' @noRd
+#' @export
 remove_post_array = function(x) {
   class(x) = setdiff(class(x), "post_array")
   x
 }
+#' @rdname classes
 #' @param x An object that inherits stars class.
-#' @noRd
+#' @export
 restore_post_array = function(x, x_orig) {
   # Extract sf_column name, default to first sfc attribute in stars object
   sf_column = names(which(sapply(x, \(i) inherits(i, "sfc"))))[1]
