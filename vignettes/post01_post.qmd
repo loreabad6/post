@@ -135,9 +135,13 @@ When converting an sf object to a post object, the necessary arguments are autom
 
 `post_array` is a spatio-temporal array data structure that organises polygons that change their shape in space and time.
 It extends the `stars` class for vector data cubes to support changing geometries as attributes.
-The post_array class supports two dimensions: a summary geometry dimension (default name: `geom_sum`) and a temporal dimension. 
+The post_array class supports two dimensions: a summary geometry dimension (default name: `geom_sum`) and a temporal dimension.
 The summary geometry is a unique geometry per group which summarises the changing shapes of the polygon geometries in the group.
 To learn more about the data structure of post_array objects see `vignette("stars4", package = "stars")`.
+
+Each array "cell" should have a value.
+In case a particular summary geometry - temporal dimension combination does not exist, the changing geometry is stored as an empty geometry.
+This behavior guarantees the dimensionality of the `post_array` object.
 
 ```{r}
 (arr = as_post_array(polygons))
@@ -167,6 +171,7 @@ It extends the `cubble_df` classes for vector data cubes to support changing geo
 The post_table geometry for the spatial face of the cube defaults to a column named `geom_sum`, while the changing geometry provided is passed on to the temporal face of the cube.
 To learn more about the data structure of post_table objects see `vignette("cb1class", package = "cubble")`.
 
+Contrary to `post_array` objects, `post_table` can handle gaps in its data, i.e., not every summary geometry - temporal combination should be present. 
 
 ```{r}
 (tab = as_post_table(polygons))
