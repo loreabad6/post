@@ -28,7 +28,6 @@ post is currently work in progress and this repository holds the first
 implementation along with issues of possible features and integration
 with other packages such as
 [cubble](https://huizezhang-sherry.github.io/cubble/),
-[stars](https://r-spatial.github.io/stars/) and
-[stampr](https://cran.r-project.org/web/packages/stampr/index.html).
+[stars](https://r-spatial.github.io/stars/).
 
 Stay tuned!

@@ -96,13 +96,15 @@ tab_unf = polygons |>
 ggplot(remove_post_table(tab_unf)) +
   aes(x_major = long, y_major = lat, x_minor = datetime, y_minor = area) +
   geom_sf(data = tab_union, fill = "grey80", color = NA, inherit.aes = FALSE) +
-  geom_glyph_box(width = 0.2, height = 0.1) +
-  geom_glyph(aes(color = area), width = 0.2, height = 0.1, linewidth = 0.7) +
+  geom_glyph_box(width = 0.18, height = 0.1) +
+  geom_glyph(aes(color = area), width = 0.18, height = 0.1, linewidth = 0.7) +
   scale_color_viridis_c() +
   theme_bw()
 ```
 
 ## `stars` compatibility
+
+
 
 ## `dplyr` compatibility
 
