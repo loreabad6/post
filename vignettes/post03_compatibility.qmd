@@ -1,0 +1,115 @@
+---
+title: "Compatibility with other packages"
+vignette: >
+  %\VignetteIndexEntry{Compatibility with other packages}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+format:
+  html:
+    toc: true
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: '#>'
+    dev.args:
+      bg: transparent
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+library(post)
+library(cubble)
+library(sf)
+library(stars)
+library(tidyverse)
+library(tsibble)
+```
+
+The classes provided in `post` are designed so that the majority of functions and methods available for `cubble` or `stars` objects are still applicable to `post_*` objects, while keeping the post class and attributes in the process. 
+
+The main compatibility functions are presented in this vignette. 
+
+## `cubble` compatibility
+
+### Spatial and temporal faces
+
+The main functionalities of `{cubble}` are the ability to do analyses on the spatial or on the temporal faces of the vector data cube. 
+For this, the functions `cubble::face_spatial()` and `cubble::face_temporal()` are provided.
+The spatial face is the default state of a cubble object.
+
+```{r}
+tab = as_post_table(polygons)
+face_spatial(tab)
+face_temporal(tab)
+```
+
+### Attribute extraction
+
+Extracting `cubble` attributes is also possible. cubble follows the attributes from `{tsibble}` objects, where the `key` is equivalent to the group identifier and the `index` is equivalent to the temporal column in `post_table` objects.
+
+```{r}
+cubble::coords(tab)
+cubble::index(tab)
+tsibble::key(tab)
+cubble::spatial(tab)
+```
+
+### Gap filling with tsibble
+
+`cubble` also supports compatibility with some `tsibble` functions, namely gap filling, `tsibble::fill_gaps()`. 
+If we sample the original polygon to create random gaps, we can use this function to fill them with NA values and empty geometries. 
+
+```{r}
+set.seed(324)
+tab_gaps = polygons |> 
+  sample_n(13) |> 
+  as_post_table() 
+tab_gaps |> face_temporal()
+tab_gaps |> face_temporal() |> fill_gaps()
+```
+
+The function `tsibble::scan_gaps()` on the other hand does not return a `post_table` object since all the geometries would be `EMPTY` and the inherit structure of a post object is lost.
+
+```{r}
+tab_gaps |> face_temporal() |> scan_gaps()
+```
+
+### Glyph maps
+
+For visualisation, `cubble` provides the `cubble::geom_glyph()` function to be used with `{ggplot2}` plots. 
+This geom is useful to have a quick glance at the temporal variation of specific variables while also being aware of the spatial distribution of the features. 
+
+To use this one with `post_table` objects we have to unfold the `long` and `lat` functions into the temporal face of the vector data cube. 
+
+Then, to pass it onto the ggplot function, the `post_table` class should be dropped to avoid conflicts. The utility function `remove_post_table()` is provided for this purpose. 
+
+```{r}
+tab_union = as_post_table(polygons, geometry_summary = summarise_geometry_union)
+tab_unf = polygons |> 
+  mutate(area = as.numeric(st_area(geometry))) |> 
+  as_post_table() |> 
+  face_temporal() |> 
+  unfold(long, lat)
+
+ggplot(remove_post_table(tab_unf)) +
+  aes(x_major = long, y_major = lat, x_minor = datetime, y_minor = area) +
+  geom_sf(data = tab_union, fill = "grey80", color = NA, inherit.aes = FALSE) +
+  geom_glyph_box(width = 0.2, height = 0.1) +
+  geom_glyph(aes(color = area), width = 0.2, height = 0.1, linewidth = 0.7) +
+  scale_color_viridis_c() +
+  theme_bw()
+```
+
+## `stars` compatibility
+
+## `dplyr` compatibility
+
+slice method for post_array: drop=TRUE should be used if then coercing to post_table
+
+## `sf` compatibility
+
+Geometric operations on pairs of simple features (see `?sf::geos_binary_ops`) are not supported for post objects since they change the topology of the post objects in ways that can't be reconstructed without further knowledge on how summary and changing polygons should be adapted. 
+
+## cells or rows?
