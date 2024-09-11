@@ -86,7 +86,7 @@ as_post_table.sf = function(x,
   if(length(unique(x[[time_column_name]])) <= 1) {
     cli::cli_abort(c(
       "{.var x} has only one time value per group",
-      "{.cls post_table} requires at least two time values"
+      "{.cls post_table} creation requires at least two time values"
     ))
   }
 
@@ -141,7 +141,7 @@ as_post_table.post_array = function(x, ..., drop_empty = TRUE) {
   if(dim(x)[[time_dim]] <= 1) {
     cli::cli_abort(c(
       "{.var x} has only one time value per group",
-      "{.cls post_table} requires at least two time values"
+      "{.cls post_table} creation requires at least two time values"
     ))
   }
   # Coerce to cubble
