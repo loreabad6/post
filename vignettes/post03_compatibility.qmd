@@ -150,7 +150,7 @@ arr[circle]
 ```
 
 Note that the spatial dimension `geom_sum` is the one that gets filtered and not the changing geometries [^1].
-Therefore, the filtered `post_array` will also keep geometries that do not intersect `circle` by themselves but their summary geometry does.
+Therefore, the filtered `post_array` also keeps geometries that do not intersect `circle` by themselves but their summary geometry does.
 
 [^1]: see section @sec-spatfilt on how to perform a spatial filter of the changing geometries
 
@@ -277,14 +277,13 @@ st_area(face_temporal(tab))
 ```
 
 Unary operations (`?sf::geos_unary`) can be applied to post objects but different behaviors are to be expected. 
-
 For `post_array` the operation is performed on the changing geometries by extracting the geometries. 
 
 ```{r}
 st_boundary(arr$geometry)
 ```
 
-If the operation is applied to a `post_table` the geometry column will get updated to the new geometry type.
+If the operation is applied to a `post_table` the geometry column gets updated to the new geometry type.
 
 ```{r}
 st_centroid(tab)
@@ -303,11 +302,121 @@ plot(st_centroid(tab)$geom_sum)
 
 ## `dplyr` compatibility
 
+Both post classes support `{dplyr}` methods as long as they don't alter the vector data cube structure. 
+See the available methods in `?dplyr-post-array` and `?dplyr-post-table`.
+Some specific behaviors of these functions are explained below.
 
-slice method for post_array: drop=TRUE should be used if then coercing to post_table
+### Modifying columns
 
-<!-- ## Raster - Vector Data Cube integration -->
+The `dplyr::mutate()` function modifies the existing object by creating or modifying existing columns. 
+It is useful in combination with geometric measurement functions from sf. 
+For instance, we can compute the area of the changing geometry as:
 
-<!-- TODO: st_extract example with time interpolation -->
-<!-- possibly a different vignette -->
-<!-- https://r-spatial.github.io/stars/reference/st_extract.html -->
+```{r}
+arr |> 
+  mutate(area = st_area(geometry))
+tab |> 
+  face_temporal() |> 
+  mutate(area = st_area(geometry))
+```
+
+For `post_table` objects it is also possible to use them in the summary geoemtry.
+
+```{r}
+tab |> mutate(area = st_area(geom_sum))
+```
+
+### Sticky geometry
+
+Following the sf design of an sticky geometry, both `post_array` and `post_table` methods, as spatial or temporal cubes have sticky geometries when applying dplyr methods.
+
+```{r}
+(arr2 = arr |> 
+  mutate(
+    area = st_area(geometry),
+    perimeter = st_perimeter(geometry)
+))
+arr2 |> select(perimeter)
+```
+
+For `post_table` objects, cubble also applies a sticky concept for the `key` (`group_id`), `index` (`time_column`) and `coords`, and prints a message to inform you about it.
+
+```{r}
+(tab2 = tab |> 
+   face_temporal() |> 
+    mutate(
+      area = st_area(geometry),
+      perimeter = st_perimeter(geometry)
+))
+tab2 |> select(perimeter)
+```
+
+### Wrangle and conversion
+
+The usefulness of having two classes in `post` lies on the ability to apply certain functions in the tabular format and then other functions on the array format with conversion. 
+
+```{r}
+arr2 |> 
+  as_post_table() |> 
+  face_temporal()
+```
+
+
+There are, however, certain issues to be taken into account when doing this.
+
+#### 1. `post_table` cannot handle objects with 0 rows.
+
+Coming from an [issue in `cubble`](https://github.com/huizezhang-sherry/cubble/issues/35), objects of class `cubble_df` return an error when no rows are present.
+For example if we perform a filtering operation as:
+
+```{r}
+#| error: true
+tab |> filter(gid == "z")
+```
+
+This also means that if a filtering or subsetting operation is applied to a `post_array`, which can handle emptiness, when converting to a `post_table` we get an error.
+
+```{r}
+#| error: true
+as_post_array(polygons)[circle]
+as_post_array(polygons)[circle] |> as_post_table()
+```
+
+#### 2. `post_table` requires at least two time values per group for creation
+
+When converting and `sf` or `post_array` object to `post_table`, a single time value per group is not supported.
+
+```{r}
+#| error: true
+arr |> 
+  filter(datetime == "2020-10-01") |> 
+  as_post_table()
+```
+
+You can have, however, a `post_table` with a single time value per group after its creation.
+
+```{r}
+arr |> 
+  as_post_table() |> 
+  face_temporal() |> 
+  filter(datetime == "2020-10-01") |> 
+  face_spatial()
+```
+
+#### 3. Do not drop dimensions when slicing `post_array` objects
+
+The default behavior of `dplyr::slice()` for stars and post_table objects is to drop dimensions with a single value.
+
+```{r}
+arr |> 
+  slice("datetime", 1)
+```
+
+As we saw in *2*, this brings problems when converting to a `post_table` but in general it also generates other types of issues. 
+Make a habit of using `drop = FALSE` instead.
+
+```{r}
+arr |> 
+  slice("geom_sum", 1, drop = FALSE) |> 
+  as_post_table()
+```
