@@ -62,7 +62,7 @@ spatial.post_table = function(data) {
 #' @param .data a post_table object
 #' @return a post_table object
 #' @export
-fill_gaps.post_table = function(.data) {
+fill_gaps.post_table = function(.data, ..., .full, .start, .end) {
   data = remove_post_table(data)
   out = st_as_sf(NextMethod())
   restore_temporal_post_table(out)
