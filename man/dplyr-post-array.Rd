@@ -18,7 +18,7 @@
 
 \method{select}{post_array}(.data, ...)
 
-\method{slice}{post_array}(.data, ..., drop = FALSE)
+\method{slice}{post_array}(.data, ...)
 
 \method{transmute}{post_array}(.data, ...)
 }
