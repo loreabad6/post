@@ -292,7 +292,7 @@ st_centroid(tab)
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 8.5
-#| fig-height: 4
+#| fig-height: 6
 #| fig-cap: 
 #|   - "Original summary geometry: minimum rotated rectangle"
 #|   - "Updated summary geometry: centroid"
