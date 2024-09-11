@@ -38,6 +38,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/post01_post.html">Post objects - Vector data cube structures</a></li>
     <li><a class="dropdown-item" href="../articles/post02_geomsum.html">Summarising geometries</a></li>
+    <li><a class="dropdown-item" href="../articles/post03_compatibility.html">Compatibility with other packages</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -129,7 +130,7 @@
 <span><span class="co">#&gt;  [5] face_spatial       face_temporal      filter             mutate            </span></span>
 <span><span class="co">#&gt;  [9] rename             select             slice              spatial           </span></span>
 <span><span class="co">#&gt; [13] st_as_sf           st_crs&lt;-           st_normalize       st_shift_longitude</span></span>
-<span><span class="co">#&gt; [17] st_transform       st_wrap_dateline   st_zm             </span></span>
+<span><span class="co">#&gt; [17] st_transform       st_wrap_dateline   st_zm              unfold            </span></span>
 <span><span class="co">#&gt; see '?methods' for accessing help and source code</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="creation-and-structure">Creation and structure<a class="anchor" aria-label="anchor" href="#creation-and-structure"></a>
@@ -179,6 +180,7 @@
 <code>post_array</code> objects<a class="anchor" aria-label="anchor" href="#post_array-objects"></a>
 </h3>
 <p><code>post_array</code> is a spatio-temporal array data structure that organises polygons that change their shape in space and time. It extends the <code>stars</code> class for vector data cubes to support changing geometries as attributes. The post_array class supports two dimensions: a summary geometry dimension (default name: <code>geom_sum</code>) and a temporal dimension. The summary geometry is a unique geometry per group which summarises the changing shapes of the polygon geometries in the group. To learn more about the data structure of post_array objects see <code><a href="https://r-spatial.github.io/stars/articles/stars4.html" class="external-link">vignette("stars4", package = "stars")</a></code>.</p>
+<p>Each array “cell” should have a value. In case a particular summary geometry - temporal dimension combination does not exist, the changing geometry is stored as an empty geometry. This behavior guarantees the dimensionality of the <code>post_array</code> object.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">arr</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span><span class="op">)</span></span>
@@ -242,6 +244,7 @@
 <code>post_table</code> objects<a class="anchor" aria-label="anchor" href="#post_table-objects"></a>
 </h3>
 <p><code>post_table</code> is a spatio-temporal tabular data structure that organises polygons that change their shape in space and time. It extends the <code>cubble_df</code> classes for vector data cubes to support changing geometries in the temporal face of the cube. The post_table geometry for the spatial face of the cube defaults to a column named <code>geom_sum</code>, while the changing geometry provided is passed on to the temporal face of the cube. To learn more about the data structure of post_table objects see <code><a href="https://huizezhang-sherry.github.io/cubble/articles/cb1class.html" class="external-link">vignette("cb1class", package = "cubble")</a></code>.</p>
+<p>Contrary to <code>post_array</code> objects, <code>post_table</code> can handle gaps in its data, i.e., not every summary geometry - temporal combination should be present.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">tab</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span><span class="op">)</span></span>
@@ -309,6 +312,109 @@
 <span><span class="co">#&gt; POLYGON ((0.5578801 0.8616378, 0.5623908 1.0854...</span></span>
 <span><span class="co">#&gt; POLYGON ((0.5652241 0.872057, 0.5685463 1.03689...</span></span>
 <span><span class="co">#&gt; POLYGON ((0.6063791 0.8304178, 0.5463715 0.9053...</span></span></code></pre></div>
+</div>
+</section><section class="level3"><h3 id="conversion-between-post_-objects">Conversion between <code>post_*</code> objects<a class="anchor" aria-label="anchor" href="#conversion-between-post_-objects"></a>
+</h3>
+<p>The functions <code>as_post_*()</code> can be used to convert objects between from <code>post_table</code> to <code>post_array</code> and viceversa. This is particularly useful when certain methods and operations are only available for one class.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tab</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; stars object with 2 dimensions and 1 attribute</span></span>
+<span><span class="co">#&gt; attribute(s):</span></span>
+<span><span class="co">#&gt;          geometry  </span></span>
+<span><span class="co">#&gt;  POLYGON      :25  </span></span>
+<span><span class="co">#&gt;  epsg:4326    : 0  </span></span>
+<span><span class="co">#&gt;  +proj=long...: 0  </span></span>
+<span><span class="co">#&gt; dimension(s):</span></span>
+<span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
+<span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84  TRUE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt;                                                            values</span></span>
+<span><span class="co">#&gt; geom_sum POINT (0.647816 0.9018588),...,POINT (0.4690683 0.17772)</span></span>
+<span><span class="co">#&gt; datetime                                                     NULL</span></span>
+<span><span class="va">arr</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
+<span><span class="co">#&gt; # spatial:  [0, 0.18, 0.75, 0.9], WGS 84</span></span>
+<span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
+<span><span class="co">#&gt;   gid       long   lat                 geom_sum ts          </span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;              &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
+<span><span class="co">#&gt; 1 a      0.648   0.902     (0.647816 0.9018588) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 2 b     -0.00254 0.840 (-0.002543201 0.8403816) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 3 c      0.390   0.541    (0.3897167 0.5412363) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 4 d      0.753   0.354     (0.752585 0.3538271) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 5 e      0.469   0.178      (0.4690683 0.17772) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
+</div>
+<p>For a conversion from <code>post_array</code> to <code>post_table</code> the argument <code>drop_empty</code> is available in case the post_array object has empty geometries. Dropping empty geometries is the default.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">732</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">arr_empty</span> <span class="op">=</span> <span class="va">polygons</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span>, <span class="fl">13</span><span class="op">)</span>, <span class="op">]</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; stars object with 2 dimensions and 1 attribute</span></span>
+<span><span class="co">#&gt; attribute(s):</span></span>
+<span><span class="co">#&gt;          geometry  </span></span>
+<span><span class="co">#&gt;  POLYGON      :25  </span></span>
+<span><span class="co">#&gt;  epsg:4326    : 0  </span></span>
+<span><span class="co">#&gt;  +proj=long...: 0  </span></span>
+<span><span class="co">#&gt; dimension(s):</span></span>
+<span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
+<span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84  TRUE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt;                                                              values</span></span>
+<span><span class="co">#&gt; geom_sum POINT (0.648836 0.8727337),...,POINT (0.4738249 0.1737262)</span></span>
+<span><span class="co">#&gt; datetime                                                       NULL</span></span>
+<span><span class="va">arr_empty</span><span class="op">$</span><span class="va">geometry</span></span>
+<span><span class="co">#&gt; Geometry set for 25 features  (with 12 geometries empty) [dim: 5 x 5]</span></span>
+<span><span class="co">#&gt; Geometry type: POLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -0.2847997 ymin: -0.00297557 xmax: 0.8416864 ymax: 1.122298</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span><span class="co">#&gt; First 5 geometries:</span></span>
+<span><span class="co">#&gt; POLYGON ((0.5474949 0.8088912, 0.4874872 0.8838...</span></span>
+<span><span class="co">#&gt; POLYGON ((0.2791708 0.8337388, -0.2847997 0.654...</span></span>
+<span><span class="co">#&gt; POLYGON EMPTY</span></span>
+<span><span class="co">#&gt; POLYGON EMPTY</span></span>
+<span><span class="co">#&gt; POLYGON ((0.3825692 0.3537803, 0.5519791 0.3669...</span></span>
+<span></span>
+<span><span class="co"># converting to post_table</span></span>
+<span><span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="va">arr_empty</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, long form</span></span>
+<span><span class="co">#&gt; # temporal: 2020-10-01 -- 2020-10-05 [1D], has gaps!</span></span>
+<span><span class="co">#&gt; # spatial:  long [dbl], lat [dbl], geom_sum [POINT [°]]</span></span>
+<span><span class="co">#&gt;    gid   datetime                                                       geometry</span></span>
+<span><span class="co">#&gt;  * &lt;chr&gt; &lt;date&gt;                                                    &lt;POLYGON [°]&gt;</span></span>
+<span><span class="co">#&gt;  1 a     2020-10-01 ((0.5474949 0.8088912, 0.4874872 0.8838477, 0.5520055 1.032…</span></span>
+<span><span class="co">#&gt;  2 a     2020-10-04 ((0.5652241 0.872057, 0.5685463 1.036898, 0.7819022 0.89897…</span></span>
+<span><span class="co">#&gt;  3 b     2020-10-01 ((0.2791708 0.8337388, -0.2847997 0.6540191, -0.2825181 0.6…</span></span>
+<span><span class="co">#&gt;  4 b     2020-10-02 ((0.3298312 0.7612067, -0.2341393 0.5814869, -0.2318577 0.5…</span></span>
+<span><span class="co">#&gt;  5 b     2020-10-03 ((0.3796448 0.767853, -0.1843257 0.5881332, 0.09777458 1.05…</span></span>
+<span><span class="co">#&gt;  6 c     2020-10-02 ((0.328914 0.5687438, 0.3806701 0.6624509, 0.5646669 0.5374…</span></span>
+<span><span class="co">#&gt;  7 c     2020-10-03 ((0.2897647 0.6168588, 0.3415208 0.710566, 0.5357965 0.4922…</span></span>
+<span><span class="co">#&gt;  8 c     2020-10-04 ((0.2930046 0.6546896, 0.3210764 0.7055149, 0.4264484 0.587…</span></span>
+<span><span class="co">#&gt;  9 c     2020-10-05 ((0.2145846 0.5285578, 0.2663408 0.6222649, 0.4503375 0.497…</span></span>
+<span><span class="co">#&gt; 10 d     2020-10-02 ((0.7217233 0.5261787, 0.8353717 0.4270488, 0.7832953 0.340…</span></span>
+<span><span class="co">#&gt; 11 e     2020-10-01 ((0.3825692 0.3537803, 0.5519791 0.3669884, 0.6063218 0.096…</span></span>
+<span><span class="co">#&gt; 12 e     2020-10-03 ((0.2813385 0.2544898, 0.4507484 0.2676979, 0.505091 -0.002…</span></span>
+<span><span class="co">#&gt; 13 e     2020-10-05 ((0.4750757 0.2620892, 0.6444856 0.2752973, 0.6988282 0.004…</span></span>
+<span><span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="va">arr_empty</span>, drop_empty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, long form</span></span>
+<span><span class="co">#&gt; # temporal: 2020-10-01 -- 2020-10-05 [1D], no gaps</span></span>
+<span><span class="co">#&gt; # spatial:  long [dbl], lat [dbl], geom_sum [POINT [°]]</span></span>
+<span><span class="co">#&gt;    gid   datetime                                                       geometry</span></span>
+<span><span class="co">#&gt;  * &lt;chr&gt; &lt;date&gt;                                                    &lt;POLYGON [°]&gt;</span></span>
+<span><span class="co">#&gt;  1 a     2020-10-01 ((0.5474949 0.8088912, 0.4874872 0.8838477, 0.5520055 1.032…</span></span>
+<span><span class="co">#&gt;  2 a     2020-10-02                                                        EMPTY</span></span>
+<span><span class="co">#&gt;  3 a     2020-10-03                                                        EMPTY</span></span>
+<span><span class="co">#&gt;  4 a     2020-10-04 ((0.5652241 0.872057, 0.5685463 1.036898, 0.7819022 0.89897…</span></span>
+<span><span class="co">#&gt;  5 a     2020-10-05                                                        EMPTY</span></span>
+<span><span class="co">#&gt;  6 b     2020-10-01 ((0.2791708 0.8337388, -0.2847997 0.6540191, -0.2825181 0.6…</span></span>
+<span><span class="co">#&gt;  7 b     2020-10-02 ((0.3298312 0.7612067, -0.2341393 0.5814869, -0.2318577 0.5…</span></span>
+<span><span class="co">#&gt;  8 b     2020-10-03 ((0.3796448 0.767853, -0.1843257 0.5881332, 0.09777458 1.05…</span></span>
+<span><span class="co">#&gt;  9 b     2020-10-04                                                        EMPTY</span></span>
+<span><span class="co">#&gt; 10 b     2020-10-05                                                        EMPTY</span></span>
+<span><span class="co">#&gt; # ℹ 15 more rows</span></span></code></pre></div>
 </div>
 </section></section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

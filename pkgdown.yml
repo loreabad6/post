@@ -4,7 +4,8 @@ pkgdown_sha: ~
 articles:
   post01_post: post01_post.html
   post02_geomsum: post02_geomsum.html
-last_built: 2024-09-09T18:23Z
+  post03_compatibility: post03_compatibility.html
+last_built: 2024-09-11T13:17Z
 urls:
   reference: https://loreabad6.github.io/post/reference
   article: https://loreabad6.github.io/post/articles

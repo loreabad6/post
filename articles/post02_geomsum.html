@@ -38,6 +38,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/post01_post.html">Post objects - Vector data cube structures</a></li>
     <li><a class="dropdown-item" href="../articles/post02_geomsum.html">Summarising geometries</a></li>
+    <li><a class="dropdown-item" href="../articles/post03_compatibility.html">Compatibility with other packages</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -87,7 +88,7 @@
 <p>The argument to pass the summarised geometry is called <code>geometry_summary</code> in <code><a href="../reference/as_post_array.html">as_post_array()</a></code> and <code><a href="../reference/as_post_table.html">as_post_table()</a></code>. An <code>sfc</code> object with the summarised geometries can be directly passed here, assuming that the order of the features corresponds to an arranged <code>group_id</code> column (i.e. <code>sort(unique(x$group_id))</code>).</p>
 <section class="level2"><h2 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a>
 </h2>
-<p>To facilitate <code>post_*</code> object creation the family of functions <a href="%60?summarise_geometry%60"><code>summarise_geometry_*()</code></a> is provided. These functions take an sf object (<code>x</code>) with a group identifier (<code>group_id</code>) and changing geometries (<code>sf_column_name</code>). Currently, geometries can be summarised in three ways:</p>
+<p>To facilitate <code>post_*</code> object creation the family of functions <code><a href="../reference/summarise_geometry.html">?summarise_geometry</a></code> is provided. These functions take an sf object (<code>x</code>) with a group identifier (<code>group_id</code>) and changing geometries (<code>sf_column_name</code>). Currently, geometries can be summarised in three ways:</p>
 <ol type="a">
 <li>the union and dissolve of the changing geometries,</li>
 <li>the centroid of <strong>a</strong>
@@ -155,12 +156,61 @@
 </div>
 </div>
 </div>
-</section><section class="level2"><h2 id="custom-summary-geometry-funcions">Custom summary geometry funcions<a class="anchor" aria-label="anchor" href="#custom-summary-geometry-funcions"></a>
+<p>With these functions, the summarised geometry can be created and passed on to the <code>as_post_*()</code> creation functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">geoms</span> <span class="op">=</span> <span class="fu"><a href="../reference/summarise_geometry.html">summarise_geometry_convex_hull</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="va">polygons</span>, geometry_summary <span class="op">=</span> <span class="va">geoms</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: st_centroid assumes attributes are constant over geometries</span></span>
+<span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
+<span><span class="co">#&gt; # spatial:  [-0.3, 0, 0.97, 1.15], WGS 84</span></span>
+<span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
+<span><span class="co">#&gt;   gid       long   lat                                            geom_sum ts   </span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;                                       &lt;POLYGON [°]&gt; &lt;lis&gt;</span></span>
+<span><span class="co">#&gt; 1 a      0.648   0.903 ((0.7568336 0.7456421, 0.8157179 0.7671687, 0.9005… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 2 b     -0.00678 0.838 ((-0.2341393 0.5814869, -0.1843257 0.5881332, 0.37… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 3 c      0.394   0.538 ((0.4606164 0.4039274, 0.5749458 0.4441134, 0.5898… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 4 d      0.751   0.345 ((0.8757658 0.1748722, 0.8918794 0.1923982, 0.9210… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 5 e      0.476   0.174 ((0.505091 -0.0029756, 0.6988282 0.0046238, 0.6444… &lt;sf&gt;</span></span></code></pre></div>
+</div>
+<p>The function can also be passed directly, where <code><a href="../reference/summarise_geometry.html">summarise_geometry_centroid()</a></code> is the default function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span></span>
+<span><span class="co">#&gt; stars object with 2 dimensions and 1 attribute</span></span>
+<span><span class="co">#&gt; attribute(s):</span></span>
+<span><span class="co">#&gt;          geometry  </span></span>
+<span><span class="co">#&gt;  POLYGON      :25  </span></span>
+<span><span class="co">#&gt;  epsg:4326    : 0  </span></span>
+<span><span class="co">#&gt;  +proj=long...: 0  </span></span>
+<span><span class="co">#&gt; dimension(s):</span></span>
+<span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
+<span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84  TRUE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt;                                                            values</span></span>
+<span><span class="co">#&gt; geom_sum POINT (0.647816 0.9018588),...,POINT (0.4690683 0.17772)</span></span>
+<span><span class="co">#&gt; datetime                                                     NULL</span></span>
+<span><span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span>, geometry_summary <span class="op">=</span> <span class="va">summarise_geometry_union</span><span class="op">)</span></span>
+<span><span class="co">#&gt; stars object with 2 dimensions and 1 attribute</span></span>
+<span><span class="co">#&gt; attribute(s):</span></span>
+<span><span class="co">#&gt;          geometry  </span></span>
+<span><span class="co">#&gt;  POLYGON      :25  </span></span>
+<span><span class="co">#&gt;  epsg:4326    : 0  </span></span>
+<span><span class="co">#&gt;  +proj=long...: 0  </span></span>
+<span><span class="co">#&gt; dimension(s):</span></span>
+<span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
+<span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt;                                                                 values</span></span>
+<span><span class="co">#&gt; geom_sum POLYGON ((0.4971355 0.871...,...,POLYGON ((0.2973931 0.255...</span></span>
+<span><span class="co">#&gt; datetime                                                          NULL</span></span></code></pre></div>
+</div>
+</section><section class="level2"><h2 id="custom-summary-geometry-functions">Custom summary geometry functions<a class="anchor" aria-label="anchor" href="#custom-summary-geometry-functions"></a>
 </h2>
 <p>A custom function to summarise geometries can also be created⁠, given that the parameters <code>x</code>, <code>group_id</code> and <code>sf_column_name</code> are included in the function. Additional arguments can be passed to the function as necessary.</p>
 <p>Here is an example of a custom summary geometry using <code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">sf::st_minimum_rotated_rectangle()</a></code>. We apply the function on the unioned geometries, this is what the centroid and bounding box functions do internally.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summarise_geometry_custom</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">group_id</span> <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                     <span class="va">sf_column_name</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
@@ -168,33 +218,47 @@
 <span>                                       group_id <span class="op">=</span> <span class="va">group_id</span>,</span>
 <span>                                       sf_column_name <span class="op">=</span> <span class="va">sf_column_name</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_point_on_surface</a></span><span class="op">(</span><span class="va">x_unioned</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">[</span><span class="st">"gid"</span><span class="op">]</span>, key.pos <span class="op">=</span> <span class="cn">NULL</span>, main <span class="op">=</span> <span class="cn">NULL</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
-<span>  <span class="fu">summarise_geometry_custom</span><span class="op">(</span></span>
-<span>    <span class="va">polygons</span>, group_id <span class="op">=</span> <span class="st">"gid"</span>, sf_column_name <span class="op">=</span> <span class="st">"geometry"</span></span>
-<span>  <span class="op">)</span>, col <span class="op">=</span> <span class="va">pal</span>, pch <span class="op">=</span> <span class="fl">19</span>, cex <span class="op">=</span> <span class="fl">3</span></span>
-<span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">custom_geoms</span> <span class="op">=</span> <span class="fu">summarise_geometry_custom</span><span class="op">(</span><span class="va">polygons</span>, group_id <span class="op">=</span> <span class="st">"gid"</span>,</span>
+<span>                                         sf_column_name <span class="op">=</span> <span class="st">"geometry"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in st_point_on_surface.sfc(x_unioned): st_point_on_surface may not give</span></span>
 <span><span class="co">#&gt; correct results for longitude/latitude data</span></span></code></pre></div>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">[</span><span class="st">"gid"</span><span class="op">]</span>, key.pos <span class="op">=</span> <span class="cn">NULL</span>, main <span class="op">=</span> <span class="cn">NULL</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">custom_geoms</span>, col <span class="op">=</span> <span class="va">pal</span>, pch <span class="op">=</span> <span class="fl">19</span>, cex <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img src="post02_geomsum_files/figure-html/unnamed-chunk-4-1.png" width="816"></p>
+<figure><p><img src="post02_geomsum_files/figure-html/unnamed-chunk-6-1.png" width="816"></p>
 <figcaption>Original sf object</figcaption></figure>
 </div>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img src="post02_geomsum_files/figure-html/unnamed-chunk-4-2.png" width="816"></p>
-<figcaption>Point on surface of changing geometries</figcaption></figure>
+<figure><p><img src="post02_geomsum_files/figure-html/unnamed-chunk-6-2.png" width="816"></p>
+<figcaption>Custome summary geometry: point on surface of changing geometries</figcaption></figure>
 </div>
 </div>
 </div>
+</div>
+<p>And we can pass it onto the creation functions as:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="va">polygons</span>, geometry_summary <span class="op">=</span> <span class="va">custom_geoms</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
+<span><span class="co">#&gt; # spatial:  [0.02, 0.17, 0.75, 0.91], WGS 84</span></span>
+<span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
+<span><span class="co">#&gt;   gid     long   lat              geom_sum ts          </span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;           &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
+<span><span class="co">#&gt; 1 a     0.650  0.910 (0.6498114 0.9103167) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 2 b     0.0200 0.876 (0.0199939 0.8755516) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 3 c     0.387  0.562 (0.3865421 0.5617063) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 4 d     0.746  0.354 (0.7461644 0.3540933) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 5 e     0.465  0.168 (0.4646649 0.1678673) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
 </div>
 </section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
