@@ -9,6 +9,14 @@
 }
 \arguments{
 \item{.data}{a post_table object}
+
+\item{...}{see \code{?tsibble::fill_gaps}}
+
+\item{.full}{see \code{?tsibble::fill_gaps}}
+
+\item{.start}{see \code{?tsibble::fill_gaps}}
+
+\item{.end}{see \code{?tsibble::fill_gaps}}
 }
 \value{
 a post_table object

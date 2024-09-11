@@ -60,6 +60,10 @@ spatial.post_table = function(data) {
 #' @importFrom sf st_as_sf
 #' @importFrom tsibble fill_gaps
 #' @param .data a post_table object
+#' @param ... see `?tsibble::fill_gaps`
+#' @param .full see `?tsibble::fill_gaps`
+#' @param .start see `?tsibble::fill_gaps`
+#' @param .end see `?tsibble::fill_gaps`
 #' @return a post_table object
 #' @export
 fill_gaps.post_table = function(.data, ..., .full, .start, .end) {
