@@ -36,6 +36,7 @@ reference:
 - title: "Utilities"
   contents:
   - utils-post-array
+  - classes
 
 - title: "Built-in data"
   contents:
@@ -46,6 +47,7 @@ reference:
   contents:
   - cubble-face
   - cubble-attrs
+  - cubble-fill
 - subtitle: "With dplyr"
   desc: >
     post supports most of the {dplyr} verbs supported by {cubble} and {stars}
