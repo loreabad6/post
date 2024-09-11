@@ -5,7 +5,7 @@
 \alias{fill_gaps.post_table}
 \title{Gap-filling on cubble}
 \usage{
-\method{fill_gaps}{post_table}(.data)
+\method{fill_gaps}{post_table}(.data, ..., .full, .start, .end)
 }
 \arguments{
 \item{.data}{a post_table object}
