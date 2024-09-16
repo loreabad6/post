@@ -93,39 +93,31 @@ object of class \code{sfc} with summarised geometries based on group_id
 Changing geometries are summarised for all time periods as a single geometry
 (of types \code{POINT}, \code{POLYGON}, \code{MULTIPOLYGON}) in order to pass them
 as a spatial dimension to \verb{post_*} objects.
-
-\code{summarise_geometry_union} computes the geometry summary as the union and
-dissolve of the changing geometries
-
-\code{summarise_geometry_centroid} computes the geometry summary as the centroid
-of the union and dissolve of the changing geometries
-
-\code{summarise_geometry_bbox} computes the geometry summary as the bounding box or
-minimum rectangle of the union and dissolve of the changing geometries
-
-\code{summarise_geometry_convex_hull} computes the geometry summary as the
-convex hull of the union and dissolve of the changing geometries
-}
-\details{
 The family of functions \verb{summarise_geometry_*()} or \verb{summarize_geometry_*()}
 are helpers to create these summarised geometries.
-Supported summary types are:
-
-a. the union and dissolve of the changing geometries,
-
-b. the centroid of \strong{a}
-
-c. the bbox of \strong{a}
-
-d. the minimum rotated rectangle of \strong{a}
-
-e. the convex hull of \strong{a}
-
+}
+\details{
 A custom function to summarise geometries can be passed onto the
 coercion functions \verb{as_post_*()}, given that the parameters \code{x},
 \code{group_id} and \code{sf_column_name} are included in the function.
 Additional arguments can be passed to the function as necessary.
+See \code{vignette("post02_geomsum")} for more information.
 }
+\section{Functions}{
+\itemize{
+\item \code{summarise_geometry_union()}: computes the geometry summary as the union and
+dissolve of the changing geometries
+
+\item \code{summarise_geometry_centroid()}: computes the geometry summary as the centroid
+of the union and dissolve of the changing geometries
+
+\item \code{summarise_geometry_bbox()}: computes the geometry summary as the bounding box or
+minimum rectangle of the union and dissolve of the changing geometries
+
+\item \code{summarise_geometry_convex_hull()}: computes the geometry summary as the
+convex hull of the union and dissolve of the changing geometries
+
+}}
 \examples{
 # union and dissolve
 summarise_geometry_union(polygons)

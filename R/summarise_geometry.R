@@ -3,25 +3,15 @@
 #' Changing geometries are summarised for all time periods as a single geometry
 #' (of types `POINT`, `POLYGON`, `MULTIPOLYGON`) in order to pass them
 #' as a spatial dimension to `post_*` objects.
-#'
 #' The family of functions `summarise_geometry_*()` or `summarize_geometry_*()`
 #' are helpers to create these summarised geometries.
-#' Supported summary types are:
 #'
-#' a. the union and dissolve of the changing geometries,
-#'
-#' b. the centroid of **a**
-#'
-#' c. the bbox of **a**
-#'
-#' d. the minimum rotated rectangle of **a**
-#'
-#' e. the convex hull of **a**
-#'
+#' @details
 #' A custom function to summarise geometries can be passed onto the
 #' coercion functions `as_post_*()`, given that the parameters `x`,
 #' `group_id` and `sf_column_name` are included in the function.
 #' Additional arguments can be passed to the function as necessary.
+#' See `vignette("post02_geomsum")` for more information.
 #'
 #' @inherit as_post_array details
 #'
@@ -43,8 +33,7 @@
 #' @return object of class `sfc` with summarised geometries based on group_id
 NULL
 
-#' @description
-#' `summarise_geometry_union` computes the geometry summary as the union and
+#' @describeIn summarise_geometry computes the geometry summary as the union and
 #' dissolve of the changing geometries
 #' @inheritParams as_post_array
 #' @param x object `POLYGON`/`MULTIPOLYGON` changing geometries to summarise
@@ -52,9 +41,9 @@ NULL
 #' @param group_id see `?post_array` for details.
 #' Defaults to the first non-spatial, non-temporal column in x.
 #' @param .checks internal, should creation arguments be checked?
-#' @rdname summarise_geometry
 #' @importFrom sf st_union st_make_valid
 #' @export
+# TODO: use @describeIn tag instead of description
 summarise_geometry_union = function(x,
                                     group_id = NULL,
                                     sf_column_name = NULL,
@@ -88,11 +77,9 @@ summarise_geometry_union = function(x,
 #' @export
 summarize_geometry_union = summarise_geometry_union
 
-#' @description
-#' `summarise_geometry_centroid` computes the geometry summary as the centroid
+#' @describeIn summarise_geometry computes the geometry summary as the centroid
 #' of the union and dissolve of the changing geometries
 #' @inheritParams summarise_geometry_union
-#' @rdname summarise_geometry
 #' @importFrom sf st_centroid
 #' @export
 summarise_geometry_centroid = function(x,
@@ -111,15 +98,13 @@ summarise_geometry_centroid = function(x,
 #' @export
 summarize_geometry_centroid = summarise_geometry_centroid
 
-#' @description
-#' `summarise_geometry_bbox` computes the geometry summary as the bounding box or
+#' @describeIn summarise_geometry computes the geometry summary as the bounding box or
 #' minimum rectangle of the union and dissolve of the changing geometries
 #' @param rotated (logical) if TRUE, the minimum rotated rectangle is returned,
 #' if FALSE the minimum unrotated rectangle or bounding box is returned.
 #' Defaults to FALSE
 #' @inheritParams summarise_geometry_union
 #' @importFrom sf st_minimum_rotated_rectangle
-#' @rdname summarise_geometry
 #' @export
 summarise_geometry_bbox = function(x,
                                    group_id = NULL,
@@ -143,11 +128,9 @@ summarise_geometry_bbox = function(x,
 #' @export
 summarize_geometry_bbox = summarise_geometry_bbox
 
-#' @description
-#' `summarise_geometry_convex_hull` computes the geometry summary as the
+#' @describeIn summarise_geometry computes the geometry summary as the
 #' convex hull of the union and dissolve of the changing geometries
 #' @inheritParams summarise_geometry_union
-#' @rdname summarise_geometry
 #' @importFrom sf st_convex_hull
 #' @export
 summarise_geometry_convex_hull = function(x,
