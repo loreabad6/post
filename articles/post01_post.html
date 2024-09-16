@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Post objects - Vector data cube structures • post</title>
+<title>Vector data cube structures • post</title>
 <script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="post01_post_files/libs/quarto-html/popper.min.js"></script><script src="post01_post_files/libs/quarto-html/tippy.umd.min.js"></script><link href="post01_post_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="post01_post_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Post objects - Vector data cube structures">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Vector data cube structures">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -36,7 +36,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/post01_post.html">Post objects - Vector data cube structures</a></li>
+<li><a class="dropdown-item" href="../articles/post01_post.html">Vector data cube structures</a></li>
     <li><a class="dropdown-item" href="../articles/post02_geomsum.html">Summarising geometries</a></li>
     <li><a class="dropdown-item" href="../articles/post03_compatibility.html">Compatibility with other packages</a></li>
   </ul>
@@ -65,7 +65,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Post objects - Vector data cube structures</h1>
+      <h1>Vector data cube structures</h1>
 
 
 
@@ -112,8 +112,43 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <p><code>post</code> combines the advantages of all these packages to support vector data cubes to structure and analyse polygon geometry time series. For this, two classes are provided: <code>post_array</code> and <code>post_table</code>.</p>
-<p><img src="figs/vdc-schema-components.png"></p>
-<!-- TODO: update color scheme and add class names -->
+<div>
+
+</div>
+<div class="column-page quarto-layout-panel" data-layout="[35,38,27]">
+<div class="quarto-layout-row quarto-layout-valign-bottom">
+<div class="quarto-layout-cell" style="flex-basis: 35.0%;justify-content: flex-start;">
+<div id="fig-geoms" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-geoms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/geoms-complete-post.png">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-geoms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1: Changing geometries
+</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 38.0%;justify-content: flex-start;">
+<div id="fig-array" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-array-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/post_array-vdc.png">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-array-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 2: <code>post_array</code> class
+</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 27.0%;justify-content: flex-start;">
+<div id="fig-table" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/post_table-vdc.png">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 3: <code>post_table</code> class
+</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
 <p><code>post_array</code> inherits the <code>stars</code> class and therefore supports most of stars methods, including the print method.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">

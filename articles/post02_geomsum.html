@@ -36,7 +36,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/post01_post.html">Post objects - Vector data cube structures</a></li>
+<li><a class="dropdown-item" href="../articles/post01_post.html">Vector data cube structures</a></li>
     <li><a class="dropdown-item" href="../articles/post02_geomsum.html">Summarising geometries</a></li>
     <li><a class="dropdown-item" href="../articles/post03_compatibility.html">Compatibility with other packages</a></li>
   </ul>
@@ -85,6 +85,33 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://loreabad6.github.io/post/">post</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <p><code>post</code> handles changing geometries by summarising them based on a group identifier. This summary should be done for all time periods of the same features and should return a single geometry per feature, which then become the spatial dimension of post objects.</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[65,35]">
+<div class="quarto-layout-row quarto-layout-valign-bottom">
+<div class="quarto-layout-cell" style="flex-basis: 65.0%;justify-content: flex-start;">
+<div id="fig-geoms" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-geoms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/geoms-complete-post.png" id="fig-geoms">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-geoms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1
+</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 35.0%;justify-content: flex-start;">
+<div id="fig-geom-sum" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-geom-sum-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/geom_sum-post.png" id="fig-geom-sum">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-geom-sum-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 2
+</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
 <p>The argument to pass the summarised geometry is called <code>geometry_summary</code> in <code><a href="../reference/as_post_array.html">as_post_array()</a></code> and <code><a href="../reference/as_post_table.html">as_post_table()</a></code>. An <code>sfc</code> object with the summarised geometries can be directly passed here, assuming that the order of the features corresponds to an arranged <code>group_id</code> column (i.e. <code>sort(unique(x$group_id))</code>).</p>
 <section class="level2"><h2 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a>
 </h2>
