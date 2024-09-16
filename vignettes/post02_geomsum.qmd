@@ -28,6 +28,14 @@ library(post)
 `post` handles changing geometries by summarising them based on a group identifier.
 This summary should be done for all time periods of the same features and should return a single geometry per feature, which then become the spatial dimension of post objects. 
 
+::: {layout="[65,35]" layout-valign="bottom"}
+
+![](figs/geoms-complete-post.png){#fig-geoms}
+
+![](figs/geom_sum-post.png){#fig-geom-sum}
+
+:::
+
 The argument to pass the summarised geometry is called `geometry_summary` in
 `as_post_array()` and `as_post_table()`. 
 An `sfc` object with the summarised geometries can be directly passed here, assuming that the order of the features corresponds to an arranged `group_id` column (i.e. `sort(unique(x$group_id))`).

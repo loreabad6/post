@@ -1,7 +1,7 @@
 ---
-title: "Post objects - Vector data cube structures"
+title: "Vector data cube structures"
 vignette: >
-  %\VignetteIndexEntry{Post objects - Vector data cube structures}
+  %\VignetteIndexEntry{Vector data cube structures}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{quarto::html}
 format:
@@ -87,9 +87,14 @@ library(tidyverse)
 `post` combines the advantages of all these packages to support vector data cubes to structure and analyse polygon geometry time series.
 For this, two classes are provided: `post_array` and `post_table`.
 
-![](figs/vdc-schema-components.png)
+::: {.column-page layout="[35,38,27]" layout-valign="bottom"}
 
-<!-- TODO: update color scheme and add class names -->
+![Changing geometries](figs/geoms-complete-post.png){#fig-geoms}
+
+![`post_array` class](figs/post_array-vdc.png){#fig-array}
+
+![`post_table` class](figs/post_table-vdc.png){#fig-table}
+:::
 
 `post_array` inherits the `stars` class and therefore supports most of stars methods, including the print method. 
 
