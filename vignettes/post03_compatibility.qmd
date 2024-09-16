@@ -364,22 +364,22 @@ arr2 |>
 
 There are, however, certain issues to be taken into account when doing this.
 
-#### 1. `post_table` cannot handle objects with 0 rows.
+#### 1. `post_table` cannot be created from an empty `post_array`.
 
-Coming from an [issue in `cubble`](https://github.com/huizezhang-sherry/cubble/issues/35), objects of class `cubble_df` return an error when no rows are present.
-For example if we perform a filtering operation as:
-
-```{r}
-#| error: true
-tab |> filter(gid == "z")
-```
-
-This also means that if a filtering or subsetting operation is applied to a `post_array`, which can handle emptiness, when converting to a `post_table` we get an error.
+If a filtering or subsetting operation is applied to a `post_array`, which can handle emptiness, when converting to a `post_table` we get an error.
 
 ```{r}
 #| error: true
 as_post_array(polygons)[circle]
 as_post_array(polygons)[circle] |> as_post_table()
+```
+
+We can however have empty `post_table` objects by doing the filtering after conversion.
+
+```{r}
+as_post_array(polygons) |> 
+  as_post_table() |> 
+  st_filter(circle)
 ```
 
 #### 2. `post_table` requires at least two time values per group for creation
