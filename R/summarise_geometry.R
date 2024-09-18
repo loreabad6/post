@@ -41,36 +41,17 @@ NULL
 #' @param group_id see `?post_array` for details.
 #' Defaults to the first non-spatial, non-temporal column in x.
 #' @param .checks internal, should creation arguments be checked?
-#' @importFrom sf st_union st_make_valid
 #' @export
-# TODO: use @describeIn tag instead of description
 summarise_geometry_union = function(x,
                                     group_id = NULL,
                                     sf_column_name = NULL,
                                     .checks = TRUE) {
-
-  if(.checks){
-    # group_id: Defaults to the first column of x, if not sfc or temporal class
-    group_id_tmp = group_id
-    group_id = check_group_id(x, group_id)
-    # Assign group_id to "gid_" temp column if vector is given
-    if(group_id == "gid_") {
-      cli::cli_warn(c(
-        "!" = "vector provided for {.var group_id}, assuming correct order
-      and unique timestamps per group"
-      ))
-      x["gid_"] = group_id_tmp
-    }
-    # Defaults to the active sf_column
-    sf_column_name = check_sf_column(x, sf_column_name)
-  }
-
-  x_groupped = split(x[[sf_column_name]], x[[group_id]])
-  x_summarised = do.call(
-    "c",
-    lapply(x_groupped, function(i) sf::st_make_valid(sf::st_union(i)))
-  )
-  x_summarised
+  x_unioned = st_summarise_polys(x,
+                                 group_id = group_id,
+                                 sf_column_name = sf_column_name,
+                                 do_union = TRUE,
+                                 .checks = .checks)
+  x_unioned
 }
 
 #' @rdname summarise_geometry
@@ -86,10 +67,11 @@ summarise_geometry_centroid = function(x,
                                        group_id = NULL,
                                        sf_column_name = NULL,
                                        .checks = TRUE) {
-  x_unioned = summarise_geometry_union(x,
-                                       group_id = group_id,
-                                       sf_column_name = sf_column_name,
-                                       .checks = .checks)
+  x_unioned = st_summarise_polys(x,
+                                 group_id = group_id,
+                                 sf_column_name = sf_column_name,
+                                 do_union = TRUE,
+                                 .checks = .checks)
   x_centroid = sf::st_centroid(x_unioned)
   x_centroid
 }
@@ -111,10 +93,11 @@ summarise_geometry_bbox = function(x,
                                    sf_column_name = NULL,
                                    .checks = TRUE,
                                    rotated = FALSE) {
-  x_unioned = summarise_geometry_union(x,
-                                       group_id = group_id,
-                                       sf_column_name = sf_column_name,
-                                       .checks = .checks)
+  x_unioned = st_summarise_polys(x,
+                                 group_id = group_id,
+                                 sf_column_name = sf_column_name,
+                                 do_union = FALSE,
+                                 .checks = .checks)
   if(rotated) {
     x_mrr = sf::st_minimum_rotated_rectangle(x_unioned)
     x_mrr
@@ -137,10 +120,11 @@ summarise_geometry_convex_hull = function(x,
                                        group_id = NULL,
                                        sf_column_name = NULL,
                                        .checks = TRUE) {
-  x_unioned = summarise_geometry_union(x,
-                                       group_id = group_id,
-                                       sf_column_name = sf_column_name,
-                                       .checks = .checks)
+  x_unioned = st_summarise_polys(x,
+                                 group_id = group_id,
+                                 sf_column_name = sf_column_name,
+                                 do_union = TRUE,
+                                 .checks = .checks)
   x_conv_hull = sf::st_convex_hull(x_unioned)
   x_conv_hull
 }
