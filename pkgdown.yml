@@ -1,11 +1,11 @@
 pandoc: 3.1.11
-pkgdown: 2.1.0
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   post01_post: post01_post.html
   post02_geomsum: post02_geomsum.html
   post03_compatibility: post03_compatibility.html
-last_built: 2024-09-16T15:30Z
+last_built: 2024-09-18T15:38Z
 urls:
   reference: https://loreabad6.github.io/post/reference
   article: https://loreabad6.github.io/post/articles
