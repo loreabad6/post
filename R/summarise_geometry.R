@@ -61,7 +61,7 @@ summarize_geometry_union = summarise_geometry_union
 #' @describeIn summarise_geometry computes the geometry summary as the centroid
 #' of the union and dissolve of the changing geometries
 #' @inheritParams summarise_geometry_union
-#' @importFrom sf st_centroid
+#' @importFrom sf st_centroid sf_use_s2
 #' @export
 summarise_geometry_centroid = function(x,
                                        group_id = NULL,
@@ -70,7 +70,7 @@ summarise_geometry_centroid = function(x,
   x_unioned = st_summarise_polys(x,
                                  group_id = group_id,
                                  sf_column_name = sf_column_name,
-                                 do_union = TRUE,
+                                 do_union = sf::sf_use_s2(),
                                  .checks = .checks)
   x_centroid = sf::st_centroid(x_unioned)
   x_centroid
@@ -108,6 +108,7 @@ summarise_geometry_bbox = function(x,
 }
 
 #' @rdname summarise_geometry
+#' @importFrom sf st_convex_hull sf_use_s2
 #' @export
 summarize_geometry_bbox = summarise_geometry_bbox
 
@@ -123,7 +124,7 @@ summarise_geometry_convex_hull = function(x,
   x_unioned = st_summarise_polys(x,
                                  group_id = group_id,
                                  sf_column_name = sf_column_name,
-                                 do_union = TRUE,
+                                 do_union = sf::sf_use_s2(),
                                  .checks = .checks)
   x_conv_hull = sf::st_convex_hull(x_unioned)
   x_conv_hull
