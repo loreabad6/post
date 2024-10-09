@@ -80,9 +80,7 @@ st_summarise_polys = function(x, group_id, sf_column_name,
     do.call(
       "c",
       lapply(
-        x_groupped,
-        function(i) sf::st_make_valid(sf::st_combine(i))
-      )
+        x_groupped, function(i) sf::st_make_valid(sf::st_combine(i)))
     )
   }
 }
