@@ -45,7 +45,7 @@ st_bbox_by_feature = function(x) {
 #' @return An object of class \code{\link[sf]{sfc}}.
 #'
 #' @noRd
-#' @importFrom sf st_make_valid st_cast st_union
+#' @importFrom sf st_make_valid st_combine st_union
 st_summarise_polys = function(x, group_id, sf_column_name,
                               do_union = TRUE, .checks = TRUE) {
 
@@ -76,7 +76,7 @@ st_summarise_polys = function(x, group_id, sf_column_name,
       "c",
       lapply(
         x_groupped,
-        function(i) sf::st_make_valid(sf::st_cast(i, "MULTIPOLYGON", ids = 1))
+        function(i) sf::st_make_valid(sf::st_combine(i))
       )
     )
   }
