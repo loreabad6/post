@@ -25,7 +25,8 @@ Imports:
     tsibble
 Remotes: 
     huizezhang-sherry/cubble,
-    r-spatial/stars,
+    r-spatial/sf
+    r-spatial/stars
 URL: https://loreabad6.github.io/post/
 Suggests: 
     cubelyr,
