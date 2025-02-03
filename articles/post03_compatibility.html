@@ -9,8 +9,8 @@
 <script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="post03_compatibility_files/libs/quarto-html/popper.min.js"></script><script src="post03_compatibility_files/libs/quarto-html/tippy.umd.min.js"></script><link href="post03_compatibility_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="post03_compatibility_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Compatibility with other packages">
@@ -259,7 +259,7 @@
 <p>Objects of class <code>post_array</code> inherit also the <code>stars</code> class, so most of the methods for stars objects are applicable to post objects as shown below.</p>
 <section class="level3"><h3 id="subsetting">Subsetting<a class="anchor" aria-label="anchor" href="#subsetting"></a>
 </h3>
-<p><code>stars</code> and hence <code>post_array</code> objects are in esence arrays, therefore we can use the <code>[</code> operator for subsetting (see more on its usage <a href="https://r-spatial.github.io/stars/articles/stars1.html#subsetting" class="external-link">on the corresponding stars vignette</a>.</p>
+<p><code>stars</code> and hence <code>post_array</code> objects are in esence arrays, therefore we can use the <code>[</code> operator for subsetting (see more on its usage <a href="https://r-spatial.github.io/stars/articles/stars1.html#subsetting" class="external-link">on the corresponding stars vignette</a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arr</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span>, geometry_summary <span class="op">=</span> <span class="va">summarise_geometry_union</span><span class="op">)</span></span>
@@ -378,6 +378,7 @@
 </div>
 </section><section class="level3"><h3 id="apply-functions-to-array-dimensions">Apply functions to array dimensions<a class="anchor" aria-label="anchor" href="#apply-functions-to-array-dimensions"></a>
 </h3>
+<p><em>Needs input</em></p>
 <!--
 TODO: test st_apply, maybe examples with stampr
 https://r-spatial.github.io/stars/reference/st_apply.html
@@ -413,16 +414,16 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; # A tibble: 25 × 4</span></span>
 <span><span class="co">#&gt;    gid                             geom_sum datetime                    geometry</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;                      &lt;POLYGON [°]&gt; &lt;date&gt;                 &lt;POLYGON [°]&gt;</span></span>
-<span><span class="co">#&gt;  1 a     ((0.5137787 1.117004, 0.3759687 0… 2020-10-01 ((0.5474949 0.8088912, 0…</span></span>
-<span><span class="co">#&gt;  2 a     ((0.5137787 1.117004, 0.3759687 0… 2020-10-02 ((0.4961102 0.8728385, 0…</span></span>
-<span><span class="co">#&gt;  3 a     ((0.5137787 1.117004, 0.3759687 0… 2020-10-03 ((0.5578801 0.8616378, 0…</span></span>
-<span><span class="co">#&gt;  4 a     ((0.5137787 1.117004, 0.3759687 0… 2020-10-04 ((0.5652241 0.872057, 0.…</span></span>
-<span><span class="co">#&gt;  5 a     ((0.5137787 1.117004, 0.3759687 0… 2020-10-05 ((0.6063791 0.8304178, 0…</span></span>
-<span><span class="co">#&gt;  6 b     ((0.3796448 0.767853, 0.2316513 1… 2020-10-01 ((0.2791708 0.8337388, -…</span></span>
-<span><span class="co">#&gt;  7 b     ((0.3796448 0.767853, 0.2316513 1… 2020-10-02 ((0.3298312 0.7612067, -…</span></span>
-<span><span class="co">#&gt;  8 b     ((0.3796448 0.767853, 0.2316513 1… 2020-10-03 ((0.3796448 0.767853, -0…</span></span>
-<span><span class="co">#&gt;  9 b     ((0.3796448 0.767853, 0.2316513 1… 2020-10-04 ((0.3642467 0.779727, -0…</span></span>
-<span><span class="co">#&gt; 10 b     ((0.3796448 0.767853, 0.2316513 1… 2020-10-05 ((0.2665368 0.8649996, -…</span></span>
+<span><span class="co">#&gt;  1 a     ((0.5137787 1.117004, 0.9005707 0… 2020-10-01 ((0.5474949 0.8088912, 0…</span></span>
+<span><span class="co">#&gt;  2 a     ((0.5137787 1.117004, 0.9005707 0… 2020-10-02 ((0.4961102 0.8728385, 0…</span></span>
+<span><span class="co">#&gt;  3 a     ((0.5137787 1.117004, 0.9005707 0… 2020-10-03 ((0.5578801 0.8616378, 0…</span></span>
+<span><span class="co">#&gt;  4 a     ((0.5137787 1.117004, 0.9005707 0… 2020-10-04 ((0.5652241 0.872057, 0.…</span></span>
+<span><span class="co">#&gt;  5 a     ((0.5137787 1.117004, 0.9005707 0… 2020-10-05 ((0.6063791 0.8304178, 0…</span></span>
+<span><span class="co">#&gt;  6 b     ((-0.008469541 1.165177, 0.379644… 2020-10-01 ((0.2791708 0.8337388, -…</span></span>
+<span><span class="co">#&gt;  7 b     ((-0.008469541 1.165177, 0.379644… 2020-10-02 ((0.3298312 0.7612067, -…</span></span>
+<span><span class="co">#&gt;  8 b     ((-0.008469541 1.165177, 0.379644… 2020-10-03 ((0.3796448 0.767853, -0…</span></span>
+<span><span class="co">#&gt;  9 b     ((-0.008469541 1.165177, 0.379644… 2020-10-04 ((0.3642467 0.779727, -0…</span></span>
+<span><span class="co">#&gt; 10 b     ((-0.008469541 1.165177, 0.379644… 2020-10-05 ((0.2665368 0.8649996, -…</span></span>
 <span><span class="co">#&gt; # ℹ 15 more rows</span></span>
 <span><span class="co"># post_table</span></span>
 <span><span class="va">tab</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="va">polygons</span>,</span>
@@ -442,16 +443,16 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; # A tibble: 25 × 6</span></span>
 <span><span class="co">#&gt;    gid      long   lat                                       geom_sum datetime  </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;                                  &lt;POLYGON [°]&gt; &lt;date&gt;    </span></span>
-<span><span class="co">#&gt;  1 a      0.638  0.885 ((0.5137787 1.117004, 0.3759687 0.9038164, 0.… 2020-10-01</span></span>
-<span><span class="co">#&gt;  2 a      0.638  0.885 ((0.5137787 1.117004, 0.3759687 0.9038164, 0.… 2020-10-02</span></span>
-<span><span class="co">#&gt;  3 a      0.638  0.885 ((0.5137787 1.117004, 0.3759687 0.9038164, 0.… 2020-10-03</span></span>
-<span><span class="co">#&gt;  4 a      0.638  0.885 ((0.5137787 1.117004, 0.3759687 0.9038164, 0.… 2020-10-04</span></span>
-<span><span class="co">#&gt;  5 a      0.638  0.885 ((0.5137787 1.117004, 0.3759687 0.9038164, 0.… 2020-10-05</span></span>
-<span><span class="co">#&gt;  6 b     -0.0136 0.898 ((0.3796448 0.767853, 0.2316513 1.232265, -0.… 2020-10-01</span></span>
-<span><span class="co">#&gt;  7 b     -0.0136 0.898 ((0.3796448 0.767853, 0.2316513 1.232265, -0.… 2020-10-02</span></span>
-<span><span class="co">#&gt;  8 b     -0.0136 0.898 ((0.3796448 0.767853, 0.2316513 1.232265, -0.… 2020-10-03</span></span>
-<span><span class="co">#&gt;  9 b     -0.0136 0.898 ((0.3796448 0.767853, 0.2316513 1.232265, -0.… 2020-10-04</span></span>
-<span><span class="co">#&gt; 10 b     -0.0136 0.898 ((0.3796448 0.767853, 0.2316513 1.232265, -0.… 2020-10-05</span></span>
+<span><span class="co">#&gt;  1 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.7… 2020-10-01</span></span>
+<span><span class="co">#&gt;  2 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.7… 2020-10-02</span></span>
+<span><span class="co">#&gt;  3 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.7… 2020-10-03</span></span>
+<span><span class="co">#&gt;  4 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.7… 2020-10-04</span></span>
+<span><span class="co">#&gt;  5 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.7… 2020-10-05</span></span>
+<span><span class="co">#&gt;  6 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, … 2020-10-01</span></span>
+<span><span class="co">#&gt;  7 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, … 2020-10-02</span></span>
+<span><span class="co">#&gt;  8 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, … 2020-10-03</span></span>
+<span><span class="co">#&gt;  9 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, … 2020-10-04</span></span>
+<span><span class="co">#&gt; 10 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, … 2020-10-05</span></span>
 <span><span class="co">#&gt; # ℹ 15 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 1 more variable: geometry &lt;POLYGON [°]&gt;</span></span></code></pre></div>
 </div>
@@ -474,21 +475,21 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA ETRS89-extended / LAEA Eu... FALSE</span></span>
 <span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days                         Date FALSE</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
-<span><span class="co">#&gt; geom_sum POLYGON ((3155515 -218766...,...,POLYGON ((3169752 -230713...</span></span>
+<span><span class="co">#&gt; geom_sum POLYGON ((3155515 -218766...,...,POLYGON ((3172602 -230105...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span>
 <span><span class="co"># post_table</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">tab</span>, <span class="fl">3035</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
-<span><span class="co">#&gt; # spatial:  [3042412.03, -2307131.39, 3209654.8, -2172399.69], ETRS89-extended</span></span>
+<span><span class="co">#&gt; # spatial:  [3039847.62, -2301054.31, 3209654.8, -2175848.01], ETRS89-extended</span></span>
 <span><span class="co">#&gt; #   / LAEA Europe</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [m]]</span></span>
 <span><span class="co">#&gt;   gid      long   lat                                             geom_sum ts   </span></span>
 <span><span class="co">#&gt; * &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;                                        &lt;POLYGON [m]&gt; &lt;lis&gt;</span></span>
-<span><span class="co">#&gt; 1 a      0.638  0.885 ((3155515 -2187663, 3137528 -2207166, 3183656 -2237… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 2 b     -0.0136 0.898 ((3137266 -2220797, 3121618 -2172400, 3042412 -2183… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 3 c      0.402  0.507 ((3131201 -2224770, 3110859 -2245607, 3146055 -2269… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 4 d      0.744  0.341 ((3171061 -2243942, 3149988 -2262115, 3188598 -2292… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 5 e      0.509  0.188 ((3169752 -2307131, 3185342 -2273850, 3130687 -2253… &lt;sf&gt;</span></span>
+<span><span class="co">#&gt; 1 a      0.638  0.885 ((3155515 -2187663, 3201614 -2217596, 3183656 -2237… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 2 b     -0.0180 0.768 ((3091893 -2175848, 3137266 -2220797, 3085228 -2255… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 3 c      0.402  0.507 ((3131201 -2224770, 3166375 -2248651, 3146055 -2269… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 4 d      0.744  0.341 ((3171061 -2243942, 3209655 -2274048, 3188598 -2292… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 5 e      0.467  0.180 ((3172602 -2301054, 3117186 -2296926, 3117310 -2260… &lt;sf&gt;</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">tab</span>, <span class="fl">3035</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, long form</span></span>
 <span><span class="co">#&gt; # temporal: 2020-10-01 -- 2020-10-05 [1D], no gaps</span></span>
@@ -530,9 +531,28 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt;  9: (empty)</span></span>
 <span><span class="co">#&gt;  10: 1</span></span></code></pre></div>
 </div>
-<p>For <code>post_table</code> objects, the predicates can be applied to either the spatial or the temporal face of the vector data cube.</p>
+<p>With this in mind, we can also create a new dimension with the result of a binary predicate geometric operation. Note that we need to use the <code>sparse = TRUE</code> option to obtain a boolean array from the operation. Since this is a new attribute in our cube, the dimensions are preserved.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">arr</span><span class="op">$</span><span class="va">int_circle</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html" class="external-link">st_intersects</a></span><span class="op">(</span><span class="va">arr</span><span class="op">[[</span><span class="st">'geometry'</span><span class="op">]</span><span class="op">]</span>, <span class="va">circle</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">arr</span></span>
+<span><span class="co">#&gt; stars object with 2 dimensions and 2 attributes</span></span>
+<span><span class="co">#&gt; attribute(s):</span></span>
+<span><span class="co">#&gt;          geometry   int_circle     </span></span>
+<span><span class="co">#&gt;  POLYGON      :25   Mode :logical  </span></span>
+<span><span class="co">#&gt;  epsg:4326    : 0   FALSE:19       </span></span>
+<span><span class="co">#&gt;  +proj=long...: 0   TRUE :6        </span></span>
+<span><span class="co">#&gt; dimension(s):</span></span>
+<span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
+<span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt;                                                                 values</span></span>
+<span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.6988282 0.004...</span></span>
+<span><span class="co">#&gt; datetime                                                          NULL</span></span></code></pre></div>
+</div>
+<p>For <code>post_table</code> objects, the predicates can be applied to either the spatial or the temporal face of the vector data cube.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html" class="external-link">st_disjoint</a></span><span class="op">(</span><span class="va">tab</span>, <span class="va">circle</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Sparse geometry binary predicate list of length 5, where the predicate</span></span>
 <span><span class="co">#&gt; was `disjoint'</span></span>
@@ -558,7 +578,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </div>
 <p>Applying the predicate to the changing geometry of <code>post_array</code> objects renders the same result as applying it to the <code>post_table</code> objects in the long format or on its temporal face.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html" class="external-link">st_disjoint</a></span><span class="op">(</span><span class="va">arr</span><span class="op">$</span><span class="va">geometry</span>, <span class="va">circle</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 19</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html" class="external-link">st_disjoint</a></span><span class="op">(</span><span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span>, <span class="va">circle</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
@@ -569,7 +589,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <p>The predicates shown above are particularly relevant to use inside spatial filtering operations.</p>
 <p><code><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">sf::st_filter()</a></code> does not work on <code>post_array</code> objects.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">st_filter</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in UseMethod("st_filter"): no applicable method for 'st_filter' applied to an object of class "c('post_array', 'stars')"</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">st_filter</a></span><span class="op">(</span><span class="va">arr</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
@@ -577,15 +597,15 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </div>
 <p>But it does work on <code>post_table</code> objects, both for the spatial and temporal face.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">st_filter</a></span><span class="op">(</span><span class="va">tab</span>, <span class="va">circle</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [2], index: datetime, nested form, [sf]</span></span>
 <span><span class="co">#&gt; # spatial:  [0.18, 0.11, 0.99, 0.72], WGS 84</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
 <span><span class="co">#&gt;   gid    long   lat                                               geom_sum ts   </span></span>
 <span><span class="co">#&gt; * &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;                                          &lt;POLYGON [°]&gt; &lt;lis&gt;</span></span>
-<span><span class="co">#&gt; 1 c     0.402 0.507 ((0.3321186 0.7217665, 0.1760477 0.4920647, 0.4712469… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 2 d     0.744 0.341 ((0.6633874 0.573032, 0.500051 0.3696662, 0.8247803 0… &lt;sf&gt;</span></span>
+<span><span class="co">#&gt; 1 c     0.402 0.507 ((0.3321186 0.7217665, 0.6273178 0.5211934, 0.4712469… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 2 d     0.744 0.341 ((0.6633874 0.573032, 0.9881167 0.3122208, 0.8247803 … &lt;sf&gt;</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">st_filter</a></span><span class="op">(</span><span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span>, <span class="va">circle</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [2], index: datetime, long form</span></span>
 <span><span class="co">#&gt; # temporal: 2020-10-01 -- 2020-10-05 [1D], has gaps!</span></span>
@@ -601,36 +621,36 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </div>
 <p>When a spatial filtering needs to be applied to the changing geometry of a <code>post_array</code> object, we can first convert to <code>post_table</code>, perform the filtering on the temporal face and then convert back to a <code>post_array</code> object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arr</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">st_filter</a></span><span class="op">(</span><span class="va">circle</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: st_centroid assumes attributes are constant over geometries</span></span>
-<span><span class="co">#&gt; stars object with 2 dimensions and 1 attribute</span></span>
+<span><span class="co">#&gt; stars object with 2 dimensions and 2 attributes</span></span>
 <span><span class="co">#&gt; attribute(s):</span></span>
-<span><span class="co">#&gt;          geometry </span></span>
-<span><span class="co">#&gt;  POLYGON      :8  </span></span>
-<span><span class="co">#&gt;  epsg:4326    :0  </span></span>
-<span><span class="co">#&gt;  +proj=long...:0  </span></span>
+<span><span class="co">#&gt;          geometry  int_circle    </span></span>
+<span><span class="co">#&gt;  POLYGON      :8   Mode:logical  </span></span>
+<span><span class="co">#&gt;  epsg:4326    :0   TRUE:6        </span></span>
+<span><span class="co">#&gt;  +proj=long...:0   NA's:2        </span></span>
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  2 WGS 84 FALSE</span></span>
 <span><span class="co">#&gt; datetime    1  4   Date FALSE</span></span>
 <span><span class="co">#&gt;                                                                  values</span></span>
-<span><span class="co">#&gt; geom_sum POLYGON ((0.3321 0.7218, 0...., POLYGON ((0.6634 0.573, 0.5...</span></span>
+<span><span class="co">#&gt; geom_sum POLYGON ((0.3321 0.7218, 0...., POLYGON ((0.6634 0.573, 0.9...</span></span>
 <span><span class="co">#&gt; datetime                                      2020-10-01,...,2020-10-05</span></span></code></pre></div>
 </div>
 </section><section class="level3"><h3 id="geometric-measurements-and-unary-operations">Geometric measurements and unary operations<a class="anchor" aria-label="anchor" href="#geometric-measurements-and-unary-operations"></a>
 </h3>
 <p>Geometric measurements (<code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">?sf::geos_measures</a></code>) can be applied to the summary and changing geometries as:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># post_array</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_geometry</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Units: [m^2]</span></span>
-<span><span class="co">#&gt; [1] 1445426429 4038521331 1225403966 1343229500 2148196534</span></span>
+<span><span class="co">#&gt; [1] 1445426429 3909318516 1225403966 1343229500 2047852595</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="va">arr</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Units: [m^2]</span></span>
 <span><span class="co">#&gt;  [1]  693272313 1537008395  394944271  392819049  585061160  693260956</span></span>
@@ -641,7 +661,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#post_table</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Units: [m^2]</span></span>
-<span><span class="co">#&gt; [1] 1445426429 4038521331 1225403966 1343229500 2148196534</span></span>
+<span><span class="co">#&gt; [1] 1445426429 3909318516 1225403966 1343229500 2047852595</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Units: [m^2]</span></span>
 <span><span class="co">#&gt;  [1]  693272313  693260956  405985931  220231724  693268587 1537008395</span></span>
@@ -652,7 +672,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </div>
 <p>Unary operations (<code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">?sf::geos_unary</a></code>) can be applied to post objects but different behaviors are to be expected. For <code>post_array</code> the operation is performed on the changing geometries by extracting the geometries.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_boundary</a></span><span class="op">(</span><span class="va">arr</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Geometry set for 25 features </span></span>
 <span><span class="co">#&gt; Geometry type: LINESTRING</span></span>
@@ -668,21 +688,21 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </div>
 <p>If the operation is applied to a <code>post_table</code> the geometry column gets updated to the new geometry type.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_centroid</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: st_centroid assumes attributes are constant over geometries</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
-<span><span class="co">#&gt; # spatial:  [-0.01, 0.19, 0.74, 0.9], WGS 84</span></span>
+<span><span class="co">#&gt; # spatial:  [-0.02, 0.18, 0.74, 0.89], WGS 84</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
-<span><span class="co">#&gt;   gid      long   lat                geom_sum ts          </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;             &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
-<span><span class="co">#&gt; 1 a      0.638  0.885   (0.6382744 0.8853982) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 2 b     -0.0136 0.898 (-0.01362879 0.8983264) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 3 c      0.402  0.507   (0.4016836 0.5066306) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 4 d      0.744  0.341   (0.7440853 0.3409447) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 5 e      0.509  0.188   (0.5091203 0.1882993) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   gid      long   lat               geom_sum ts          </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
+<span><span class="co">#&gt; 1 a      0.638  0.885  (0.6382744 0.8853982) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 2 b     -0.0180 0.768 (-0.0180355 0.7676182) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 3 c      0.402  0.507  (0.4016836 0.5066306) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 4 d      0.744  0.341  (0.7440853 0.3409447) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 5 e      0.467  0.180  (0.4666606 0.1795801) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tab</span><span class="op">$</span><span class="va">geom_sum</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_centroid</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">$</span><span class="va">geom_sum</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: st_centroid assumes attributes are constant over geometries</span></span></code></pre></div>
@@ -690,13 +710,13 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img src="post03_compatibility_files/figure-html/unnamed-chunk-23-1.png" width="816"></p>
+<figure><p><img src="post03_compatibility_files/figure-html/unnamed-chunk-24-1.png" width="816"></p>
 <figcaption>Original summary geometry: minimum rotated rectangle</figcaption></figure>
 </div>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img src="post03_compatibility_files/figure-html/unnamed-chunk-23-2.png" width="816"></p>
+<figure><p><img src="post03_compatibility_files/figure-html/unnamed-chunk-24-2.png" width="816"></p>
 <figcaption>Updated summary geometry: centroid</figcaption></figure>
 </div>
 </div>
@@ -710,24 +730,24 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </h3>
 <p>The <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code> function modifies the existing object by creating or modifying existing columns. It is useful in combination with geometric measurement functions from sf. For instance, we can compute the area of the changing geometry as:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arr</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>area <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; stars object with 2 dimensions and 2 attributes</span></span>
+<span><span class="co">#&gt; stars object with 2 dimensions and 3 attributes</span></span>
 <span><span class="co">#&gt; attribute(s):</span></span>
-<span><span class="co">#&gt;          geometry     area [m^2]       </span></span>
-<span><span class="co">#&gt;  POLYGON      :25   Min.   :5.366e+07  </span></span>
-<span><span class="co">#&gt;  epsg:4326    : 0   1st Qu.:3.928e+08  </span></span>
-<span><span class="co">#&gt;  +proj=long...: 0   Median :4.060e+08  </span></span>
-<span><span class="co">#&gt;                     Mean   :6.216e+08  </span></span>
-<span><span class="co">#&gt;                     3rd Qu.:6.933e+08  </span></span>
-<span><span class="co">#&gt;                     Max.   :1.537e+09  </span></span>
+<span><span class="co">#&gt;          geometry   int_circle        area [m^2]       </span></span>
+<span><span class="co">#&gt;  POLYGON      :25   Mode :logical   Min.   :5.366e+07  </span></span>
+<span><span class="co">#&gt;  epsg:4326    : 0   FALSE:19        1st Qu.:3.928e+08  </span></span>
+<span><span class="co">#&gt;  +proj=long...: 0   TRUE :6         Median :4.060e+08  </span></span>
+<span><span class="co">#&gt;                                     Mean   :6.216e+08  </span></span>
+<span><span class="co">#&gt;                                     3rd Qu.:6.933e+08  </span></span>
+<span><span class="co">#&gt;                                     Max.   :1.537e+09  </span></span>
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
 <span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
-<span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.678186 -0.059...</span></span>
+<span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.6988282 0.004...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span>
 <span><span class="va">tab</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -751,44 +771,44 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </div>
 <p>For <code>post_table</code> objects it is also possible to use them in the summary geoemtry.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tab</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>area <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="va">geom_sum</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
-<span><span class="co">#&gt; # spatial:  [-0.41, -0.06, 0.99, 1.23], WGS 84</span></span>
+<span><span class="co">#&gt; # spatial:  [-0.42, -0.01, 0.99, 1.17], WGS 84</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
 <span><span class="co">#&gt;   gid      long   lat                                      geom_sum ts      area</span></span>
 <span><span class="co">#&gt; * &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;                                 &lt;POLYGON [°]&gt; &lt;lis&gt;  [m^2]</span></span>
-<span><span class="co">#&gt; 1 a      0.638  0.885 ((0.5137787 1.117004, 0.3759687 0.9038164, 0… &lt;sf&gt;  1.45e9</span></span>
-<span><span class="co">#&gt; 2 b     -0.0136 0.898 ((0.3796448 0.767853, 0.2316513 1.232265, -0… &lt;sf&gt;  4.04e9</span></span>
-<span><span class="co">#&gt; 3 c      0.402  0.507 ((0.3321186 0.7217665, 0.1760477 0.4920647, … &lt;sf&gt;  1.23e9</span></span>
-<span><span class="co">#&gt; 4 d      0.744  0.341 ((0.6633874 0.573032, 0.500051 0.3696662, 0.… &lt;sf&gt;  1.34e9</span></span>
-<span><span class="co">#&gt; 5 e      0.509  0.188 ((0.678186 -0.05907163, 0.7911437 0.2894808,… &lt;sf&gt;  2.15e9</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.… &lt;sf&gt;  1.45e9</span></span>
+<span><span class="co">#&gt; 2 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853,… &lt;sf&gt;  3.91e9</span></span>
+<span><span class="co">#&gt; 3 c      0.402  0.507 ((0.3321186 0.7217665, 0.6273178 0.5211934, … &lt;sf&gt;  1.23e9</span></span>
+<span><span class="co">#&gt; 4 d      0.744  0.341 ((0.6633874 0.573032, 0.9881167 0.3122208, 0… &lt;sf&gt;  1.34e9</span></span>
+<span><span class="co">#&gt; 5 e      0.467  0.180 ((0.6988282 0.0046238, 0.2489106 -0.01302435… &lt;sf&gt;  2.05e9</span></span></code></pre></div>
 </div>
 </section><section class="level3"><h3 id="sticky-geometry">Sticky geometry<a class="anchor" aria-label="anchor" href="#sticky-geometry"></a>
 </h3>
 <p>Following the sf design of an sticky geometry, both <code>post_array</code> and <code>post_table</code> methods, as spatial or temporal cubes have sticky geometries when applying dplyr methods.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">arr2</span> <span class="op">=</span> <span class="va">arr</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    area <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span>,</span>
 <span>    perimeter <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_perimeter</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; stars object with 2 dimensions and 3 attributes</span></span>
+<span><span class="co">#&gt; stars object with 2 dimensions and 4 attributes</span></span>
 <span><span class="co">#&gt; attribute(s):</span></span>
-<span><span class="co">#&gt;          geometry     area [m^2]        perimeter [m]   </span></span>
-<span><span class="co">#&gt;  POLYGON      :25   Min.   :5.366e+07   Min.   : 40715  </span></span>
-<span><span class="co">#&gt;  epsg:4326    : 0   1st Qu.:3.928e+08   1st Qu.: 80659  </span></span>
-<span><span class="co">#&gt;  +proj=long...: 0   Median :4.060e+08   Median : 96203  </span></span>
-<span><span class="co">#&gt;                     Mean   :6.216e+08   Mean   :102089  </span></span>
-<span><span class="co">#&gt;                     3rd Qu.:6.933e+08   3rd Qu.:107075  </span></span>
-<span><span class="co">#&gt;                     Max.   :1.537e+09   Max.   :172705  </span></span>
+<span><span class="co">#&gt;          geometry   int_circle        area [m^2]        perimeter [m]   </span></span>
+<span><span class="co">#&gt;  POLYGON      :25   Mode :logical   Min.   :5.366e+07   Min.   : 40715  </span></span>
+<span><span class="co">#&gt;  epsg:4326    : 0   FALSE:19        1st Qu.:3.928e+08   1st Qu.: 80659  </span></span>
+<span><span class="co">#&gt;  +proj=long...: 0   TRUE :6         Median :4.060e+08   Median : 96203  </span></span>
+<span><span class="co">#&gt;                                     Mean   :6.216e+08   Mean   :102089  </span></span>
+<span><span class="co">#&gt;                                     3rd Qu.:6.933e+08   3rd Qu.:107075  </span></span>
+<span><span class="co">#&gt;                                     Max.   :1.537e+09   Max.   :172705  </span></span>
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
 <span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
-<span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.678186 -0.059...</span></span>
+<span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.6988282 0.004...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span>
 <span><span class="va">arr2</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">perimeter</span><span class="op">)</span></span>
 <span><span class="co">#&gt; stars object with 2 dimensions and 2 attributes</span></span>
@@ -805,12 +825,12 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
 <span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
-<span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.678186 -0.059...</span></span>
+<span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.6988282 0.004...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span></code></pre></div>
 </div>
 <p>For <code>post_table</code> objects, cubble also applies a sticky concept for the <code>key</code> (<code>group_id</code>), <code>index</code> (<code>time_column</code>) and <code>coords</code>, and prints a message to inform you about it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">tab2</span> <span class="op">=</span> <span class="va">tab</span> <span class="op">|&gt;</span> </span>
 <span>   <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
@@ -856,7 +876,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </h3>
 <p>The usefulness of having two classes in <code>post</code> lies on the ability to apply certain functions in the tabular format and then other functions on the array format with conversion.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arr2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -864,18 +884,18 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, long form</span></span>
 <span><span class="co">#&gt; # temporal: 2020-10-01 -- 2020-10-05 [1D], no gaps</span></span>
 <span><span class="co">#&gt; # spatial:  long [dbl], lat [dbl], geom_sum [POLYGON [°]]</span></span>
-<span><span class="co">#&gt;    gid   datetime          area perimeter                               geometry</span></span>
-<span><span class="co">#&gt;  * &lt;chr&gt; &lt;date&gt;           [m^2]       [m]                          &lt;POLYGON [°]&gt;</span></span>
-<span><span class="co">#&gt;  1 a     2020-10-01  693272313.   107076. ((0.5474949 0.8088912, 0.4874872 0.88…</span></span>
-<span><span class="co">#&gt;  2 a     2020-10-02  693260956.   107075. ((0.4961102 0.8728385, 0.4361026 0.94…</span></span>
-<span><span class="co">#&gt;  3 a     2020-10-03  405985931.    96203. ((0.5578801 0.8616378, 0.5623908 1.08…</span></span>
-<span><span class="co">#&gt;  4 a     2020-10-04  220231724.    70856. ((0.5652241 0.872057, 0.5685463 1.036…</span></span>
-<span><span class="co">#&gt;  5 a     2020-10-05  693268587.   107075. ((0.6063791 0.8304178, 0.5463715 0.90…</span></span>
-<span><span class="co">#&gt;  6 b     2020-10-01 1537008395.   172703. ((0.2791708 0.8337388, -0.2847997 0.6…</span></span>
-<span><span class="co">#&gt;  7 b     2020-10-02 1537040160.   172705. ((0.3298312 0.7612067, -0.2341393 0.5…</span></span>
-<span><span class="co">#&gt;  8 b     2020-10-03 1319132956.   171452. ((0.3796448 0.767853, -0.1843257 0.58…</span></span>
-<span><span class="co">#&gt;  9 b     2020-10-04  965402936.   146674. ((0.3642467 0.779727, -0.1182199 0.62…</span></span>
-<span><span class="co">#&gt; 10 b     2020-10-05 1536993945.   172702. ((0.2665368 0.8649996, -0.2974337 0.6…</span></span>
+<span><span class="co">#&gt;    gid   datetime   int_circle        area perimeter                    geometry</span></span>
+<span><span class="co">#&gt;  * &lt;chr&gt; &lt;date&gt;     &lt;lgl&gt;            [m^2]       [m]               &lt;POLYGON [°]&gt;</span></span>
+<span><span class="co">#&gt;  1 a     2020-10-01 FALSE       693272313.   107076. ((0.5474949 0.8088912, 0.4…</span></span>
+<span><span class="co">#&gt;  2 a     2020-10-02 FALSE       693260956.   107075. ((0.4961102 0.8728385, 0.4…</span></span>
+<span><span class="co">#&gt;  3 a     2020-10-03 FALSE       405985931.    96203. ((0.5578801 0.8616378, 0.5…</span></span>
+<span><span class="co">#&gt;  4 a     2020-10-04 FALSE       220231724.    70856. ((0.5652241 0.872057, 0.56…</span></span>
+<span><span class="co">#&gt;  5 a     2020-10-05 FALSE       693268587.   107075. ((0.6063791 0.8304178, 0.5…</span></span>
+<span><span class="co">#&gt;  6 b     2020-10-01 FALSE      1537008395.   172703. ((0.2791708 0.8337388, -0.…</span></span>
+<span><span class="co">#&gt;  7 b     2020-10-02 FALSE      1537040160.   172705. ((0.3298312 0.7612067, -0.…</span></span>
+<span><span class="co">#&gt;  8 b     2020-10-03 FALSE      1319132956.   171452. ((0.3796448 0.767853, -0.1…</span></span>
+<span><span class="co">#&gt;  9 b     2020-10-04 FALSE       965402936.   146674. ((0.3642467 0.779727, -0.1…</span></span>
+<span><span class="co">#&gt; 10 b     2020-10-05 FALSE      1536993945.   172702. ((0.2665368 0.8649996, -0.…</span></span>
 <span><span class="co">#&gt; # ℹ 15 more rows</span></span></code></pre></div>
 </div>
 <p>There are, however, certain issues to be taken into account when doing this.</p>
@@ -883,7 +903,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </h4>
 <p>If a filtering or subsetting operation is applied to a <code>post_array</code>, which can handle emptiness, when converting to a <code>post_table</code> we get an error.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span><span class="op">[</span><span class="va">circle</span><span class="op">]</span></span>
 <span><span class="co">#&gt; stars object with 2 dimensions and 1 attribute</span></span>
 <span><span class="co">#&gt; attribute(s):</span></span>
@@ -899,7 +919,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </div>
 <p>We can however have empty <code>post_table</code> objects by doing the filtering after conversion.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">st_filter</a></span><span class="op">(</span><span class="va">circle</span><span class="op">)</span></span>
@@ -911,7 +931,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </h4>
 <p>When converting and <code>sf</code> or <code>post_array</code> object to <code>post_table</code>, a single time value per group is not supported.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arr</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">datetime</span> <span class="op">==</span> <span class="st">"2020-10-01"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -921,7 +941,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 </div>
 <p>You can have, however, a <code>post_table</code> with a single time value per group after its creation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arr</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -929,38 +949,38 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span>  <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_spatial</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: st_centroid assumes attributes are constant over geometries</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
-<span><span class="co">#&gt; # spatial:  [-0.41, -0.06, 0.99, 1.23], WGS 84</span></span>
-<span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
+<span><span class="co">#&gt; # spatial:  [-0.42, -0.01, 0.99, 1.17], WGS 84</span></span>
+<span><span class="co">#&gt; # temporal: datetime [date], int_circle [lgl], geometry [POLYGON [°]]</span></span>
 <span><span class="co">#&gt;   gid      long   lat                                             geom_sum ts   </span></span>
 <span><span class="co">#&gt; * &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;                                        &lt;POLYGON [°]&gt; &lt;lis&gt;</span></span>
-<span><span class="co">#&gt; 1 a      0.638  0.885 ((0.5137787 1.117004, 0.3759687 0.9038164, 0.762760… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 2 b     -0.0136 0.898 ((0.3796448 0.767853, 0.2316513 1.232265, -0.406896… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 3 c      0.402  0.507 ((0.3321186 0.7217665, 0.1760477 0.4920647, 0.47124… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 4 d      0.744  0.341 ((0.6633874 0.573032, 0.500051 0.3696662, 0.8247803… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 5 e      0.509  0.188 ((0.678186 -0.05907163, 0.7911437 0.2894808, 0.3400… &lt;sf&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.7627607… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 2 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, -0.027… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 3 c      0.402  0.507 ((0.3321186 0.7217665, 0.6273178 0.5211934, 0.47124… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 4 d      0.744  0.341 ((0.6633874 0.573032, 0.9881167 0.3122208, 0.824780… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 5 e      0.467  0.180 ((0.6988282 0.0046238, 0.2489106 -0.01302435, 0.234… &lt;sf&gt;</span></span></code></pre></div>
 </div>
 </section><section class="level4"><h4 id="do-not-drop-dimensions-when-slicing-post_array-objects">3. Do not drop dimensions when slicing <code>post_array</code> objects<a class="anchor" aria-label="anchor" href="#do-not-drop-dimensions-when-slicing-post_array-objects"></a>
 </h4>
 <p>The default behavior of <code><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">dplyr::slice()</a></code> for stars and post_table objects is to drop dimensions with a single value.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arr</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="st">"datetime"</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; stars object with 1 dimensions and 1 attribute</span></span>
+<span><span class="co">#&gt; stars object with 1 dimensions and 2 attributes</span></span>
 <span><span class="co">#&gt; attribute(s):</span></span>
-<span><span class="co">#&gt;          geometry </span></span>
-<span><span class="co">#&gt;  POLYGON      :5  </span></span>
-<span><span class="co">#&gt;  epsg:4326    :0  </span></span>
-<span><span class="co">#&gt;  +proj=long...:0  </span></span>
+<span><span class="co">#&gt;          geometry  int_circle     </span></span>
+<span><span class="co">#&gt;  POLYGON      :5   Mode :logical  </span></span>
+<span><span class="co">#&gt;  epsg:4326    :0   FALSE:4        </span></span>
+<span><span class="co">#&gt;  +proj=long...:0   TRUE :1        </span></span>
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5 WGS 84 FALSE</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
-<span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.678186 -0.059...</span></span></code></pre></div>
+<span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.6988282 0.004...</span></span></code></pre></div>
 </div>
 <p>As we saw in <em>2</em>, this brings problems when converting to a <code>post_table</code> but in general it also generates other types of issues. Make a habit of using <code>drop = FALSE</code> instead.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arr</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="st">"geom_sum"</span>, <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -968,9 +988,9 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; # cubble:   key: gid [1], index: datetime, nested form, [sf]</span></span>
 <span><span class="co">#&gt; # spatial:  [0.38, 0.65, 0.9, 1.12], WGS 84</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
-<span><span class="co">#&gt;   gid    long   lat                                               geom_sum ts   </span></span>
-<span><span class="co">#&gt; * &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;                                          &lt;POLYGON [°]&gt; &lt;lis&gt;</span></span>
-<span><span class="co">#&gt; 1 a     0.638 0.885 ((0.5137787 1.117004, 0.3759687 0.9038164, 0.7627607 … &lt;sf&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   gid   int_circle  long   lat                                    geom_sum ts   </span></span>
+<span><span class="co">#&gt; * &lt;chr&gt; &lt;lgl&gt;      &lt;dbl&gt; &lt;dbl&gt;                               &lt;POLYGON [°]&gt; &lt;lis&gt;</span></span>
+<span><span class="co">#&gt; 1 a     FALSE      0.638 0.885 ((0.5137787 1.117004, 0.9005707 0.866971, … &lt;sf&gt;</span></span></code></pre></div>
 </div>
 </section></section></section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
