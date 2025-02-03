@@ -111,7 +111,7 @@ Objects of class `post_array` inherit also the `stars` class, so most of the met
 
 ### Subsetting
 
-`stars` and hence `post_array` objects are in esence arrays, therefore we can use the `[` operator for subsetting (see more on its usage [on the corresponding stars vignette](https://r-spatial.github.io/stars/articles/stars1.html#subsetting).
+`stars` and hence `post_array` objects are in esence arrays, therefore we can use the `[` operator for subsetting (see more on its usage [on the corresponding stars vignette](https://r-spatial.github.io/stars/articles/stars1.html#subsetting)).
 
 ```{r}
 arr = as_post_array(polygons, geometry_summary = summarise_geometry_union)
@@ -162,6 +162,8 @@ plot(arr[circle]$geometry, border = "firebrick1", add = TRUE)
 ```
 
 ### Apply functions to array dimensions
+
+*Needs input* 
 
 <!-- 
 TODO: test st_apply, maybe examples with stampr 
@@ -218,6 +220,14 @@ For `post_array` objects, the predicates cannot be applied to the summary geomet
 #| error: true
 st_disjoint(arr, circle)
 st_disjoint(arr$geometry, circle)
+```
+With this in mind, we can also create a new dimension with the result of a binary predicate geometric operation.
+Note that we need to use the `sparse = TRUE` option to obtain a boolean array from the operation. 
+Since this is a new attribute in our cube, the dimensions are preserved.
+
+```{r}
+arr$int_circle = st_intersects(arr[['geometry']], circle, sparse = FALSE)
+arr
 ```
 
 For `post_table` objects, the predicates can be applied to either the spatial or the temporal face of the vector data cube. 
