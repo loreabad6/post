@@ -160,3 +160,27 @@ st_as_sf.post_array = function(x, ...) {
   # Reorder the rows
   out[order(out[[group_id_colname]]), ]
 }
+
+#' sf geometry predicates for post_array objects
+#' @param x a post_array object
+#' @param y an object of class `sf`, `sfc`, `sfg`
+#' @param .predicate binary predicate to use (see `?sf::geos_binary_pred`), defaults to `st_intersects`
+#' @param ... passed on to the geometry predicate
+#' @name binary-predicates-post-array
+#' @importFrom sf st_intersects
+#' @return a one column matrix as the result of any features in y relating to
+#' any feature in x
+#' @examples
+#' library(sf)
+#' arr = as_post_array(polygons, geometry_summary = summarise_geometry_union)
+#' circles = list(st_point(c(0.55,0.5)), st_point(c(0.75,0.4))) |>
+#'   st_sfc(crs = 4326) |>
+#'   st_buffer(10000)
+#' st_mask(arr, circles)
+#' arr$circles_disjoint = st_mask(arr, circles, .predicate = st_disjoint)
+#' @export
+st_mask = function(x, y, .predicate = st_intersects, ...) {
+  sfcol = attr(x, "sf_column")
+  mat = .predicate(x[[sfcol]], y, sparse = FALSE, ...)
+  matrix(apply(mat, 1, any), ncol = 1)
+}

@@ -143,22 +143,22 @@ And the functionality to use `[` as a "crop" operator is also supported.
 However, in this case a spatial filtering rather than a cropping operation takes place.
 
 ```{r}
-circle = st_point(c(0.55,0.5)) |>
+circles = list(st_point(c(0.55,0.5)), st_point(c(0.75,0.4))) |>
   st_sfc(crs = 4326) |>
   st_buffer(10000)
-arr[circle]
+arr[circles]
 ```
 
 Note that the spatial dimension `geom_sum` is the one that gets filtered and not the changing geometries [^1].
-Therefore, the filtered `post_array` also keeps geometries that do not intersect `circle` by themselves but their summary geometry does.
+Therefore, the filtered `post_array` also keeps geometries that do not intersect `circles` by themselves but their summary geometry does.
 
 [^1]: see section @sec-spatfilt on how to perform a spatial filter of the changing geometries
 
 ```{r}
 par(mar = c(0,0,0,0))
 plot(arr$geometry, col = "grey80", border = "white")
-plot(circle, col = "deepskyblue3", border = NA, add = TRUE)
-plot(arr[circle]$geometry, border = "firebrick1", add = TRUE)
+plot(circles, col = "deepskyblue3", border = NA, add = TRUE)
+plot(arr[circles]$geometry, border = "firebrick1", add = TRUE)
 ```
 
 ### Apply functions to array dimensions
@@ -210,45 +210,48 @@ st_transform(tab, 3035)
 st_transform(tab, 3035) |> face_temporal()
 ```
 
-### Geometric binary predicates
+### Geometric binary predicates {#sec-binary}
 
 Geometric binary predicates (`?sf::geos_binary_pred`) are supported by `post_*` objects in different ways.
 
-For `post_array` objects, the predicates cannot be applied to the summary geometry dimension, but can be applied to the changing geometries.
+In `post_array` objects, you can apply geometric binary predicates to the changing geometries with the function `st_mask()`. 
+The result is a one column matrix as the result of any features in y relating to any feature in x.
+If you still want to get the relation through a binary predicate as it works in `sf`, then you should call the function on the changing geometries. 
 
 ```{r}
 #| error: true
-st_disjoint(arr, circle)
-st_disjoint(arr$geometry, circle)
+st_mask(arr, circles, .predicate = st_disjoint)
+st_disjoint(arr$geometry, circles)
 ```
-With this in mind, we can also create a new dimension with the result of a binary predicate geometric operation.
-Note that we need to use the `sparse = TRUE` option to obtain a boolean array from the operation. 
+
+With this in mind, we can also create a new dimension with the result of a binary predicate geometric operation, similar to a mask.
 Since this is a new attribute in our cube, the dimensions are preserved.
 
 ```{r}
-arr$int_circle = st_intersects(arr[['geometry']], circle, sparse = FALSE)
+arr$int_circles = st_mask(arr, circles)
 arr
+plot(arr$geometry)
 ```
 
 For `post_table` objects, the predicates can be applied to either the spatial or the temporal face of the vector data cube. 
 
 ```{r}
-st_disjoint(tab, circle)
-st_disjoint(face_temporal(tab), circle)
+st_disjoint(tab, circles)
+st_disjoint(face_temporal(tab), circles)
 ```
 
 Applying the predicate to the changing geometry of `post_array` objects renders the same result as applying it to the `post_table` objects in the long format or on its temporal face. 
 
 ```{r}
-sum(st_disjoint(arr$geometry, circle, sparse = FALSE))
-sum(st_disjoint(face_temporal(tab), circle, sparse = FALSE))
+sum(st_disjoint(arr$geometry, circles, sparse = FALSE))
+sum(st_disjoint(face_temporal(tab), circles, sparse = FALSE))
 ```
 
 ### Spatial filtering {#sec-spatfilt}
 
 The predicates shown above are particularly relevant to use inside spatial filtering operations.
 
-`sf::st_filter()` does not work on `post_array` objects.
+`sf::st_filter()` does not work on `post_array` objects. See @sec-binary for an example on how to mask the cube values spatially.
 
 ```{r}
 #| error: true
@@ -259,8 +262,8 @@ st_filter(arr$geometry)
 But it does work on `post_table` objects, both for the spatial and temporal face.
 
 ```{r}
-st_filter(tab, circle)
-st_filter(face_temporal(tab), circle)
+st_filter(tab, circles)
+st_filter(face_temporal(tab), circles)
 ```
 
 When a spatial filtering needs to be applied to the changing geometry of a `post_array` object, we can first convert to `post_table`, perform the filtering on the temporal face and then convert back to a `post_array` object. 
@@ -269,7 +272,7 @@ When a spatial filtering needs to be applied to the changing geometry of a `post
 arr |> 
   as_post_table() |> 
   face_temporal() |> 
-  st_filter(circle) |> 
+  st_filter(circles) |> 
   as_post_array()
 ```
 
@@ -380,8 +383,8 @@ If a filtering or subsetting operation is applied to a `post_array`, which can h
 
 ```{r}
 #| error: true
-as_post_array(polygons)[circle]
-as_post_array(polygons)[circle] |> as_post_table()
+as_post_array(polygons)[circles]
+as_post_array(polygons)[circles] |> as_post_table()
 ```
 
 We can however have empty `post_table` objects by doing the filtering after conversion.
@@ -389,7 +392,7 @@ We can however have empty `post_table` objects by doing the filtering after conv
 ```{r}
 as_post_array(polygons) |> 
   as_post_table() |> 
-  st_filter(circle)
+  st_filter(circles)
 ```
 
 #### 2. `post_table` requires at least two time values per group for creation
