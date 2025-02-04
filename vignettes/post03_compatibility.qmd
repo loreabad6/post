@@ -230,7 +230,8 @@ Since this is a new attribute in our cube, the dimensions are preserved.
 ```{r}
 arr$int_circles = st_mask(arr, circles)
 arr
-plot(arr$geometry)
+autoplot(arr, int_circles) +
+  geom_sf(data = circles, fill = NA, color = "red")
 ```
 
 For `post_table` objects, the predicates can be applied to either the spatial or the temporal face of the vector data cube. 
