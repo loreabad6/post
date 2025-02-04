@@ -141,19 +141,21 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"post_array"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] [             as_post_array as_post_table filter        mutate       </span></span>
-<span><span class="co">#&gt;  [6] rename        select        slice         st_as_sf      transmute    </span></span>
+<span><span class="co">#&gt;  [1] [             as_post_array as_post_table autoplot      filter       </span></span>
+<span><span class="co">#&gt;  [6] mutate        rename        select        slice         st_as_sf     </span></span>
+<span><span class="co">#&gt; [11] transmute    </span></span>
 <span><span class="co">#&gt; see '?methods' for accessing help and source code</span></span></code></pre></div>
 </div>
 <p><code>post_table</code> inherits the <code>cubble</code> class and its subclasses <code>spatial_cubble_df</code> and <code>temporal_cubble_df</code>. Likewise, it supports most of the cubble methods and retains the cubble print methods.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"post_table"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] arrange            as_post_array      as_post_table      dplyr_reconstruct </span></span>
-<span><span class="co">#&gt;  [5] face_spatial       face_temporal      filter             mutate            </span></span>
-<span><span class="co">#&gt;  [9] rename             select             slice              spatial           </span></span>
-<span><span class="co">#&gt; [13] st_as_sf           st_crs&lt;-           st_normalize       st_shift_longitude</span></span>
-<span><span class="co">#&gt; [17] st_transform       st_wrap_dateline   st_zm              unfold            </span></span>
+<span><span class="co">#&gt;  [1] arrange            as_post_array      as_post_table      autoplot          </span></span>
+<span><span class="co">#&gt;  [5] dplyr_reconstruct  face_spatial       face_temporal      filter            </span></span>
+<span><span class="co">#&gt;  [9] mutate             rename             select             slice             </span></span>
+<span><span class="co">#&gt; [13] spatial            st_as_sf           st_crs&lt;-           st_normalize      </span></span>
+<span><span class="co">#&gt; [17] st_shift_longitude st_transform       st_wrap_dateline   st_zm             </span></span>
+<span><span class="co">#&gt; [21] unfold            </span></span>
 <span><span class="co">#&gt; see '?methods' for accessing help and source code</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="creation-and-structure">Creation and structure<a class="anchor" aria-label="anchor" href="#creation-and-structure"></a>
@@ -439,7 +441,47 @@
 <span><span class="co">#&gt; 10 b     2020-10-05                                                        EMPTY</span></span>
 <span><span class="co">#&gt; # ℹ 15 more rows</span></span></code></pre></div>
 </div>
-</section></section><script id="quarto-html-after-body" type="application/javascript">
+</section></section><section class="level2"><h2 id="visualisation">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation"></a>
+</h2>
+<p>For a quick visualisation of the post objects, you can use <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">ggplot2::autoplot()</a></code>. The plot will show individual facets according to the first non-spatial dimension for post_array objects and according to the time column for post_table objects.</p>
+<p>You can choose between visualising the attributes based on the summary or changing geometries.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">tab</span>, <span class="va">gid</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="post01_post_files/figure-html/unnamed-chunk-14-1.png" width="816"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">tab</span>, <span class="va">gid</span>, geom_sum <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="post01_post_files/figure-html/unnamed-chunk-14-2.png" width="816"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">arr</span><span class="op">$</span><span class="va">area</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="va">arr</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">arr</span>, <span class="va">area</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="post01_post_files/figure-html/unnamed-chunk-14-3.png" width="816"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">arr</span>, <span class="va">area</span>, geom_sum <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="post01_post_files/figure-html/unnamed-chunk-14-4.png" width="816"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
