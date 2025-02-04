@@ -219,3 +219,20 @@ as_post_table(arr_empty) |>
 as_post_table(arr_empty, drop_empty = FALSE) |> 
   face_temporal()
 ```
+
+## Visualisation
+
+For a quick visualisation of the post objects, you can use `ggplot2::autoplot()`. 
+The plot will show individual facets according to the first non-spatial dimension for post_array objects and according to the time column for post_table objects. 
+
+You can choose between visualising the attributes based on the summary or changing geometries.
+
+```{r}
+library(ggplot2)
+autoplot(tab, gid)
+autoplot(tab, gid, geom_sum = TRUE)
+arr$area = st_area(arr$geometry)
+autoplot(arr, area)
+autoplot(arr, area, geom_sum = TRUE)
+```
+

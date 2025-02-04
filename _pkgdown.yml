@@ -42,6 +42,10 @@ reference:
   contents:
   - polygons
 
+- title: "Visualisation"
+  contents:
+  - autoplot
+
 - title: "Compatibility with other packages"
 - subtitle: "With cubble"
   contents:
@@ -60,6 +64,7 @@ reference:
   contents:
   - sf-post-table
   - sf-post-array
+  - binary-predicates-post-array
 - subtitle: "With stars"
   contents:
   - stars

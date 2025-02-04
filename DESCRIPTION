@@ -30,6 +30,7 @@ Remotes:
 URL: https://loreabad6.github.io/post/
 Suggests: 
     cubelyr,
+    ggplot2 (>= 3.0.0),
     knitr,
     quarto,
     rmarkdown,
