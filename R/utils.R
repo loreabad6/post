@@ -67,10 +67,8 @@ st_summarise_polys = function(x, group_id, sf_column_name,
   }
 
   x_groupped = split(x[[sf_column_name]], x[[group_id]])
-  # Combining all the polygon features into one single polygon is a much
+  # Combining all the polygon features into a geometry collection is a much
   # cheaper operation than doing a union operation.
-  # However the validity of the multipolygon will throw errors with s2 geometry
-  # so the default is to union when s2 is active in sf
   if(do_union) {
     do.call(
       "c",
@@ -79,8 +77,7 @@ st_summarise_polys = function(x, group_id, sf_column_name,
   } else {
     do.call(
       "c",
-      lapply(
-        x_groupped, function(i) sf::st_make_valid(sf::st_combine(i)))
+      lapply(x_groupped, function(i) sf::st_geometrycollection(i))
     )
   }
 }

@@ -44,6 +44,7 @@ reference:
 
 - title: "Visualisation"
   contents:
+  - plot
   - autoplot
 
 - title: "Compatibility with other packages"
