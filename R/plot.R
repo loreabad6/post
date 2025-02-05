@@ -7,7 +7,7 @@
 #' geometries.
 #'
 #' @name plot
-#' @param x an object of class post_array
+#' @param x an object of class post_array pr post_table
 #' @param y ignored
 #' @param ... passed on to `plot.stars()`
 #'
@@ -27,6 +27,13 @@ plot.post_array = function(x, y, ...) {
       "i" = "try using autoplot.post_array() instead"
     ))
   x = remove_post_array(x)
+  NextMethod()
+}
+
+#' @rdname plot
+#' @export
+plot.post_table = function(x, y, ...) {
+  if(inherits(x, "spatial_cubble_df")) x$ts = NULL
   NextMethod()
 }
 
