@@ -57,7 +57,8 @@ autoplot.post_array = function(object, attribute = NULL,
     st_geometry(object) = sf_dim
   # Plot
   ggplot2::ggplot(object) +
-    ggplot2::geom_sf(ggplot2::aes(fill = {{attribute}})) +
+    aes_post(object, {{attribute}}) +
+    ggplot2::geom_sf() +
     ggplot2::facet_wrap(ggplot2::vars(!!rlang::sym(nonsf_dim)))
 }
 
@@ -76,7 +77,15 @@ autoplot.post_table = function(object, attribute = NULL,
   object = filter(object, !!index(object) %in% index_values[1:max_plot])
   if (geom_sum) object = face_spatial(object)
   ggplot2::ggplot(object) +
-    ggplot2::geom_sf(ggplot2::aes(fill = {{attribute}})) +
+    aes_post(object, {{attribute}}) +
+    ggplot2::geom_sf() +
     ggplot2::facet_wrap(ggplot2::vars(!!rlang::sym(attr(object, "index"))))
 }
 
+#' @noRd
+#' @importFrom sf st_geometry_type
+aes_post = function(object, attribute) {
+  if (unique(st_geometry_type(object)) %in% c("POINT", "LINESTRING")) {
+    ggplot2::aes(color = {{attribute}})
+  } else ggplot2::aes(fill = {{attribute}})
+}
