@@ -1,6 +1,38 @@
+#' Plot post_array with plot.stars default
+#'
+#' Plots a post_array with the default `plot.stars()` function by taking the first
+#' non-spatial attribute. The summary geometry is used for plotting.
+#' When no non-spatial attribute is available, the plot function returns an error.
+#' Try `autoplot.post_array()` to achieve those type of plots and to plot changing
+#' geometries.
+#'
+#' @name plot
+#' @param x an object of class post_array
+#' @param y ignored
+#' @param ... passed on to `plot.stars()`
+#'
+#' @examples
+#' library(sf)
+#' arr = as_post_array(polygons)
+#' arr$area = st_area(arr$geometries)
+#' plot(arr)
+#'
+#' @seealso [autoplot.post_array()]
+#' @export
+plot.post_array = function(x, y, ...) {
+  x[[attr(x, "sf_column")]] = NULL
+  if(identical(attr(x, "names"), character(0)))
+    cli::cli_abort(c(
+      "x" = "no non-spatial attribute present in {.var x}",
+      "i" = "try using autoplot.post_array() instead"
+    ))
+  x = remove_post_array(x)
+  NextMethod()
+}
+
 #' Plot post_array or post_table with ggplot2
 #'
-#' Plot the changing or summary geometries in a post_array or post_table as facets
+#' Plots the changing or summary geometries in a post_array or post_table as facets
 #' defined by the first non spatial dimension. Other dimensions are discarded.
 #'
 #' @param object a post_array or post_table object
