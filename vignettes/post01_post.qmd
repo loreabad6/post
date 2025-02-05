@@ -230,7 +230,7 @@ The plot will show individual facets according to the first non-spatial dimensio
 You can choose between visualising the attributes based on the summary or changing geometries.
 
 ```{r}
-#| fig-width: 12
+#| fig-width: 8
 #| fig-height: 6
 library(ggplot2)
 autoplot(tab, gid)
@@ -294,8 +294,8 @@ arr_sum = st_set_geometry(arr_sf, "geom_sum")
 With that you can use more customised plotting with, for example, `ggplot2` to create nice maps of your data.
 
 ```{r}
-#| fig-width: 12
-#| fig-height: 12
+#| fig-width: 8
+#| fig-height: 8
 ggplot(arr_sf) +
   geom_sf(data = arr_sum, fill = "grey80", color = NA) +
   geom_sf(aes(fill = area, color = logical), linewidth = 0.3) +
