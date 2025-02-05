@@ -37,7 +37,7 @@ autoplot.post_table(
 an object of class \code{ggplot}
 }
 \description{
-Plot the changing or summary geometries in a post_array or post_table as facets
+Plots the changing or summary geometries in a post_array or post_table as facets
 defined by the first non spatial dimension. Other dimensions are discarded.
 }
 \details{

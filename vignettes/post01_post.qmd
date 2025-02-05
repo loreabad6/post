@@ -236,3 +236,25 @@ autoplot(arr, area)
 autoplot(arr, area, geom_sum = TRUE)
 ```
 
+If you don't have `ggplot2` installed, for `post_array` objects, the default `plot.stars` method is supported as well when the `post_array` object has non-spatial attributes. The geometry plotted is the summary geometry.
+
+```{r}
+plot(arr)
+```
+
+For `post_table` objects, the plot method (which defaults to `plot.sf()`) applied to the spatial face shows the summary geometry attributes, while the temporal face shows the changing geometries and its attributes. 
+
+```{r}
+plot(tab)
+plot(face_temporal(tab))
+```
+
+If there are any attributes in the spatial face that you would like to see on the temporal face plot, you can unfold them.
+
+```{r}
+tab |> 
+  face_temporal() |> 
+  unfold("lat", "long") |> 
+  plot()
+```
+
