@@ -27,7 +27,7 @@ geometries.
 \examples{
 library(sf)
 arr = as_post_array(polygons)
-arr$area = st_area(arr$geometries)
+arr$area = st_area(arr$geometry)
 plot(arr)
 
 }
