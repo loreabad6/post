@@ -219,9 +219,9 @@
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84  TRUE</span></span>
 <span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
-<span><span class="co">#&gt;                                                            values</span></span>
-<span><span class="co">#&gt; geom_sum POINT (0.647816 0.9018588),...,POINT (0.4690683 0.17772)</span></span>
-<span><span class="co">#&gt; datetime                                                     NULL</span></span>
+<span><span class="co">#&gt;                                                              values</span></span>
+<span><span class="co">#&gt; geom_sum POINT (0.6526028 0.901785),...,POINT (0.4718622 0.1952443)</span></span>
+<span><span class="co">#&gt; datetime                                                       NULL</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "post_array" "stars"</span></span></code></pre></div>
 </div>
@@ -246,13 +246,13 @@
 <span><span class="co">#&gt; Geometry set for 5 features </span></span>
 <span><span class="co">#&gt; Geometry type: POINT</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -0.002543201 ymin: 0.17772 xmax: 0.752585 ymax: 0.9018588</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -0.009536052 ymin: 0.1952443 xmax: 0.7627982 ymax: 0.901785</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt; POINT (0.647816 0.9018588)</span></span>
-<span><span class="co">#&gt; POINT (-0.002543201 0.8403816)</span></span>
-<span><span class="co">#&gt; POINT (0.3897167 0.5412363)</span></span>
-<span><span class="co">#&gt; POINT (0.752585 0.3538271)</span></span>
-<span><span class="co">#&gt; POINT (0.4690683 0.17772)</span></span></code></pre></div>
+<span><span class="co">#&gt; POINT (0.6526028 0.901785)</span></span>
+<span><span class="co">#&gt; POINT (-0.009536052 0.8549277)</span></span>
+<span><span class="co">#&gt; POINT (0.3932031 0.5571231)</span></span>
+<span><span class="co">#&gt; POINT (0.7627982 0.3647986)</span></span>
+<span><span class="co">#&gt; POINT (0.4718622 0.1952443)</span></span></code></pre></div>
 </div>
 <p>The array format does not include the group identifiers in their data structure directly, since they are represented by the summary geometry. However, these identifiers are stored as metadata and can be obtained as:</p>
 <div class="cell">
@@ -274,15 +274,15 @@
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">tab</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
-<span><span class="co">#&gt; # spatial:  [0, 0.18, 0.75, 0.9], WGS 84</span></span>
+<span><span class="co">#&gt; # spatial:  [-0.01, 0.2, 0.76, 0.9], WGS 84</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
 <span><span class="co">#&gt;   gid       long   lat                 geom_sum ts          </span></span>
 <span><span class="co">#&gt; * &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;              &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
-<span><span class="co">#&gt; 1 a      0.648   0.902     (0.647816 0.9018588) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 2 b     -0.00254 0.840 (-0.002543201 0.8403816) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 3 c      0.390   0.541    (0.3897167 0.5412363) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 4 d      0.753   0.354     (0.752585 0.3538271) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 5 e      0.469   0.178      (0.4690683 0.17772) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 1 a      0.653   0.902     (0.6526028 0.901785) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 2 b     -0.00954 0.855 (-0.009536052 0.8549277) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 3 c      0.393   0.557    (0.3932031 0.5571231) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 4 d      0.763   0.365    (0.7627982 0.3647986) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 5 e      0.472   0.195    (0.4718622 0.1952443) &lt;sf [5 × 2]&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "post_table"        "spatial_cubble_df" "cubble_df"        </span></span>
 <span><span class="co">#&gt; [4] "sf"                "tbl_df"            "tbl"              </span></span>
@@ -317,13 +317,13 @@
 <span><span class="co">#&gt; Geometry set for 5 features </span></span>
 <span><span class="co">#&gt; Geometry type: POINT</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -0.002543201 ymin: 0.17772 xmax: 0.752585 ymax: 0.9018588</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -0.009536052 ymin: 0.1952443 xmax: 0.7627982 ymax: 0.901785</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt; POINT (0.647816 0.9018588)</span></span>
-<span><span class="co">#&gt; POINT (-0.002543201 0.8403816)</span></span>
-<span><span class="co">#&gt; POINT (0.3897167 0.5412363)</span></span>
-<span><span class="co">#&gt; POINT (0.752585 0.3538271)</span></span>
-<span><span class="co">#&gt; POINT (0.4690683 0.17772)</span></span>
+<span><span class="co">#&gt; POINT (0.6526028 0.901785)</span></span>
+<span><span class="co">#&gt; POINT (-0.009536052 0.8549277)</span></span>
+<span><span class="co">#&gt; POINT (0.3932031 0.5571231)</span></span>
+<span><span class="co">#&gt; POINT (0.7627982 0.3647986)</span></span>
+<span><span class="co">#&gt; POINT (0.4718622 0.1952443)</span></span>
 <span><span class="co"># summary geometry</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_geometry</a></span><span class="op">(</span><span class="va">tab_temp</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Geometry set for 25 features </span></span>
@@ -354,20 +354,20 @@
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84  TRUE</span></span>
 <span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
-<span><span class="co">#&gt;                                                            values</span></span>
-<span><span class="co">#&gt; geom_sum POINT (0.647816 0.9018588),...,POINT (0.4690683 0.17772)</span></span>
-<span><span class="co">#&gt; datetime                                                     NULL</span></span>
+<span><span class="co">#&gt;                                                              values</span></span>
+<span><span class="co">#&gt; geom_sum POINT (0.6526028 0.901785),...,POINT (0.4718622 0.1952443)</span></span>
+<span><span class="co">#&gt; datetime                                                       NULL</span></span>
 <span><span class="va">arr</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
-<span><span class="co">#&gt; # spatial:  [0, 0.18, 0.75, 0.9], WGS 84</span></span>
+<span><span class="co">#&gt; # spatial:  [-0.01, 0.2, 0.76, 0.9], WGS 84</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
 <span><span class="co">#&gt;   gid       long   lat                 geom_sum ts          </span></span>
 <span><span class="co">#&gt; * &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;              &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
-<span><span class="co">#&gt; 1 a      0.648   0.902     (0.647816 0.9018588) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 2 b     -0.00254 0.840 (-0.002543201 0.8403816) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 3 c      0.390   0.541    (0.3897167 0.5412363) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 4 d      0.753   0.354     (0.752585 0.3538271) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 5 e      0.469   0.178      (0.4690683 0.17772) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 a      0.653   0.902     (0.6526028 0.901785) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 2 b     -0.00954 0.855 (-0.009536052 0.8549277) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 3 c      0.393   0.557    (0.3932031 0.5571231) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 4 d      0.763   0.365    (0.7627982 0.3647986) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 5 e      0.472   0.195    (0.4718622 0.1952443) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
 </div>
 <p>For a conversion from <code>post_array</code> to <code>post_table</code> the argument <code>drop_empty</code> is available in case the post_array object has empty geometries. Dropping empty geometries is the default.</p>
 <div class="cell">
@@ -385,9 +385,9 @@
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84  TRUE</span></span>
 <span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
-<span><span class="co">#&gt;                                                              values</span></span>
-<span><span class="co">#&gt; geom_sum POINT (0.648836 0.8727337),...,POINT (0.4738249 0.1737262)</span></span>
-<span><span class="co">#&gt; datetime                                                       NULL</span></span>
+<span><span class="co">#&gt;                                                               values</span></span>
+<span><span class="co">#&gt; geom_sum POINT (0.6454728 0.8842442),...,POINT (0.4759192 0.1771352)</span></span>
+<span><span class="co">#&gt; datetime                                                        NULL</span></span>
 <span><span class="va">arr_empty</span><span class="op">$</span><span class="va">geometry</span></span>
 <span><span class="co">#&gt; Geometry set for 25 features  (with 12 geometries empty) [dim: 5 x 5]</span></span>
 <span><span class="co">#&gt; Geometry type: POLYGON</span></span>

@@ -103,15 +103,15 @@
 <span><span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_spatial</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ The cubble is already in the nested form</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
-<span><span class="co">#&gt; # spatial:  [0, 0.18, 0.75, 0.9], WGS 84</span></span>
+<span><span class="co">#&gt; # spatial:  [-0.01, 0.2, 0.76, 0.9], WGS 84</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
 <span><span class="co">#&gt;   gid       long   lat                 geom_sum ts          </span></span>
 <span><span class="co">#&gt; * &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;              &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
-<span><span class="co">#&gt; 1 a      0.648   0.902     (0.647816 0.9018588) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 2 b     -0.00254 0.840 (-0.002543201 0.8403816) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 3 c      0.390   0.541    (0.3897167 0.5412363) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 4 d      0.753   0.354     (0.752585 0.3538271) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 5 e      0.469   0.178      (0.4690683 0.17772) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 1 a      0.653   0.902     (0.6526028 0.901785) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 2 b     -0.00954 0.855 (-0.009536052 0.8549277) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 3 c      0.393   0.557    (0.3932031 0.5571231) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 4 d      0.763   0.365    (0.7627982 0.3647986) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 5 e      0.472   0.195    (0.4718622 0.1952443) &lt;sf [5 × 2]&gt;</span></span>
 <span><span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, long form</span></span>
 <span><span class="co">#&gt; # temporal: 2020-10-01 -- 2020-10-05 [1D], no gaps</span></span>
@@ -146,16 +146,16 @@
 <span><span class="co">#&gt; Simple feature collection with 5 features and 3 fields</span></span>
 <span><span class="co">#&gt; Geometry type: POINT</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -0.002543201 ymin: 0.17772 xmax: 0.752585 ymax: 0.9018588</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -0.009536052 ymin: 0.1952443 xmax: 0.7627982 ymax: 0.901785</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 4</span></span>
 <span><span class="co">#&gt;   gid       long   lat                 geom_sum</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;              &lt;POINT [°]&gt;</span></span>
-<span><span class="co">#&gt; 1 a      0.648   0.902     (0.647816 0.9018588)</span></span>
-<span><span class="co">#&gt; 2 b     -0.00254 0.840 (-0.002543201 0.8403816)</span></span>
-<span><span class="co">#&gt; 3 c      0.390   0.541    (0.3897167 0.5412363)</span></span>
-<span><span class="co">#&gt; 4 d      0.753   0.354     (0.752585 0.3538271)</span></span>
-<span><span class="co">#&gt; 5 e      0.469   0.178      (0.4690683 0.17772)</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 a      0.653   0.902     (0.6526028 0.901785)</span></span>
+<span><span class="co">#&gt; 2 b     -0.00954 0.855 (-0.009536052 0.8549277)</span></span>
+<span><span class="co">#&gt; 3 c      0.393   0.557    (0.3932031 0.5571231)</span></span>
+<span><span class="co">#&gt; 4 d      0.763   0.365    (0.7627982 0.3647986)</span></span>
+<span><span class="co">#&gt; 5 e      0.472   0.195    (0.4718622 0.1952443)</span></span></code></pre></div>
 </div>
 </section><section class="level3"><h3 id="gap-filling-with-tsibble">Gap filling with tsibble<a class="anchor" aria-label="anchor" href="#gap-filling-with-tsibble"></a>
 </h3>
@@ -419,11 +419,11 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt;  3 a     ((0.5137787 1.117004, 0.9005707 0… 2020-10-03 ((0.5578801 0.8616378, 0…</span></span>
 <span><span class="co">#&gt;  4 a     ((0.5137787 1.117004, 0.9005707 0… 2020-10-04 ((0.5652241 0.872057, 0.…</span></span>
 <span><span class="co">#&gt;  5 a     ((0.5137787 1.117004, 0.9005707 0… 2020-10-05 ((0.6063791 0.8304178, 0…</span></span>
-<span><span class="co">#&gt;  6 b     ((-0.008469541 1.165177, 0.379644… 2020-10-01 ((0.2791708 0.8337388, -…</span></span>
-<span><span class="co">#&gt;  7 b     ((-0.008469541 1.165177, 0.379644… 2020-10-02 ((0.3298312 0.7612067, -…</span></span>
-<span><span class="co">#&gt;  8 b     ((-0.008469541 1.165177, 0.379644… 2020-10-03 ((0.3796448 0.767853, -0…</span></span>
-<span><span class="co">#&gt;  9 b     ((-0.008469541 1.165177, 0.379644… 2020-10-04 ((0.3642467 0.779727, -0…</span></span>
-<span><span class="co">#&gt; 10 b     ((-0.008469541 1.165177, 0.379644… 2020-10-05 ((0.2665368 0.8649996, -…</span></span>
+<span><span class="co">#&gt;  6 b     ((-0.008469583 1.165177, 0.379644… 2020-10-01 ((0.2791708 0.8337388, -…</span></span>
+<span><span class="co">#&gt;  7 b     ((-0.008469583 1.165177, 0.379644… 2020-10-02 ((0.3298312 0.7612067, -…</span></span>
+<span><span class="co">#&gt;  8 b     ((-0.008469583 1.165177, 0.379644… 2020-10-03 ((0.3796448 0.767853, -0…</span></span>
+<span><span class="co">#&gt;  9 b     ((-0.008469583 1.165177, 0.379644… 2020-10-04 ((0.3642467 0.779727, -0…</span></span>
+<span><span class="co">#&gt; 10 b     ((-0.008469583 1.165177, 0.379644… 2020-10-05 ((0.2665368 0.8649996, -…</span></span>
 <span><span class="co">#&gt; # ℹ 15 more rows</span></span>
 <span><span class="co"># post_table</span></span>
 <span><span class="va">tab</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="va">polygons</span>,</span>
@@ -448,11 +448,11 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt;  3 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.7… 2020-10-03</span></span>
 <span><span class="co">#&gt;  4 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.7… 2020-10-04</span></span>
 <span><span class="co">#&gt;  5 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.7… 2020-10-05</span></span>
-<span><span class="co">#&gt;  6 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, … 2020-10-01</span></span>
-<span><span class="co">#&gt;  7 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, … 2020-10-02</span></span>
-<span><span class="co">#&gt;  8 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, … 2020-10-03</span></span>
-<span><span class="co">#&gt;  9 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, … 2020-10-04</span></span>
-<span><span class="co">#&gt; 10 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, … 2020-10-05</span></span>
+<span><span class="co">#&gt;  6 b     -0.0180 0.768 ((-0.008469583 1.165177, 0.3796448 0.767853, … 2020-10-01</span></span>
+<span><span class="co">#&gt;  7 b     -0.0180 0.768 ((-0.008469583 1.165177, 0.3796448 0.767853, … 2020-10-02</span></span>
+<span><span class="co">#&gt;  8 b     -0.0180 0.768 ((-0.008469583 1.165177, 0.3796448 0.767853, … 2020-10-03</span></span>
+<span><span class="co">#&gt;  9 b     -0.0180 0.768 ((-0.008469583 1.165177, 0.3796448 0.767853, … 2020-10-04</span></span>
+<span><span class="co">#&gt; 10 b     -0.0180 0.768 ((-0.008469583 1.165177, 0.3796448 0.767853, … 2020-10-05</span></span>
 <span><span class="co">#&gt; # ℹ 15 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 1 more variable: geometry &lt;POLYGON [°]&gt;</span></span></code></pre></div>
 </div>
@@ -480,7 +480,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co"># post_table</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">tab</span>, <span class="fl">3035</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
-<span><span class="co">#&gt; # spatial:  [3039847.62, -2301054.31, 3209654.8, -2175848.01], ETRS89-extended</span></span>
+<span><span class="co">#&gt; # spatial:  [3039847.61, -2301054.31, 3209654.79, -2175848.01], ETRS89-extended</span></span>
 <span><span class="co">#&gt; #   / LAEA Europe</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [m]]</span></span>
 <span><span class="co">#&gt;   gid      long   lat                                             geom_sum ts   </span></span>
@@ -637,9 +637,9 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
 <span><span class="co">#&gt;   gid    long   lat                                               geom_sum ts   </span></span>
 <span><span class="co">#&gt; * &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;                                          &lt;POLYGON [°]&gt; &lt;lis&gt;</span></span>
-<span><span class="co">#&gt; 1 c     0.402 0.507 ((0.3321186 0.7217665, 0.6273178 0.5211934, 0.4712469… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 2 d     0.744 0.341 ((0.6633874 0.573032, 0.9881167 0.3122208, 0.8247803 … &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 3 e     0.467 0.180 ((0.6988282 0.0046238, 0.2489106 -0.01302435, 0.23449… &lt;sf&gt;</span></span>
+<span><span class="co">#&gt; 1 c     0.402 0.507 ((0.3321185 0.7217665, 0.6273178 0.5211933, 0.4712468… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 2 d     0.744 0.341 ((0.6633875 0.5730321, 0.9881167 0.3122207, 0.8247802… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 3 e     0.467 0.180 ((0.6988282 0.004623805, 0.2489107 -0.01302429, 0.234… &lt;sf&gt;</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">st_filter</a></span><span class="op">(</span><span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span>, <span class="va">circles</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [2], index: datetime, long form</span></span>
 <span><span class="co">#&gt; # temporal: 2020-10-01 -- 2020-10-05 [1D], has gaps!</span></span>
@@ -687,7 +687,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <code class="sourceCode R"><span><span class="co"># post_array</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_geometry</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Units: [m^2]</span></span>
-<span><span class="co">#&gt; [1] 1445426429 3909318516 1225403966 1343229500 2047852595</span></span>
+<span><span class="co">#&gt; [1] 1445426306 3909318595 1225404011 1343229189 2047852426</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="va">arr</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Units: [m^2]</span></span>
 <span><span class="co">#&gt;  [1]  693272313 1537008395  394944271  392819049  585061160  693260956</span></span>
@@ -698,7 +698,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#post_table</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Units: [m^2]</span></span>
-<span><span class="co">#&gt; [1] 1445426429 3909318516 1225403966 1343229500 2047852595</span></span>
+<span><span class="co">#&gt; [1] 1445426306 3909318595 1225404011 1343229189 2047852426</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_area</a></span><span class="op">(</span><span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Units: [m^2]</span></span>
 <span><span class="co">#&gt;  [1]  693272313  693260956  405985931  220231724  693268587 1537008395</span></span>
@@ -731,13 +731,13 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; # cubble:   key: gid [5], index: datetime, nested form, [sf]</span></span>
 <span><span class="co">#&gt; # spatial:  [-0.02, 0.18, 0.74, 0.89], WGS 84</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
-<span><span class="co">#&gt;   gid      long   lat               geom_sum ts          </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
-<span><span class="co">#&gt; 1 a      0.638  0.885  (0.6382744 0.8853982) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 2 b     -0.0180 0.768 (-0.0180355 0.7676182) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 3 c      0.402  0.507  (0.4016836 0.5066306) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 4 d      0.744  0.341  (0.7440853 0.3409447) &lt;sf [5 × 2]&gt;</span></span>
-<span><span class="co">#&gt; 5 e      0.467  0.180  (0.4666606 0.1795801) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   gid      long   lat                geom_sum ts          </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;             &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
+<span><span class="co">#&gt; 1 a      0.638  0.885   (0.6382744 0.8853982) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 2 b     -0.0180 0.768 (-0.01803554 0.7676183) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 3 c      0.402  0.507   (0.4016835 0.5066305) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 4 d      0.744  0.341   (0.7440853 0.3409447) &lt;sf [5 × 2]&gt;</span></span>
+<span><span class="co">#&gt; 5 e      0.467  0.180   (0.4666607 0.1795801) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
 </div>
 <div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">tab</span><span class="op">$</span><span class="va">geom_sum</span><span class="op">)</span></span>
@@ -816,10 +816,10 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt;   gid      long   lat                                      geom_sum ts      area</span></span>
 <span><span class="co">#&gt; * &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;                                 &lt;POLYGON [°]&gt; &lt;lis&gt;  [m^2]</span></span>
 <span><span class="co">#&gt; 1 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.… &lt;sf&gt;  1.45e9</span></span>
-<span><span class="co">#&gt; 2 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853,… &lt;sf&gt;  3.91e9</span></span>
-<span><span class="co">#&gt; 3 c      0.402  0.507 ((0.3321186 0.7217665, 0.6273178 0.5211934, … &lt;sf&gt;  1.23e9</span></span>
-<span><span class="co">#&gt; 4 d      0.744  0.341 ((0.6633874 0.573032, 0.9881167 0.3122208, 0… &lt;sf&gt;  1.34e9</span></span>
-<span><span class="co">#&gt; 5 e      0.467  0.180 ((0.6988282 0.0046238, 0.2489106 -0.01302435… &lt;sf&gt;  2.05e9</span></span></code></pre></div>
+<span><span class="co">#&gt; 2 b     -0.0180 0.768 ((-0.008469583 1.165177, 0.3796448 0.767853,… &lt;sf&gt;  3.91e9</span></span>
+<span><span class="co">#&gt; 3 c      0.402  0.507 ((0.3321185 0.7217665, 0.6273178 0.5211933, … &lt;sf&gt;  1.23e9</span></span>
+<span><span class="co">#&gt; 4 d      0.744  0.341 ((0.6633875 0.5730321, 0.9881167 0.3122207, … &lt;sf&gt;  1.34e9</span></span>
+<span><span class="co">#&gt; 5 e      0.467  0.180 ((0.6988282 0.004623805, 0.2489107 -0.013024… &lt;sf&gt;  2.05e9</span></span></code></pre></div>
 </div>
 </section><section class="level3"><h3 id="sticky-geometry">Sticky geometry<a class="anchor" aria-label="anchor" href="#sticky-geometry"></a>
 </h3>
@@ -950,15 +950,15 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt;  +proj=long...:0  </span></span>
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point                values</span></span>
-<span><span class="co">#&gt; geom_sum    4  4         NA     NA WGS 84  TRUE POINT (0.7526 0.3538)</span></span>
+<span><span class="co">#&gt; geom_sum    4  4         NA     NA WGS 84  TRUE POINT (0.7628 0.3648)</span></span>
 <span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE                  NULL</span></span>
 <span><span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span><span class="op">[</span><span class="va">circles</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [1], index: datetime, nested form, [sf]</span></span>
-<span><span class="co">#&gt; # spatial:  [0.75, 0.35, 0.75, 0.35], WGS 84</span></span>
+<span><span class="co">#&gt; # spatial:  [0.76, 0.36, 0.76, 0.36], WGS 84</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
-<span><span class="co">#&gt;   gid    long   lat             geom_sum ts          </span></span>
-<span><span class="co">#&gt; * &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
-<span><span class="co">#&gt; 1 d     0.753 0.354 (0.752585 0.3538271) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   gid    long   lat              geom_sum ts          </span></span>
+<span><span class="co">#&gt; * &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
+<span><span class="co">#&gt; 1 d     0.763 0.365 (0.7627982 0.3647986) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
 </div>
 <p>We can however have empty <code>post_table</code> objects by doing the filtering after conversion.</p>
 <div class="cell">
@@ -967,11 +967,11 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span>  <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">st_filter</a></span><span class="op">(</span><span class="va">circles</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [1], index: datetime, nested form, [sf]</span></span>
-<span><span class="co">#&gt; # spatial:  [0.75, 0.35, 0.75, 0.35], WGS 84</span></span>
+<span><span class="co">#&gt; # spatial:  [0.76, 0.36, 0.76, 0.36], WGS 84</span></span>
 <span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
-<span><span class="co">#&gt;   gid    long   lat             geom_sum ts          </span></span>
-<span><span class="co">#&gt; * &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
-<span><span class="co">#&gt; 1 d     0.753 0.354 (0.752585 0.3538271) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   gid    long   lat              geom_sum ts          </span></span>
+<span><span class="co">#&gt; * &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
+<span><span class="co">#&gt; 1 d     0.763 0.365 (0.7627982 0.3647986) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
 </div>
 </section><section class="level4"><h4 id="post_table-requires-at-least-two-time-values-per-group-for-creation">2. <code>post_table</code> requires at least two time values per group for creation<a class="anchor" aria-label="anchor" href="#post_table-requires-at-least-two-time-values-per-group-for-creation"></a>
 </h4>
@@ -1000,10 +1000,10 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt;   gid      long   lat                                             geom_sum ts   </span></span>
 <span><span class="co">#&gt; * &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;                                        &lt;POLYGON [°]&gt; &lt;lis&gt;</span></span>
 <span><span class="co">#&gt; 1 a      0.638  0.885 ((0.5137787 1.117004, 0.9005707 0.866971, 0.7627607… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 2 b     -0.0180 0.768 ((-0.008469541 1.165177, 0.3796448 0.767853, -0.027… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 3 c      0.402  0.507 ((0.3321186 0.7217665, 0.6273178 0.5211934, 0.47124… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 4 d      0.744  0.341 ((0.6633874 0.573032, 0.9881167 0.3122208, 0.824780… &lt;sf&gt; </span></span>
-<span><span class="co">#&gt; 5 e      0.467  0.180 ((0.6988282 0.0046238, 0.2489106 -0.01302435, 0.234… &lt;sf&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; 2 b     -0.0180 0.768 ((-0.008469583 1.165177, 0.3796448 0.767853, -0.027… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 3 c      0.402  0.507 ((0.3321185 0.7217665, 0.6273178 0.5211933, 0.47124… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 4 d      0.744  0.341 ((0.6633875 0.5730321, 0.9881167 0.3122207, 0.82478… &lt;sf&gt; </span></span>
+<span><span class="co">#&gt; 5 e      0.467  0.180 ((0.6988282 0.004623805, 0.2489107 -0.01302429, 0.2… &lt;sf&gt;</span></span></code></pre></div>
 </div>
 </section><section class="level4"><h4 id="do-not-drop-dimensions-when-slicing-post_array-objects">3. Do not drop dimensions when slicing <code>post_array</code> objects<a class="anchor" aria-label="anchor" href="#do-not-drop-dimensions-when-slicing-post_array-objects"></a>
 </h4>

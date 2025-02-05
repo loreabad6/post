@@ -195,50 +195,50 @@ convex hull of the union and dissolve of the changing geometries</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry set for 5 features </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: POINT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -0.002543201 ymin: 0.17772 xmax: 0.752585 ymax: 0.9018588</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -0.009536052 ymin: 0.1952443 xmax: 0.7627982 ymax: 0.901785</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POINT (0.647816 0.9018588)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POINT (-0.002543201 0.8403816)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POINT (0.3897167 0.5412363)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POINT (0.752585 0.3538271)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POINT (0.4690683 0.17772)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POINT (0.6526028 0.901785)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POINT (-0.009536052 0.8549277)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POINT (0.3932031 0.5571231)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POINT (0.7627982 0.3647986)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POINT (0.4718622 0.1952443)</span>
 <span class="r-in"><span><span class="co"># bounding box or minimum unrotated rectangle</span></span></span>
 <span class="r-in"><span><span class="fu">summarise_geometry_bbox</span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry set for 5 features </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: POLYGON</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -0.2974337 ymin: -0.0029756 xmax: 0.9730806 ymax: 1.153558</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -0.2974337 ymin: -0.00297557 xmax: 0.9730806 ymax: 1.153558</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.4361026 0.7456421, 0.9005707 0.7456...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((-0.2974337 0.5814869, 0.3796448 0.581...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.2145846 0.4039274, 0.5898739 0.4039...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.5272362 0.1748722, 0.9730806 0.1748...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.2452129 -0.0029756, 0.6988282 -0.00...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.2452129 -0.00297557, 0.6988282 -0.0...</span>
 <span class="r-in"><span><span class="co"># minimum rotated rectangle</span></span></span>
 <span class="r-in"><span><span class="fu">summarise_geometry_bbox</span><span class="op">(</span><span class="va">polygons</span>, rotated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_minimum_rotated_rectangle does not work correctly for longitude/latitude data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry set for 5 features </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: POLYGON</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -0.4157149 ymin: -0.01302435 xmax: 0.9881167 ymax: 1.165177</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -0.4157149 ymin: -0.01302429 xmax: 0.9881167 ymax: 1.165177</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.5137787 1.117004, 0.9005707 0.86697...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((-0.008469541 1.165177, 0.3796448 0.76...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.3321186 0.7217665, 0.6273178 0.5211...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.6633874 0.573032, 0.9881167 0.31222...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.6988282 0.0046238, 0.2489106 -0.013...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((-0.008469583 1.165177, 0.3796448 0.76...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.3321185 0.7217665, 0.6273178 0.5211...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.6633875 0.5730321, 0.9881167 0.3122...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.6988282 0.004623805, 0.2489107 -0.0...</span>
 <span class="r-in"><span><span class="co"># convex hull</span></span></span>
 <span class="r-in"><span><span class="fu">summarise_geometry_convex_hull</span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry set for 5 features </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: POLYGON</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -0.2974337 ymin: -0.0029756 xmax: 0.9730806 ymax: 1.153558</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -0.2974337 ymin: -0.00297557 xmax: 0.9730806 ymax: 1.153558</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.7568336 0.7456421, 0.8157179 0.7671...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((-0.2341393 0.5814869, -0.1843257 0.58...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.4606164 0.4039274, 0.5749458 0.4441...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.8757658 0.1748722, 0.8918794 0.1923...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.505091 -0.0029756, 0.6988282 0.0046...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> POLYGON ((0.505091 -0.00297557, 0.6988282 0.004...</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
