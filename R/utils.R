@@ -45,7 +45,7 @@ st_bbox_by_feature = function(x) {
 #' @return An object of class \code{\link[sf]{sfc}}.
 #'
 #' @noRd
-#' @importFrom sf st_make_valid st_combine st_union
+#' @importFrom sf st_make_valid st_geometrycollection st_crs st_sfc st_union
 st_summarise_polys = function(x, group_id, sf_column_name,
                               do_union = sf::sf_use_s2(),
                               .checks = TRUE) {
@@ -77,7 +77,13 @@ st_summarise_polys = function(x, group_id, sf_column_name,
   } else {
     do.call(
       "c",
-      lapply(x_groupped, function(i) sf::st_make_valid(sf::st_combine(i)))
+      lapply(
+        x_groupped,
+        function(i) sf::st_set_crs(
+          sf::st_sfc(sf::st_geometrycollection(i)),
+          st_crs(i)
+        )
+      )
     )
   }
 }

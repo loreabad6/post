@@ -70,7 +70,7 @@ summarise_geometry_centroid = function(x,
   x_unioned = st_summarise_polys(x,
                                  group_id = group_id,
                                  sf_column_name = sf_column_name,
-                                 do_union = sf::sf_use_s2(),
+                                 do_union = FALSE,
                                  .checks = .checks)
   x_centroid = sf::st_centroid(x_unioned)
   x_centroid
@@ -96,7 +96,7 @@ summarise_geometry_bbox = function(x,
   x_unioned = st_summarise_polys(x,
                                  group_id = group_id,
                                  sf_column_name = sf_column_name,
-                                 do_union = sf::sf_use_s2(),
+                                 do_union = FALSE,
                                  .checks = .checks)
   if(rotated) {
     x_mrr = sf::st_minimum_rotated_rectangle(x_unioned)
@@ -124,7 +124,7 @@ summarise_geometry_convex_hull = function(x,
   x_unioned = st_summarise_polys(x,
                                  group_id = group_id,
                                  sf_column_name = sf_column_name,
-                                 do_union = sf::sf_use_s2(),
+                                 do_union = FALSE,
                                  .checks = .checks)
   x_conv_hull = sf::st_convex_hull(x_unioned)
   x_conv_hull
