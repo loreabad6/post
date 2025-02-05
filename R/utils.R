@@ -77,7 +77,7 @@ st_summarise_polys = function(x, group_id, sf_column_name,
   } else {
     do.call(
       "c",
-      lapply(x_groupped, function(i) sf::st_geometrycollection(i))
+      lapply(x_groupped, function(i) sf::st_make_valid(sf::st_combine(i)))
     )
   }
 }
