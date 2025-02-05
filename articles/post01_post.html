@@ -142,8 +142,8 @@
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"post_array"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] [             as_post_array as_post_table autoplot      filter       </span></span>
-<span><span class="co">#&gt;  [6] mutate        rename        select        slice         st_as_sf     </span></span>
-<span><span class="co">#&gt; [11] transmute    </span></span>
+<span><span class="co">#&gt;  [6] mutate        plot          rename        select        slice        </span></span>
+<span><span class="co">#&gt; [11] st_as_sf      transmute    </span></span>
 <span><span class="co">#&gt; see '?methods' for accessing help and source code</span></span></code></pre></div>
 </div>
 <p><code>post_table</code> inherits the <code>cubble</code> class and its subclasses <code>spatial_cubble_df</code> and <code>temporal_cubble_df</code>. Likewise, it supports most of the cubble methods and retains the cubble print methods.</p>
@@ -152,10 +152,10 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"post_table"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] arrange            as_post_array      as_post_table      autoplot          </span></span>
 <span><span class="co">#&gt;  [5] dplyr_reconstruct  face_spatial       face_temporal      filter            </span></span>
-<span><span class="co">#&gt;  [9] mutate             rename             select             slice             </span></span>
-<span><span class="co">#&gt; [13] spatial            st_as_sf           st_crs&lt;-           st_normalize      </span></span>
-<span><span class="co">#&gt; [17] st_shift_longitude st_transform       st_wrap_dateline   st_zm             </span></span>
-<span><span class="co">#&gt; [21] unfold            </span></span>
+<span><span class="co">#&gt;  [9] mutate             plot               rename             select            </span></span>
+<span><span class="co">#&gt; [13] slice              spatial            st_as_sf           st_crs&lt;-          </span></span>
+<span><span class="co">#&gt; [17] st_normalize       st_shift_longitude st_transform       st_wrap_dateline  </span></span>
+<span><span class="co">#&gt; [21] st_zm              unfold            </span></span>
 <span><span class="co">#&gt; see '?methods' for accessing help and source code</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="creation-and-structure">Creation and structure<a class="anchor" aria-label="anchor" href="#creation-and-structure"></a>
@@ -185,7 +185,7 @@
 <p>The data has 5 objects with a unique group identifier that changes their shape for different timestamps.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="post01_post_files/figure-html/unnamed-chunk-6-1.png" width="816"></p>
@@ -477,6 +477,50 @@
 <div class="cell-output-display">
 <div>
 <figure><p><img src="post01_post_files/figure-html/unnamed-chunk-14-4.png" width="816"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If you don’t have <code>ggplot2</code> installed, for <code>post_array</code> objects, the default <code>plot.stars</code> method is supported as well when the <code>post_array</code> object has non-spatial attributes. The geometry plotted is the summary geometry.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="post01_post_files/figure-html/unnamed-chunk-15-1.png" width="816"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>For <code>post_table</code> objects, the plot method (which defaults to <code>plot.sf()</code>) applied to the spatial face shows the summary geometry attributes, while the temporal face shows the changing geometries and its attributes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="post01_post_files/figure-html/unnamed-chunk-16-1.png" width="816"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="post01_post_files/figure-html/unnamed-chunk-16-2.png" width="816"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If there are any attributes in the spatial face that you would like to see on the temporal face plot, you can unfold them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tab</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/face.html" class="external-link">face_temporal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://huizezhang-sherry.github.io/cubble/reference/unfold.html" class="external-link">unfold</a></span><span class="op">(</span><span class="st">"lat"</span>, <span class="st">"long"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="post01_post_files/figure-html/unnamed-chunk-17-1.png" width="816"></p>
 </figure>
 </div>
 </div>
