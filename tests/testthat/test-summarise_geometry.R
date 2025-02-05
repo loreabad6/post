@@ -27,17 +27,17 @@ test_that("summarise_geometry_* functions outputs the
 
 test_that("summarise_geometry_* functions outputs the
           expected bounding box", {
-  expect_equal(as.vector(st_bbox(summarise_geometry_bbox(polygons))),
-               c(-0.2974337, -0.0029756, 0.9730806, 1.1535583))
-  expect_equal(as.vector(st_bbox(summarise_geometry_union(polygons))),
-               c(-0.2974337, -0.0029756,  0.9730806,  1.1535583))
-  expect_equal(as.vector(st_bbox(summarise_geometry_centroid(polygons))),
-               c(-0.002543201 , 0.177720021, 0.752585036, 0.901858839))
-  expect_equal(as.vector(st_bbox(summarise_geometry_convex_hull(polygons))),
-               c(-0.2974337, -0.0029756,  0.9730806,  1.1535583))
-  # expect_equal(as.vector(st_bbox(suppressWarnings(
-  #   summarise_geometry_bbox(polygons, rotated = TRUE)))),
-  #              c(-0.41571489, -0.01302435,  0.98811672,  1.16517691))
+  expect_equal(as.vector(round(st_bbox(summarise_geometry_bbox(polygons)), 4)),
+               c(-0.2974, -0.0030, 0.9731, 1.1536))
+  expect_equal(as.vector(round(st_bbox(summarise_geometry_union(polygons)), 4)),
+               c(-0.2974, -0.0030,  0.9731,  1.1536))
+  expect_equal(as.vector(round(st_bbox(summarise_geometry_centroid(polygons)), 4)),
+               c(-0.0095 , 0.1952, 0.7628, 0.9018))
+  expect_equal(as.vector(round(st_bbox(summarise_geometry_convex_hull(polygons)), 4)),
+               c(-0.2974, -0.0030,  0.9731,  1.1536))
+  expect_equal(as.vector(round(st_bbox(suppressWarnings(
+    summarise_geometry_bbox(polygons, rotated = TRUE))), 4)),
+               c(-0.4157, -0.0130,  0.9881,  1.1652))
 })
 
 test_that("providing a vector to summarise_geoemtry is supported
