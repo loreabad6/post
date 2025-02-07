@@ -6,9 +6,21 @@
 \alias{autoplot.post_table}
 \title{Plot post_array or post_table with ggplot2}
 \usage{
-\method{autoplot}{post_array}(object, attribute = NULL, max_plot = 9, geom_sum = FALSE, ...)
+autoplot.post_array(
+  object,
+  attribute = NULL,
+  max_plot = 9,
+  geom_sum = FALSE,
+  ...
+)
 
-\method{autoplot}{post_table}(object, attribute = NULL, max_plot = 9, geom_sum = FALSE, ...)
+autoplot.post_table(
+  object,
+  attribute = NULL,
+  max_plot = 9,
+  geom_sum = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{a post_array or post_table object}

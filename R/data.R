@@ -40,6 +40,7 @@
 #' Springer Berlin Heidelberg.
 #' <https://doi.org/10.1007/978-3-540-79818-7_10>.
 #'
+#' @name svalbard
 #' @format An object of class [sf] with `POLYGON` geometries
 #' with 25 rows and 3 columns:
 #' \describe{
@@ -50,7 +51,7 @@
 #'  \item{fwidth}{Average width of the glacier tongue}
 #'  \item{geom}{the geometry list column}
 #' }
-#' 
+#'
 #' @examples
 #' svalbard = st_read(system.file("extdata/svalbard.gpkg", package="post"))
 NULL
