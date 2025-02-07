@@ -53,6 +53,7 @@
 #' }
 #'
 #' @examples
+#' library(sf)
 #' svalbard = st_read(system.file("extdata/svalbard.gpkg", package="post"))
 NULL
 

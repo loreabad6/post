@@ -30,6 +30,7 @@ The two detached glaciers from Midtre Lovenbreen for the year
 The year was changed to 2007 to keep congruent data.
 }
 \examples{
+library(sf)
 svalbard = st_read(system.file("extdata/svalbard.gpkg", package="post"))
 }
 \references{
