@@ -41,6 +41,7 @@ reference:
 - title: "Built-in data"
   contents:
   - polygons
+  - svalbard
 
 - title: "Visualisation"
   contents:
