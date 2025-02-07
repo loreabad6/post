@@ -50,5 +50,8 @@
 #'  \item{fwidth}{Average width of the glacier tongue}
 #'  \item{geom}{the geometry list column}
 #' }
-"svalbard"
+#' 
+#' @examples
+#' svalbard = st_read(system.file("extdata/svalbard.gpkg", package="post"))
+NULL
 
