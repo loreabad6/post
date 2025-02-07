@@ -124,7 +124,7 @@ autoplot.post_table = function(object, attribute = NULL,
 #' @noRd
 #' @importFrom sf st_geometry_type
 aes_post = function(object, attribute) {
-  if (unique(st_geometry_type(object)) %in% c("POINT", "LINESTRING")) {
+  if (all(st_geometry_type(object) %in% c("POINT", "LINESTRING"))) {
     ggplot2::aes(color = {{attribute}})
   } else ggplot2::aes(fill = {{attribute}})
 }
