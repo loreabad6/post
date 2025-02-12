@@ -56,6 +56,10 @@ restore_temporal_post_table = function(x) {
 #' @export
 remove_post_array = function(x) {
   class(x) = setdiff(class(x), "post_array")
+  attr(x, "group_id_colname") = NULL
+  attr(x, "group_ids") = NULL
+  attr(x, "sf_column") = NULL
+  attr(x, "agr") = NULL
   x
 }
 #' @rdname classes
