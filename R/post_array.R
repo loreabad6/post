@@ -69,8 +69,8 @@ as_post_array = function(x,
 
 #' @rdname as_post_array
 #' @param point_st point argument passed onto `stars::st_dimensions()`.
-#' Defaults to `TRUE` for the spatial dimension and to `FALSE` for the
-#' temporal dimension (assumes interval times)
+#' Defaults to `NA` for the spatial dimension (assigned by the geometry type)
+#' and to `FALSE` for the temporal dimension (assumes interval times)
 #' @importFrom rlang `!!` `%||%` sym
 #' @importFrom sf st_agr
 #' @importFrom stars st_dimensions st_as_stars
@@ -84,7 +84,7 @@ as_post_array.sf = function(x,
                             geometry_summary = summarise_geometry_centroid,
                             geometry_summary_name = NULL,
                             ...,
-                            point_st = c(TRUE, FALSE)) {
+                            point_st = c(NA, FALSE)) {
 
   # Set argument defaults
   # group_id: Defaults to the first column of x, if not sfc or temporal class
