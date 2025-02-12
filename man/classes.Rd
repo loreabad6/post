@@ -18,12 +18,15 @@ restore_spatial_post_table(x)
 
 restore_temporal_post_table(x)
 
-remove_post_array(x)
+remove_post_array(x, attr_rm = FALSE)
 
 restore_post_array(x, x_orig)
 }
 \arguments{
 \item{x}{An object that inherits stars class.}
+
+\item{attr_rm}{logical; should the attributes related to post_array
+also be removed? Defaults to FALSE}
 
 \item{x_orig}{An object that inherits post_array class}
 }
