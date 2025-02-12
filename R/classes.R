@@ -52,14 +52,18 @@ restore_temporal_post_table = function(x) {
   )
 }
 #' @rdname classes
-#' @param x An object that inherits stars class.
+#' @param x An object that inherits post_array class.
+#' @param attr_rm logical; should the attributes related to post_array
+#'        also be removed? Defaults to FALSE
 #' @export
-remove_post_array = function(x) {
+remove_post_array = function(x, attr_rm = FALSE) {
   class(x) = setdiff(class(x), "post_array")
-  attr(x, "group_id_colname") = NULL
-  attr(x, "group_ids") = NULL
-  attr(x, "sf_column") = NULL
-  attr(x, "agr") = NULL
+  if(attr_rm) {
+    attr(x, "group_id_colname") = NULL
+    attr(x, "group_ids") = NULL
+    attr(x, "sf_column") = NULL
+    attr(x, "agr") = NULL
+  }
   x
 }
 #' @rdname classes
