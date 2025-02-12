@@ -953,8 +953,12 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; geom_sum    4  4         NA     NA WGS 84  TRUE POINT (0.7628 0.3648)</span></span>
 <span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE                  NULL</span></span>
 <span><span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span><span class="op">[</span><span class="va">circles</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `validate_spatial_cubble()`:</span></span>
-<span><span class="co">#&gt; ! The key variable is not present, please fix</span></span></code></pre></div>
+<span><span class="co">#&gt; # cubble:   key: gid [1], index: datetime, nested form, [sf]</span></span>
+<span><span class="co">#&gt; # spatial:  [0.76, 0.36, 0.76, 0.36], WGS 84</span></span>
+<span><span class="co">#&gt; # temporal: datetime [date], geometry [POLYGON [°]]</span></span>
+<span><span class="co">#&gt;   gid    long   lat              geom_sum ts          </span></span>
+<span><span class="co">#&gt; * &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;POINT [°]&gt; &lt;list&gt;      </span></span>
+<span><span class="co">#&gt; 1 d     0.763 0.365 (0.7627982 0.3647986) &lt;sf [5 × 2]&gt;</span></span></code></pre></div>
 </div>
 <p>We can however have empty <code>post_table</code> objects by doing the filtering after conversion.</p>
 <div class="cell">

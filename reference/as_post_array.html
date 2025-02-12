@@ -91,7 +91,7 @@ which summarises the changing shapes of the polygon geometries in the group.</p>
 <span>  geometry_summary <span class="op">=</span> <span class="va">summarise_geometry_centroid</span>,</span>
 <span>  geometry_summary_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  point_st <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  point_st <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'post_table'</span></span>
@@ -144,8 +144,8 @@ geometries.Defaults to "geom_sum"</p></dd>
 
 <dt id="arg-point-st">point_st<a class="anchor" aria-label="anchor" href="#arg-point-st"></a></dt>
 <dd><p>point argument passed onto <code><a href="https://r-spatial.github.io/stars/reference/st_dimensions.html" class="external-link">stars::st_dimensions()</a></code>.
-Defaults to <code>TRUE</code> for the spatial dimension and to <code>FALSE</code> for the
-temporal dimension (assumes interval times)</p></dd>
+Defaults to <code>NA</code> for the spatial dimension (assigned by the geometry type)
+and to <code>FALSE</code> for the temporal dimension (assumes interval times)</p></dd>
 
 </dl></div>
     <div class="section level2">
