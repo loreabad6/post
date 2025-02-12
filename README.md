@@ -10,6 +10,8 @@ has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![R-CMD-check](https://github.com/loreabad6/post/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/loreabad6/post/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/github/loreabad6/post/graph/badge.svg?token=FDQSY23O11)](https://codecov.io/github/loreabad6/post)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/post)](https://CRAN.R-project.org/package=post)
 <!-- badges: end -->
 
 The goal of post is to provide array and tabular vector data cube
