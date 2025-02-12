@@ -26,7 +26,7 @@ Imports:
 Remotes: 
     huizezhang-sherry/cubble,
     r-spatial/sf,
-    r-spatial/stars
+    loreabad6/stars@time-polygon
 URL: https://loreabad6.github.io/post/
 Suggests: 
     cubelyr,
