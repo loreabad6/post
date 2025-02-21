@@ -274,7 +274,7 @@
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  2         NA     NA WGS 84 FALSE</span></span>
-<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date    NA</span></span>
 <span><span class="co">#&gt;                                                                  values</span></span>
 <span><span class="co">#&gt; geom_sum POLYGON ((0.4971 0.8718, 0...., POLYGON ((-0.1774 0.5996, -...</span></span>
 <span><span class="co">#&gt; datetime                                                           NULL</span></span>
@@ -289,7 +289,7 @@
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
-<span><span class="co">#&gt; datetime    3  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt; datetime    3  5 2020-10-01 1 days   Date    NA</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
 <span><span class="co">#&gt; geom_sum POLYGON ((0.4971355 0.871...,...,POLYGON ((0.2973931 0.255...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span></code></pre></div>
@@ -313,8 +313,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">arr</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "sfc_POLYGON" "sfc"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">arr</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; geom_sum datetime </span></span>
-<span><span class="co">#&gt;        5        5</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 5 5</span></span></code></pre></div>
 </div>
 <p>We can also create new attributes, for example:</p>
 <div class="cell">
@@ -333,7 +332,7 @@
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
-<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date    NA</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
 <span><span class="co">#&gt; geom_sum POLYGON ((0.4971355 0.871...,...,POLYGON ((0.2973931 0.255...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span></code></pre></div>
@@ -357,7 +356,7 @@
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    3  4         NA     NA WGS 84 FALSE</span></span>
-<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date    NA</span></span>
 <span><span class="co">#&gt;                                                                  values</span></span>
 <span><span class="co">#&gt; geom_sum POLYGON ((0.2866 0.6085, 0...., POLYGON ((0.5737 0.4614, 0....</span></span>
 <span><span class="co">#&gt; datetime                                                           NULL</span></span></code></pre></div>
@@ -401,7 +400,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="va">arr</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span>,</span>
 <span>                    geometry_summary <span class="op">=</span> <span class="va">summarise_geometry_bbox</span>, </span>
 <span>                    rotated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in st_minimum_rotated_rectangle.sfc(x_unioned):</span></span>
+<span><span class="co">#&gt; Warning in st_minimum_rotated_rectangle.sfc(st_geometry(x)):</span></span>
 <span><span class="co">#&gt; st_minimum_rotated_rectangle does not work correctly for longitude/latitude</span></span>
 <span><span class="co">#&gt; data</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span></span>
@@ -429,7 +428,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="va">tab</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="va">polygons</span>,</span>
 <span>                    geometry_summary <span class="op">=</span> <span class="va">summarise_geometry_bbox</span>, </span>
 <span>                    rotated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in st_minimum_rotated_rectangle.sfc(x_unioned):</span></span>
+<span><span class="co">#&gt; Warning in st_minimum_rotated_rectangle.sfc(st_geometry(x)):</span></span>
 <span><span class="co">#&gt; st_minimum_rotated_rectangle does not work correctly for longitude/latitude</span></span>
 <span><span class="co">#&gt; data</span></span>
 <span><span class="co">#&gt; Warning: st_centroid assumes attributes are constant over geometries</span></span>
@@ -473,7 +472,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta                       refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA ETRS89-extended / LAEA Eu... FALSE</span></span>
-<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days                         Date FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days                         Date    NA</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
 <span><span class="co">#&gt; geom_sum POLYGON ((3155515 -218766...,...,POLYGON ((3172602 -230105...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span>
@@ -570,7 +569,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
-<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date    NA</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
 <span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.6988282 0.004...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span>
@@ -667,14 +666,14 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; Warning: st_centroid assumes attributes are constant over geometries</span></span>
 <span><span class="co">#&gt; stars object with 2 dimensions and 2 attributes</span></span>
 <span><span class="co">#&gt; attribute(s):</span></span>
-<span><span class="co">#&gt;          geometry   int_circles   </span></span>
-<span><span class="co">#&gt;  POLYGON      :10   Mode:logical  </span></span>
-<span><span class="co">#&gt;  epsg:4326    : 0   TRUE:9        </span></span>
-<span><span class="co">#&gt;  +proj=long...: 0   NA's:1        </span></span>
+<span><span class="co">#&gt;  int_circles            geometry  </span></span>
+<span><span class="co">#&gt;  Mode:logical   POLYGON      :10  </span></span>
+<span><span class="co">#&gt;  TRUE:9         epsg:4326    : 0  </span></span>
+<span><span class="co">#&gt;  NA's:1         +proj=long...: 0  </span></span>
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  2         NA     NA WGS 84 FALSE</span></span>
-<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date    NA</span></span>
 <span><span class="co">#&gt;                                                                  values</span></span>
 <span><span class="co">#&gt; geom_sum POLYGON ((0.3321 0.7218, 0...., POLYGON ((0.6634 0.573, 0.9...</span></span>
 <span><span class="co">#&gt; datetime                                                           NULL</span></span></code></pre></div>
@@ -782,7 +781,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
-<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date    NA</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
 <span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.6988282 0.004...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span>
@@ -843,7 +842,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
-<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date    NA</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
 <span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.6988282 0.004...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span>
@@ -860,7 +859,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point</span></span>
 <span><span class="co">#&gt; geom_sum    1  5         NA     NA WGS 84 FALSE</span></span>
-<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date    NA</span></span>
 <span><span class="co">#&gt;                                                                 values</span></span>
 <span><span class="co">#&gt; geom_sum POLYGON ((0.5137787 1.117...,...,POLYGON ((0.6988282 0.004...</span></span>
 <span><span class="co">#&gt; datetime                                                          NULL</span></span></code></pre></div>
@@ -951,7 +950,7 @@ https://r-spatial.github.io/stars/reference/st_apply.html
 <span><span class="co">#&gt; dimension(s):</span></span>
 <span><span class="co">#&gt;          from to     offset  delta refsys point                values</span></span>
 <span><span class="co">#&gt; geom_sum    4  4         NA     NA WGS 84  TRUE POINT (0.7628 0.3648)</span></span>
-<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date FALSE                  NULL</span></span>
+<span><span class="co">#&gt; datetime    1  5 2020-10-01 1 days   Date    NA                  NULL</span></span>
 <span><span class="fu"><a href="../reference/as_post_array.html">as_post_array</a></span><span class="op">(</span><span class="va">polygons</span><span class="op">)</span><span class="op">[</span><span class="va">circles</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/as_post_table.html">as_post_table</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # cubble:   key: gid [1], index: datetime, nested form, [sf]</span></span>
 <span><span class="co">#&gt; # spatial:  [0.76, 0.36, 0.76, 0.36], WGS 84</span></span>

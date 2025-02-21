@@ -67,6 +67,7 @@ are helpers to create these summarised geometries.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_sf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .checks <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -74,6 +75,7 @@ are helpers to create these summarised geometries.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_sf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .checks <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -81,6 +83,7 @@ are helpers to create these summarised geometries.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_sf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .checks <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -88,6 +91,7 @@ are helpers to create these summarised geometries.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_sf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .checks <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -95,6 +99,7 @@ are helpers to create these summarised geometries.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_sf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .checks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  rotated <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
@@ -103,6 +108,7 @@ are helpers to create these summarised geometries.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_sf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .checks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  rotated <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
@@ -111,6 +117,7 @@ are helpers to create these summarised geometries.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_sf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .checks <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -118,6 +125,7 @@ are helpers to create these summarised geometries.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  group_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sf_column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_sf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .checks <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -139,6 +147,10 @@ Defaults to the first non-spatial, non-temporal column in x.</p></dd>
 <dt id="arg-sf-column-name">sf_column_name<a class="anchor" aria-label="anchor" href="#arg-sf-column-name"></a></dt>
 <dd><p>(character) name of column with changing
 geometries. Defaults to active <code>sf_column</code>.</p></dd>
+
+
+<dt id="arg-return-sf">return_sf<a class="anchor" aria-label="anchor" href="#arg-return-sf"></a></dt>
+<dd><p>should a sf be returned with the group_ids as a column?</p></dd>
 
 
 <dt id="arg--checks">.checks<a class="anchor" aria-label="anchor" href="#arg--checks"></a></dt>
