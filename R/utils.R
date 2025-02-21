@@ -88,6 +88,9 @@ st_summarise_polys = function(x, group_id, sf_column_name,
     )
   }
   if (return_sf) {
-    do.call(st_sf, list(group_id = names(x_groupped), "geom_sum" = sfc))
+    setNames(
+      do.call(st_sf, list(names(x_groupped), geom_sum = sfc)),
+      c(group_id, "geom_sum")
+    )
   } else sfc
 }
