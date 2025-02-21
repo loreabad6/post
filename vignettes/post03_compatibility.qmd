@@ -219,7 +219,6 @@ The result is a one column matrix as the result of any features in y relating to
 If you still want to get the relation through a binary predicate as it works in `sf`, then you should call the function on the changing geometries. 
 
 ```{r}
-#| error: true
 st_mask(arr, circles, .predicate = st_disjoint)
 st_disjoint(arr$geometry, circles)
 ```
