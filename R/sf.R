@@ -180,7 +180,24 @@ st_as_sf.post_array = function(x, ...) {
 #' arr$circles_disjoint = st_mask(arr, circles, .predicate = st_disjoint)
 #' @export
 st_mask = function(x, y, .predicate = st_intersects, ...) {
-  sfcol = attr(x, "sf_column")
+  UseMethod("st_mask")
+}
+
+#' @export
+st_mask.post_array = function(x, y, .predicate = st_intersects, ...) {
+  NextMethod()
+}
+
+#' @export
+st_mask.stars = function(x, y, .predicate = st_intersects, ...) {
+  sfcol = names(which(sapply(x, inherits, "sfc")))
+  if (length(sfcol > 1)) {
+    sfcol = sfcol[[1]]
+    cli::cli_warn(c(
+      "i" = "more than one {.cls sfc} attribute in {.var x}",
+      "!" = "applying {.fn st_mask} to first {.cls sfc} attribute"
+    ))
+  }
   mat = .predicate(x[[sfcol]], y, sparse = FALSE, ...)
   matrix(apply(mat, 1, any), ncol = 1)
 }

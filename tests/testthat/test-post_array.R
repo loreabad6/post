@@ -28,6 +28,8 @@ vdc2 = st_sf(rdm = rnorm(20),
              geometry = rep(pnt, 2), date = rep(dates, each = 10)) |>
   st_as_stars(dims = c("geometry", "date"))
 
+vdc3 = st_as_stars(polygons, dims = c("gid", "datetime"))
+
 test_that("as_post_array for stars keeps stars object with added attributes", {
   expect_equal(as_post_array(vdc1), vdc1, ignore_attr = TRUE)
   expect_s3_class(as_post_array(vdc1), "post_array")
@@ -36,8 +38,9 @@ test_that("as_post_array for stars keeps stars object with added attributes", {
   expect_equal(attr(as_post_array(vdc1), "sf_column"), "polygons")
 })
 
-test_that("as_post_array fails for stars without sfc columns", {
-  expect_error(as_post_array(vdc2), "`x` does not have a <sfc> attribute present")
+test_that("as_post_array fails for stars without sfc attributes or dimensions", {
+  expect_error(as_post_array(vdc2), "`x` does not have a <sfc> attribute")
+  expect_error(as_post_array(vdc3), "`x` does not have a <sfc> dimension")
 })
 
 # test_that("get_group_ids works as expected", {
