@@ -174,6 +174,29 @@ as_post_array.post_table = function(x, ...) {
 }
 
 #' @rdname as_post_array
+#' @importFrom stars st_dimensions
+#' @importFrom sf st_agr
+#' @export
+as_post_array.stars = function(x, ...) {
+  sf_attribute = names(which(sapply(x, inherits, "sfc")))
+  if (identical(sf_attribute, character(0))) {
+    cli::cli_abort(c(
+      "x" = "{.var x} does not have a {.cls sfc} attribute present"
+    ))
+  }
+  # Return post_array object with respective structure
+  structure(
+    x,
+    class = c("post_array", class(x)),
+    group_id_colname = "gid",
+    group_ids = seq(stars::st_dimensions(x)$geometry$from,
+                    stars::st_dimensions(x)$geometry$to),
+    sf_column = sf_attribute,
+    agr = sf::st_agr(x)
+  )
+}
+
+#' @rdname as_post_array
 #' @export
 as_post_array.post_array = function(x, ...) {
   x

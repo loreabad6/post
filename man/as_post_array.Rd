@@ -4,6 +4,7 @@
 \alias{as_post_array}
 \alias{as_post_array.sf}
 \alias{as_post_array.post_table}
+\alias{as_post_array.stars}
 \alias{as_post_array.post_array}
 \title{Create a post_array object}
 \usage{
@@ -29,6 +30,8 @@ as_post_array(
 )
 
 \method{as_post_array}{post_table}(x, ...)
+
+\method{as_post_array}{stars}(x, ...)
 
 \method{as_post_array}{post_array}(x, ...)
 }
