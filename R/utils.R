@@ -47,6 +47,7 @@ st_bbox_by_feature = function(x) {
 #'
 #' @noRd
 #' @importFrom sf st_make_valid st_geometrycollection st_crs st_sfc st_union
+#' @importFrom stats setNames
 st_summarise_polys = function(x, group_id, sf_column_name,
                               do_union = sf::sf_use_s2(),
                               return_sf, .checks = TRUE) {
@@ -88,7 +89,7 @@ st_summarise_polys = function(x, group_id, sf_column_name,
     )
   }
   if (return_sf) {
-    setNames(
+    stats::setNames(
       do.call(st_sf, list(names(x_groupped), geom_sum = sfc)),
       c(group_id, "geom_sum")
     )
