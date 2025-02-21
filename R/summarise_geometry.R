@@ -63,7 +63,7 @@ summarize_geometry_union = summarise_geometry_union
 #' @describeIn summarise_geometry computes the geometry summary as the centroid
 #' of the union and dissolve of the changing geometries
 #' @inheritParams summarise_geometry_union
-#' @importFrom sf st_centroid sf_use_s2
+#' @importFrom sf st_centroid sf_use_s2 st_set_geometry
 #' @export
 summarise_geometry_centroid = function(x,
                                        group_id = NULL,
@@ -75,7 +75,13 @@ summarise_geometry_centroid = function(x,
                                  sf_column_name = sf_column_name,
                                  do_union = FALSE, return_sf = return_sf,
                                  .checks = .checks)
-  x_centroid = sf::st_centroid(x_unioned)
+  x_centroid = if(return_sf) {
+    sf::st_set_geometry(
+      x_unioned, sf::st_centroid(st_geometry(x_unioned))
+    )
+  } else {
+    sf::st_centroid(x_unioned)
+  }
   x_centroid
 }
 
@@ -89,7 +95,7 @@ summarize_geometry_centroid = summarise_geometry_centroid
 #' if FALSE the minimum unrotated rectangle or bounding box is returned.
 #' Defaults to FALSE
 #' @inheritParams summarise_geometry_union
-#' @importFrom sf st_minimum_rotated_rectangle
+#' @importFrom sf st_minimum_rotated_rectangle st_set_geometry
 #' @export
 summarise_geometry_bbox = function(x,
                                    group_id = NULL,
@@ -107,7 +113,7 @@ summarise_geometry_bbox = function(x,
     x_mrr
   } else {
     x_bbox = if(return_sf) {
-      x_bbox = st_set_geometry(
+      sf::st_set_geometry(
         x_unioned, st_bbox_by_feature(st_geometry(x_unioned))
       )
     } else {
