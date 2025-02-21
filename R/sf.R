@@ -191,7 +191,7 @@ st_mask.post_array = function(x, y, .predicate = st_intersects, ...) {
 #' @export
 st_mask.stars = function(x, y, .predicate = st_intersects, ...) {
   sfcol = names(which(sapply(x, inherits, "sfc")))
-  if (length(sfcol > 1)) {
+  if (length(sfcol) > 1) {
     sfcol = sfcol[[1]]
     cli::cli_warn(c(
       "i" = "more than one {.cls sfc} attribute in {.var x}",
