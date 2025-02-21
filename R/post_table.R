@@ -90,19 +90,10 @@ as_post_table.sf = function(x,
     ))
   }
 
-  # Combine summary geometry as a data frame with the original x object
-  geom_sum_df = sf::st_sf(
-    # sort unique IDs since the result of geom_sum is sorted
-    gid = sort(unique(x[[group_id]])),
-    geom_sum = geom_sum
-  )
-
   x_ = sf::st_as_sf(
     merge(
       as.data.frame(x),
-      as.data.frame(geom_sum_df),
-      by.x = group_id,
-      by.y = "gid"
+      as.data.frame(geom_sum),
     ), sf_column_name = "geom_sum"
   )
 
