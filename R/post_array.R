@@ -110,54 +110,27 @@ as_post_array.sf = function(x,
     tidyr::complete(x, !!rlang::sym(group_id), !!rlang::sym(time_column_name))
   )
 
-  # Order x by time_column and group_id (to simulate byrow = TRUE in array)
-  x = x[order(x[[time_column_name]], x[[group_id]]), ]
-
-  # Set dimensions
-  # TODO: should more dimensions be supported?
-  # I would argue no since it is space-time polygons,
-  # but then things like polygon changes between time
-  # periods could be stored too
-  dims = c(
-    length(unique(x[[group_id]])),
-    length(unique(x[[time_column_name]]))
-  )
-
-  # Create attribute arrays
-  create_array = function(attribute_col) {
-    array(data = x[[attribute_col]], dim = dims)
-  }
-
-  # Create geometry array
-  a_geom = create_array(attribute_col = sf_column_name)
-
-  # Create array for remaining attributes
-  attrs = names(x)
-  attrs = attrs[!attrs %in% c(group_id, time_column_name, sf_column_name)]
-  a_attr = lapply(attrs, create_array)
-  names(a_attr) = attrs
-
   # Compute geometry summary
   geom_sum = check_geometry_summary(x, geometry_summary,
                                     group_id, .checks = FALSE,
                                     sf_column_name, ...)
 
-  # Create dimensions object
-  d = stars::st_dimensions(
-    geom_sum = geom_sum,
-    temporal = unique(x[[time_column_name]]),
-    point = point_st
-  )
+  # Merge x to geometry summary
+  x_merged = merge(as.data.frame(x), geom_sum)
 
-  names(d) = c(geometry_summary_name, time_column_name)
+  # Rename geometry summary if needed
+  names(x_merged)[names(x_merged) == "geom_sum"] <- geometry_summary_name
 
-  # Coerce to cube
-  arrays = c(list(a_geom), a_attr)
-  names(arrays) = c(sf_column_name, names(a_attr))
-  out = stars::st_as_stars(
-    arrays,
-    dimensions = d
-  )
+  # Remove group id column
+  x_merged[group_id] = NULL
+
+  # Coerce to stars
+  # TODO: should more dimensions be supported?
+  # I would argue no since it is space-time polygons,
+  # but then things like polygon changes between time
+  # periods could be stored too.
+  # But during creation that is not relevant
+  out = st_as_stars(x_merged, dims = c(geometry_summary_name, time_column_name))
 
   # Return post_array object with respective structure
   structure(
