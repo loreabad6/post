@@ -106,10 +106,11 @@ check_geometry_summary = function(x = x,
                                   geometry_summary = NULL,
                                   group_id = NULL,
                                   sf_column_name = NULL,
+                                  return_sf = TRUE,
                                   .checks = FALSE,
                                   ...) {
   if(is.function(geometry_summary)) {
-    geometry_summary(x, group_id, sf_column_name, .checks = .checks, ...)
+    geometry_summary(x, group_id, sf_column_name, return_sf, .checks = .checks, ...)
   } else if (inherits(geometry_summary, "sfc")) {
     len_geoms = length(geometry_summary)
     len_group = length(unique(x[[group_id]]))
@@ -119,7 +120,12 @@ check_geometry_summary = function(x = x,
         "x" = "number of geometry_summary rows and groups do not match"
       ))
     }
-    geometry_summary
+    if (return_sf) {
+      stats::setNames(
+        do.call(st_sf, list(unique(x[[group_id]]), geom_sum = geometry_summary)),
+        c(group_id, "geom_sum")
+      )
+    } else geometry_summary
   } else {
     cli::cli_abort(c(
       "x" = "{.var geometry_summary} {.val {geometry_summary}} not found"
