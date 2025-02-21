@@ -16,6 +16,7 @@ summarise_geometry_union(
   x,
   group_id = NULL,
   sf_column_name = NULL,
+  return_sf = FALSE,
   .checks = TRUE
 )
 
@@ -23,6 +24,7 @@ summarize_geometry_union(
   x,
   group_id = NULL,
   sf_column_name = NULL,
+  return_sf = FALSE,
   .checks = TRUE
 )
 
@@ -30,6 +32,7 @@ summarise_geometry_centroid(
   x,
   group_id = NULL,
   sf_column_name = NULL,
+  return_sf = FALSE,
   .checks = TRUE
 )
 
@@ -37,6 +40,7 @@ summarize_geometry_centroid(
   x,
   group_id = NULL,
   sf_column_name = NULL,
+  return_sf = FALSE,
   .checks = TRUE
 )
 
@@ -44,6 +48,7 @@ summarise_geometry_bbox(
   x,
   group_id = NULL,
   sf_column_name = NULL,
+  return_sf = FALSE,
   .checks = TRUE,
   rotated = FALSE
 )
@@ -52,6 +57,7 @@ summarize_geometry_bbox(
   x,
   group_id = NULL,
   sf_column_name = NULL,
+  return_sf = FALSE,
   .checks = TRUE,
   rotated = FALSE
 )
@@ -60,6 +66,7 @@ summarise_geometry_convex_hull(
   x,
   group_id = NULL,
   sf_column_name = NULL,
+  return_sf = FALSE,
   .checks = TRUE
 )
 
@@ -67,6 +74,7 @@ summarize_geometry_convex_hull(
   x,
   group_id = NULL,
   sf_column_name = NULL,
+  return_sf = FALSE,
   .checks = TRUE
 )
 }
@@ -79,6 +87,8 @@ Defaults to the first non-spatial, non-temporal column in x.}
 
 \item{sf_column_name}{(character) name of column with changing
 geometries. Defaults to active \code{sf_column}.}
+
+\item{return_sf}{should a sf be returned with the group_ids as a column?}
 
 \item{.checks}{internal, should creation arguments be checked?}
 

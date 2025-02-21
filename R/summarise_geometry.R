@@ -40,16 +40,18 @@ NULL
 #' based on `group_id`.
 #' @param group_id see `?post_array` for details.
 #' Defaults to the first non-spatial, non-temporal column in x.
+#' @param return_sf should a sf be returned with the group_ids as a column?
 #' @param .checks internal, should creation arguments be checked?
 #' @export
 summarise_geometry_union = function(x,
                                     group_id = NULL,
                                     sf_column_name = NULL,
+                                    return_sf = FALSE,
                                     .checks = TRUE) {
   x_unioned = st_summarise_polys(x,
                                  group_id = group_id,
                                  sf_column_name = sf_column_name,
-                                 do_union = TRUE,
+                                 do_union = TRUE, return_sf = return_sf,
                                  .checks = .checks)
   x_unioned
 }
@@ -66,11 +68,12 @@ summarize_geometry_union = summarise_geometry_union
 summarise_geometry_centroid = function(x,
                                        group_id = NULL,
                                        sf_column_name = NULL,
+                                       return_sf = FALSE,
                                        .checks = TRUE) {
   x_unioned = st_summarise_polys(x,
                                  group_id = group_id,
                                  sf_column_name = sf_column_name,
-                                 do_union = FALSE,
+                                 do_union = FALSE, return_sf = return_sf,
                                  .checks = .checks)
   x_centroid = sf::st_centroid(x_unioned)
   x_centroid
@@ -91,18 +94,25 @@ summarize_geometry_centroid = summarise_geometry_centroid
 summarise_geometry_bbox = function(x,
                                    group_id = NULL,
                                    sf_column_name = NULL,
+                                   return_sf = FALSE,
                                    .checks = TRUE,
                                    rotated = FALSE) {
   x_unioned = st_summarise_polys(x,
                                  group_id = group_id,
                                  sf_column_name = sf_column_name,
-                                 do_union = FALSE,
+                                 do_union = FALSE, return_sf = return_sf,
                                  .checks = .checks)
   if(rotated) {
     x_mrr = sf::st_minimum_rotated_rectangle(x_unioned)
     x_mrr
   } else {
-    x_bbox = st_bbox_by_feature(x_unioned)
+    x_bbox = if(return_sf) {
+      x_bbox = st_set_geometry(
+        x_unioned, st_bbox_by_feature(st_geometry(x_unioned))
+      )
+    } else {
+      st_bbox_by_feature(x_unioned)
+    }
     x_bbox
   }
 }
@@ -120,11 +130,12 @@ summarize_geometry_bbox = summarise_geometry_bbox
 summarise_geometry_convex_hull = function(x,
                                        group_id = NULL,
                                        sf_column_name = NULL,
+                                       return_sf = FALSE,
                                        .checks = TRUE) {
   x_unioned = st_summarise_polys(x,
                                  group_id = group_id,
                                  sf_column_name = sf_column_name,
-                                 do_union = FALSE,
+                                 do_union = FALSE, return_sf = return_sf,
                                  .checks = .checks)
   x_conv_hull = sf::st_convex_hull(x_unioned)
   x_conv_hull

@@ -24,7 +24,7 @@ st_duplicated = function(x) {
 #' @return An object of class \code{\link[sf]{sfc}}.
 #'
 #' @noRd
-#' @importFrom sf st_as_sfc st_bbox st_crs st_set_crs
+#' @importFrom sf st_as_sfc st_bbox st_crs st_set_crs st_geometry
 st_bbox_by_feature = function(x) {
   f = function(y) sf::st_as_sfc(sf::st_bbox(y))
   sf::st_set_crs(do.call("c", lapply(x, f)), sf::st_crs(x))
@@ -40,7 +40,8 @@ st_bbox_by_feature = function(x) {
 #' geometries. Defaults to active `sf_column`.
 #' @param do_union Should the st_union of the groupped polygons be computed?
 #' The default is TRUE but is a more expensive computation.
-#' Otherwise, a cast to MULTIPOLYGON is performed for faster computation.
+#' Otherwise, a cast to a GEOMETRYCOLLECTION is performed for faster computation.
+#' @param return_sf should a sf be returned with the group_ids as a column?
 #'
 #' @return An object of class \code{\link[sf]{sfc}}.
 #'
@@ -48,7 +49,7 @@ st_bbox_by_feature = function(x) {
 #' @importFrom sf st_make_valid st_geometrycollection st_crs st_sfc st_union
 st_summarise_polys = function(x, group_id, sf_column_name,
                               do_union = sf::sf_use_s2(),
-                              .checks = TRUE) {
+                              return_sf, .checks = TRUE) {
 
   if(.checks){
     # group_id: Defaults to the first column of x, if not sfc or temporal class
@@ -69,7 +70,7 @@ st_summarise_polys = function(x, group_id, sf_column_name,
   x_groupped = split(x[[sf_column_name]], x[[group_id]])
   # Combining all the polygon features into a geometry collection is a much
   # cheaper operation than doing a union operation.
-  if(do_union) {
+  sfc = if(do_union) {
     do.call(
       "c",
       lapply(x_groupped, function(i) sf::st_make_valid(sf::st_union(i)))
@@ -86,4 +87,7 @@ st_summarise_polys = function(x, group_id, sf_column_name,
       )
     )
   }
+  if (return_sf) {
+    do.call(st_sf, list(group_id = names(x_groupped), "geom_sum" = sfc))
+  } else sfc
 }
